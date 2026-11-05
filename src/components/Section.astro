@@ -1,0 +1,26 @@
+---
+import star from '../assets/icons/star.svg';
+interface Props { label: string; tone?: 'light' | 'dark' | 'none'; id?: string; intro?: string }
+const { label, tone = 'none', id, intro } = Astro.props;
+const slug = id ?? label.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+---
+<section class:list={['sec', tone]} aria-labelledby={slug}>
+  <div class="wrap-case">
+    <h2 class="label" id={slug}>
+      <span class="mask-icon star" style={`--icon:url(${star.src})`} aria-hidden="true"></span>{label}
+    </h2>
+    {intro && <p class="intro">{intro}</p>}
+    <div class="content"><slot /></div>
+  </div>
+</section>
+
+<style>
+  .sec { padding-block: 36px; }
+  .sec.light { background: var(--panel-glass); }
+  .sec.dark { background: var(--ink); color: var(--on-ink); padding-block: 64px; }
+  .label { display: flex; align-items: center; gap: 12px; font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+  .star { width: 24px; height: 22px; }
+  .intro { max-width: 880px; margin-bottom: 36px; }
+  .content { display: grid; gap: 24px; }
+  .content :global(p) { max-width: 1080px; }
+</style>

@@ -1,0 +1,29 @@
+---
+import type { ImageMetadata } from 'astro';
+import Figure from './Figure.astro';
+interface Props { eyebrow: string; title: string; image: ImageMetadata | string; alt?: string; side?: 'left' | 'right'; accent?: 'lime' | 'peach' }
+const { eyebrow, title, image, alt = '', side = 'left', accent = 'lime' } = Astro.props;
+---
+<div class:list={['feature', side]}>
+  <Figure src={image} alt={alt || title} sizes="(max-width: 799px) 100vw, 600px" />
+  <div class="text">
+    <p class:list={['eyebrow', accent]}>{eyebrow}</p>
+    <h3>{title}</h3>
+    <div class="body"><slot /></div>
+  </div>
+</div>
+<style>
+  .feature { display: grid; grid-template-columns: 1.3fr 1fr; gap: 48px; align-items: center; padding-block: 36px; }
+  .feature.right { grid-template-columns: 1fr 1.3fr; }
+  .feature.right .text { order: -1; text-align: right; justify-items: end; }
+  .text { display: grid; gap: 12px; }
+  .eyebrow { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; }
+  .eyebrow.lime { color: var(--eyebrow-lime); }
+  .eyebrow.peach { color: var(--eyebrow-peach); }
+  h3 { font-size: var(--fs-display); font-weight: 700; line-height: 1.15; }
+  .body { font-weight: 300; max-width: 420px; }
+  @media (max-width: 799px) {
+    .feature, .feature.right { grid-template-columns: 1fr; gap: 24px; padding-block: 24px; }
+    .feature.right .text { order: 0; text-align: left; justify-items: start; }
+  }
+</style>

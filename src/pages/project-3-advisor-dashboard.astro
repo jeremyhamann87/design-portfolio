@@ -1,0 +1,75 @@
+---
+import Base from '../layouts/Base.astro';
+import CaseHero from '../components/CaseHero.astro';
+import Section from '../components/Section.astro';
+import Step from '../components/Step.astro';
+import Figure from '../components/Figure.astro';
+import Challenge from '../components/Challenge.astro';
+import MoreWork from '../components/MoreWork.astro';
+import { getProject } from '../data/projects';
+import hero from '../assets/advisor-portal/hero.png';
+import full from '../assets/advisor-portal/full-dashboard.png';
+import relationships from '../assets/advisor-portal/relationships.png';
+import curated from '../assets/advisor-portal/curated-content.png';
+import shareable from '../assets/advisor-portal/shareable-content.png';
+
+const p = getProject('project-3-advisor-dashboard');
+---
+<Base title={`${p.title} | Jeremy Hamann`} description={p.description}>
+  <CaseHero project={p} image={hero} bg="var(--hero-advisor)" alt="Advisor dashboard on a laptop" />
+
+  <Section label="Goals" tone="light">
+    <p>This project focused on the refresh of an outdated financial advisor dashboard product. We wanted to bring in more client-centered, relationship driven actions and metrics. Being a financial advisor in the twenty-first century means being a relationship manager first and a wealth manager second.</p>
+  </Section>
+
+  <Section label="The whole thing, right here" id="whole-thing" tone="dark" intro="This is the updated Advisor Dashboard in all its long-scrolling glory. Continue below to see some comparisons between old and new Dashboard Elements.">
+    <Figure src={full} alt="The full updated Advisor Dashboard" class="full-scroll" sizes="(max-width: 799px) 100vw, 900px" />
+  </Section>
+
+  <Section label="Old Vs. New" id="old-vs-new" tone="light" intro="Here are some comparisons between old parts of the experience and new refreshed versions which are much more connection and relationship focused.">
+    <Step n="01" title="Relationships">
+      <p>This is one of the first things an advisor would see upon entry into their dashboard. I helped organize the data better, improve UI clarity and added in personal information about the client. Special shout out to the inclusion of our AI generated client podcasts which tell us about our clients’ portfolio performance and holdings news.</p>
+      <Figure src={relationships} alt="Relationships module, old and new" />
+    </Step>
+    <Step n="02" title="Curated Content">
+      <p>Old curated content had no connection to clients and their holdings. Now the advisor can see who is affected by the news and easily share that news with them increasing advisor-client connection.</p>
+      <Figure src={curated} alt="Curated content module, old and new" />
+    </Step>
+    <Step n="03" title="Shareable Content">
+      <p>The old system had no ability to share content between advisor and client. A modern advisory experience leverages the power of Almighty Content to build strong advisor client bonds. If you know your advisor is thinking of you, you can trust they are managing your wealth well.</p>
+      <Figure src={shareable} alt="Shareable content module, old and new" />
+    </Step>
+  </Section>
+
+  <Section label="Outcomes" tone="none">
+    <p>This quick turnaround refresh of our Advisor Dashboard was pivotal in pushing our internal product into new arenas of relationship building, share-ability, and key insights.</p>
+  </Section>
+
+  {/* Challenge titles use the polished copy from the earlier Figma version; see the PR for the open question. */}
+  <Section label="Challenges" tone="dark">
+    <Challenge
+      title="Very quick turnaround"
+      body="This project was a couple of days in total between getting the requirements and completion."
+      solvedTitle="Move fast, stay focused"
+      solvedBody="Not much to do but just work harder and faster. Good thing I know what I’m doing (most of the time.)"
+    />
+    <Challenge
+      title="Pioneering designs"
+      body="There was no precedent to the kinds of relationship metrics and share-ability aspects to these designs."
+      solvedTitle="Pick some brains"
+      solvedBody="I needed to think quick and plumb the rich design depths of our product team for ideas and solutions. It always pays to ask for help!"
+    />
+    <Challenge
+      title="Uncertain path to production"
+      body="You never know if your cutting-edge designs will see the light of day or simply remain on the Figma shelf."
+      solvedTitle="Trust the process"
+      solvedBody="Design and actual implementation are two very different processes. A wise designer understands that even if a design doesn't get fully developed, it still serves as valuable information for future work."
+    />
+  </Section>
+
+  <MoreWork slugs={['project-4-ai-notetaker', 'project-2-commsec']} />
+</Base>
+
+<style>
+  .full-scroll { max-width: 900px; margin-inline: auto; }
+</style>

@@ -1,0 +1,75 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import { contact } from '../data/projects';
+import p1 from '../assets/about/photo-1.jpg';
+import p2 from '../assets/about/photo-2.jpg';
+import p3 from '../assets/about/photo-3.jpg';
+import p4 from '../assets/about/photo-4.jpg';
+import iEmail from '../assets/icons/contact-email.svg';
+import iLinkedin from '../assets/icons/contact-linkedin.svg';
+import iArt from '../assets/icons/contact-art.svg';
+import iInstagram from '../assets/icons/contact-instagram.svg';
+import iMedium from '../assets/icons/contact-medium.svg';
+
+const rows = [
+  { icon: iEmail, label: 'Email', value: contact.email, href: `mailto:${contact.email}` },
+  { icon: iLinkedin, label: 'LinkedIn', value: 'Jeremy Hamann', href: contact.linkedin },
+  { icon: iArt, label: 'Art Portfolio', value: 'www.jeremyhamann.com', href: contact.art },
+  { icon: iInstagram, label: 'Instagram', value: '@jeremyhamann.art', href: contact.instagram },
+  { icon: iMedium, label: 'Medium', value: 'Jeremy Hamann', href: contact.medium },
+];
+const photos = [p1, p2, p3, p4];
+---
+<Base title="About | Jeremy Hamann" description="Jeremy Hamann is a Senior Product Designer at Communify, designing for financial advisors and their clients.">
+  <div class="wrap about">
+    <div class="intro">
+      <h1>Hi, I'm Jeremy</h1>
+      <p>
+        I’m a Senior Product Designer at Communify. I design end-to-end experiences for financial advisors and their
+        clients, work that's helped close multi-million dollar client relationships and scaled design systems across a
+        growing product line. Before design, I was a mental health counselor, and I bring that same empathy to every
+        financial product I build. I believe personal finance is pivotal to life success, and that's the story behind
+        everything you'll see here.
+      </p>
+      <ul class="contact">
+        {rows.map((r) => (
+          <li>
+            <a class="glass" href={r.href} target={r.href.startsWith('mailto') ? undefined : '_blank'} rel="noopener">
+              <img src={r.icon.src} alt="" width="40" height="40" />
+              <span class="lbl">{r.label}</span>
+              <span class="val">{r.value}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div class="photos">
+      {photos.map((p) => (
+        <Image src={p} alt="" widths={[300, 450, 666]} sizes="222px" format="webp" />
+      ))}
+    </div>
+  </div>
+</Base>
+
+<style>
+  .about { --gutter: 170px; display: grid; grid-template-columns: 1fr 460px; gap: 48px; align-items: start; padding-block: 24px 48px; }
+  .intro { display: grid; gap: 24px; }
+  h1 { font-size: var(--fs-display-xl); font-weight: 700; line-height: 1.1; }
+  .contact { display: grid; gap: 8px; }
+  .contact a { display: grid; grid-template-columns: 40px 1fr auto; align-items: center; gap: 16px; padding: 12px 16px; text-decoration: none; }
+  .contact a:hover .val { text-decoration: underline; }
+  .contact img { width: 40px; height: 40px; border-radius: 4px; }
+  .lbl { font-size: 12px; font-weight: 200; }
+  .val { font-weight: 400; }
+  .photos { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .photos :global(img) { width: 100%; aspect-ratio: 222 / 332; object-fit: cover; border-radius: 4px; }
+  @media (max-width: 1100px) { .about { --gutter: 36px; grid-template-columns: 1fr 360px; } }
+  @media (max-width: 799px) {
+    .about { --gutter: 16px; grid-template-columns: 1fr; }
+    .contact a { grid-template-columns: 40px 1fr; }
+    .val { grid-column: 2; }
+    .lbl { grid-row: 1; grid-column: 2; }
+    .contact img { grid-row: span 2; }
+  }
+</style>

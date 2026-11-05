@@ -1,0 +1,135 @@
+---
+import Base from '../layouts/Base.astro';
+import CaseHero from '../components/CaseHero.astro';
+import Section from '../components/Section.astro';
+import Dashes from '../components/Dashes.astro';
+import RoleLists from '../components/RoleLists.astro';
+import KPIs from '../components/KPIs.astro';
+import Feature from '../components/Feature.astro';
+import Step from '../components/Step.astro';
+import Figure from '../components/Figure.astro';
+import Challenge from '../components/Challenge.astro';
+import MoreWork from '../components/MoreWork.astro';
+import { getProject } from '../data/projects';
+import hero from '../assets/seven-post/hero.png';
+import fDashboard from '../assets/seven-post/feature-dashboard.png';
+import fPortfolios from '../assets/seven-post/feature-portfolios.png';
+import fPositions from '../assets/seven-post/feature-positions.png';
+import fResearch from '../assets/seven-post/feature-research.png';
+import fMobile from '../assets/seven-post/feature-mobile.png';
+import discover from '../assets/seven-post/discover.png';
+import lena from '../assets/seven-post/persona-lena.png';
+import richard from '../assets/seven-post/persona-richard.png';
+import journey from '../assets/seven-post/journey-map.png';
+import define from '../assets/seven-post/define.png';
+import deliver from '../assets/seven-post/deliver.png';
+
+const p = getProject('project-1-seven-post-client-portal');
+---
+<Base title={`${p.title} | Jeremy Hamann`} description={p.description}>
+  <CaseHero project={p} image={hero} bg="var(--hero-seven-post)" alt="Seven Post client portal on two phones" />
+
+  <div class="light">
+    <Section label="Goals">
+      <Dashes items={[
+        'Build a platform that extends the mid-market advisor’s knowledge base, that clients trust and continue using as their needs change.',
+        'Create a straightforward digital experience on desktop and mobile that helps both clients and advisors get what they need.',
+        'Use current technology to make the experience smooth for users and to help us deliver updates quickly.',
+      ]} />
+    </Section>
+    <Section label="Method">
+      <RoleLists
+        role={['End-to-end UX & UI Design', 'Product Strategy', 'Mobile Design', 'Client Liaison']}
+        collaborators={['Financial Experts', 'Client Advisors and Product Owners', 'Engineers', 'Internal Tech Partners']}
+      />
+    </Section>
+    <Section label="Problems & Constraints" id="problems">
+      <Dashes items={[
+        'This experience is our company’s very first mid-market wealth advisory product and the client knows it and so they have a lot of sway over the design process.',
+        'This being our first product in this space means that we were inventing the product as we created it. The cascade of a bad decision could be vast.',
+        'All of the design and development processes needed to be created for this team. When something falls through the cracks there is no net.',
+      ]} />
+    </Section>
+    <Section label="Outcomes">
+      <KPIs items={[
+        { value: '$1.5 Million', label: 'Annual Recurring Revenue', note: 'As of Sep 2026' },
+        { value: 'First Ever', label: 'Mid-market Wealth Client', note: 'For Communify' },
+        { value: '$10 Billion', label: 'Assets Under Management', note: 'Now Managed Digitally' },
+      ]} />
+    </Section>
+  </div>
+
+  <Section label="Key Features" tone="dark" intro="Create a personalized, modern experience that encourages clients to engage. The new client portal is designed to fit seamlessly with how Seven Post and its advisors work.">
+    <Feature eyebrow="35,000ft View" title="Dashboard" image={fDashboard}>
+      A central location tailored to each client supports collaboration between client and advisor. Clients can find answers to key questions and view investment data that matters to them.
+    </Feature>
+    <Feature eyebrow="Focus mode" title="Portfolios Summary" image={fPortfolios} side="right">
+      A focused view of investment portfolio data that helps clients and advisors explore deeper insights and analysis.
+    </Feature>
+    <Feature eyebrow="How Am I Doing?" title="Positions" image={fPositions}>
+      Clients can review all details about their investments and better understand their investment objectives.
+    </Feature>
+    <Feature eyebrow="knowledge is power" title="Industry-Leading Research" image={fResearch} side="right">
+      Clients can access Seven Post's best-in-class research to expand their knowledge and stay informed.
+    </Feature>
+    <Feature eyebrow="handheld finance" title="Data Rich Mobile Experience" image={fMobile}>
+      Bringing a data-intensive financial platform to mobile without compromise is a genuine design challenge. We organized and prioritized information across mobile breakpoints to ensure clients get the full depth of their investment data, clearly laid out and easy to navigate, wherever they are.
+    </Feature>
+  </Section>
+
+  <Section label="Design Process" tone="light" intro="The design process begins with a deep understanding of user and client needs and context, followed by the establishment of clear, focused objectives. A diverse range of creative solutions is then explored and refined through iterative feedback. This approach ensures the delivery of meaningful, user-centered experiences that create real impact.">
+    <Step n="01" title="Discover">
+      <p>Analyzed the existing internal advisory product to find gaps and opportunities to bring to Seven Post.</p>
+      <Figure src={discover} alt="Analysis of the existing internal advisory product" />
+      <p>A composite persona of Lena Moreau was created from survey data that Seven Post had given to their clients. We did not have direct access to Seven Post's clientele. This is fairly standard in the financial space, as banks, brokerages, and wealth managers are very particular about the privacy of their clients.</p>
+      <p>We also created a persona for Seven Post advisor Richard Jeffs to help inform the design of an advisor-facing flow, complementing the client-facing experience built around Lena.</p>
+      <div class="pair">
+        <Figure src={lena} alt="Client persona: Lena Moreau" sizes="(max-width: 799px) 100vw, 540px" />
+        <Figure src={richard} alt="Advisor persona: Richard Jeffs" sizes="(max-width: 799px) 100vw, 540px" />
+      </div>
+      <p>A journey map of Lena’s current experience getting her financial information (without digital access) was created to guide the design toward the primary pain points of the Seven Post client.</p>
+      <Figure src={journey} alt="Journey map of Lena’s current experience" />
+    </Step>
+    <Step n="02" title="Define">
+      <p>We completed what we call internally a Solution Design Study which helps define the client’s needs and internal capabilities.</p>
+      <Figure src={define} alt="Solution Design Study" />
+    </Step>
+    <Step n="03" title="Design & Deliver">
+      <p>In order to deliver a fully functioning desktop and mobile experience we spent months in designs and feedback sessions with the client and development teams. We created a comprehensive product library to iterate rapidly. As a result of planning, organization, fully fleshed out annotations and nimble iteration we launched Seven Post’s client wealth experience product in less than 9 months.</p>
+      <Figure src={deliver} alt="Final desktop and mobile designs" />
+    </Step>
+  </Section>
+
+  <Section label="Challenges" tone="dark" intro="Every challenge was an opportunity to scale. Here's how I approached it.">
+    <Challenge
+      title="Beachhead designing"
+      body="This project was the first for our company in the Mid-market advisory arena. Thus the client had leverage to create ever expanding scope."
+      solvedTitle="Aggressive & Consistent Iteration"
+      solvedBody="We maintained a steady iteration schedule to keep up with client needs producing dozens of sets of iterations. We went above and beyond to meet client needs."
+    />
+    <Challenge
+      title="Retroactive Productization"
+      body="Without previous Mid-market advisory experience as a beachhead project we had limited productization to draw from."
+      solvedTitle="Use of existing design library"
+      solvedBody="We leveraged our extensive design library of markets apps to assemble a product foundation and maintain consistency. As a result of this project we have a robust Mid-market advisory product library."
+    />
+    <Challenge
+      title="Brand new internal team"
+      body="This team had never worked together prior to this client engagement."
+      solvedTitle="Co-working Sessions"
+      solvedBody="Consistent internal touch points and use of extensive live working sessions in Figma cemented bonds between our team."
+    />
+  </Section>
+
+  <Section label="In The End" tone="light" id="in-the-end">
+    <p>This project was foundational to the business health of Communify. By delivering a fully functioning desktop and mobile experience in under 9 months, through rapid iteration, close client collaboration, and a newly formed team, we proved Communify's ability to execute at pace in a competitive new market. As a beachhead product into the Mid-market advisory space, the Seven Post experience was subsequently productized and extended to advisory clients across the board, establishing Communify with a robust, scalable foundation for future engagements.</p>
+  </Section>
+
+  <MoreWork slugs={['project-3-advisor-dashboard', 'project-4-ai-notetaker']} />
+</Base>
+
+<style>
+  .light { background: var(--panel-glass); padding-block: 12px; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 799px) { .pair { grid-template-columns: 1fr; } }
+</style>

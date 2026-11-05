@@ -1,0 +1,10 @@
+---
+interface Props { items: string[] }
+const { items } = Astro.props;
+---
+<ul class="dashes">{items.map((t) => <li set:html={t} />)}</ul>
+<style>
+  .dashes { display: grid; gap: 16px; }
+  .dashes li { padding-left: 20px; position: relative; max-width: 1080px; }
+  .dashes li::before { content: '–'; position: absolute; left: 0; }
+</style>

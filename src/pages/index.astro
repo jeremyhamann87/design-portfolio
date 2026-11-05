@@ -1,0 +1,187 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import WorkCard from '../components/WorkCard.astro';
+import CompanyLogo from '../components/CompanyLogo.astro';
+import { projects } from '../data/projects';
+import { url } from '../lib/url';
+import portrait from '../assets/home/portrait.png';
+import listen from '../assets/icons/principle-listen.svg';
+import together from '../assets/icons/principle-together.svg';
+import refine from '../assets/icons/principle-refine.svg';
+import gridIcon from '../assets/icons/view-grid.svg';
+import tableIcon from '../assets/icons/view-table.svg';
+import arrow from '../assets/icons/arrow-right.svg';
+
+const principles = [
+  {
+    icon: listen,
+    title: 'Listen First',
+    body: 'I start with the people who use and run the product: advisors, investors and stakeholders. I map their real workflows, constraints and compliance needs before I draw a single screen.',
+  },
+  {
+    icon: together,
+    title: 'Solve Together',
+    body: 'I roadmap and design alongside engineers, product owners and technology partners from day one, through live working sessions and workshops, so the solution is one everyone owns and can ship.',
+  },
+  {
+    icon: refine,
+    title: 'Refine until perfection',
+    body: 'I move from wireframes to prototypes to testing with partners and clients, then sharpen the details and edge cases until the product is clear, trustworthy and holds up in real use.',
+  },
+];
+// Table view lists the newest work first, as in the Figma table frame.
+const tableOrder = [
+  'project-4-ai-notetaker',
+  'project-3-advisor-dashboard',
+  'project-1-seven-post-client-portal',
+  'project-2-commsec',
+  'project-5-schwab-trading',
+  'project-6-schwab-reports',
+];
+const tableRows = tableOrder.map((s) => projects.find((p) => p.slug === s)!);
+---
+<Base>
+  <section class="wrap hero">
+    <Image src={portrait} alt="Portrait of Jeremy Hamann" width={199} height={199} densities={[1, 2]} class="portrait" loading="eager" />
+    <div class="hero-text">
+      <h1>I design products that people and institutions trust with their most sensitive assets and data.</h1>
+      <p>
+        I’m a Senior Product Designer at Communify who turns dense financial data into products people can act on.
+        I’ve designed for Bank of America, Merrill, Charles Schwab, CommSec and Edward Jones, and took a wealth portal
+        from zero digital footprint to $10B in assets managed digitally. I lead design from research to launch, and
+        lately that includes AI.
+      </p>
+      <p>
+        Before design, I worked as a mental health counselor, where I trained in empathy, communication and
+        collaboration. I bring that to every team: I listen closely, help people feel heard, and guide groups through
+        hard problems together.
+      </p>
+    </div>
+  </section>
+
+  <section class="wrap philosophy" aria-labelledby="philosophy">
+    <h2 id="philosophy" class="section-title">My Design Philosophy</h2>
+    <ul class="principles">
+      {principles.map((p) => (
+        <li class="principle glass">
+          <img src={p.icon.src} alt="" width="32" height="32" />
+          <h3>{p.title}</h3>
+          <p>{p.body}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="wrap work" aria-labelledby="my-work" data-view="grid">
+    <div class="work-head">
+      <h2 id="my-work" class="section-title">My Work</h2>
+      <div class="toggle glass" role="group" aria-label="Layout">
+        <button type="button" data-set-view="grid" aria-pressed="true" aria-label="Grid view">
+          <img src={gridIcon.src} alt="" width="20" height="18" />
+        </button>
+        <button type="button" data-set-view="table" aria-pressed="false" aria-label="Table view">
+          <img src={tableIcon.src} alt="" width="20" height="16" />
+        </button>
+      </div>
+    </div>
+
+    <div class="grid glass">
+      {projects.map((p) => <div class="cell"><WorkCard project={p} /></div>)}
+    </div>
+
+    <div class="table-wrap glass">
+      <table>
+        <thead>
+          <tr><th scope="col">Project</th><th scope="col">Company</th><th scope="col">Role</th><th scope="col">Field</th><th scope="col"><span class="visually-hidden">Link</span></th></tr>
+        </thead>
+        <tbody>
+          {tableRows.map((p) => (
+            <tr>
+              <th scope="row">{p.title}</th>
+              <td><CompanyLogo company={p.company} /></td>
+              <td>{p.role}</td>
+              <td>{p.field}</td>
+              <td>
+                <a class="btn" href={url(`/${p.slug}`)}>
+                  View Project <img src={arrow.src} alt="" width="16" height="16" />
+                  <span class="visually-hidden">: {p.title}</span>
+                </a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const section = document.querySelector<HTMLElement>('.work');
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-set-view]');
+  const KEY = 'work-view';
+  function apply(view: string, persist = true) {
+    if (!section) return;
+    const v = view === 'table' ? 'table' : 'grid';
+    section.dataset.view = v;
+    buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.setView === v)));
+    if (!persist) return;
+    try { localStorage.setItem(KEY, v); } catch {}
+    const u = new URL(location.href);
+    if (v === 'table') u.searchParams.set('view', 'table'); else u.searchParams.delete('view');
+    history.replaceState(null, '', u);
+  }
+  const fromUrl = new URLSearchParams(location.search).get('view');
+  let stored: string | null = null;
+  try { stored = localStorage.getItem(KEY); } catch {}
+  apply(fromUrl ?? stored ?? 'grid', Boolean(fromUrl));
+  buttons.forEach((b) => b.addEventListener('click', () => apply(b.dataset.setView!)));
+</script>
+
+<style>
+  .hero { display: grid; grid-template-columns: 199px 1fr; gap: 36px; align-items: center; padding-block: 12px 48px; }
+  .portrait { width: 199px; height: 199px; border-radius: 50%; object-fit: cover; }
+  .hero-text { display: grid; gap: 16px; }
+  .hero h1 { font-size: var(--fs-hero); font-weight: 700; line-height: 1.2; }
+
+  .section-title { font-size: 24px; font-weight: 400; }
+  .philosophy { display: grid; gap: 16px; padding-bottom: 48px; }
+  .principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; }
+  .principle { padding: 28px 24px; border: 1px solid var(--ink); display: grid; gap: 8px; align-content: start; }
+  .principle h3 { font-size: 20px; font-weight: 500; margin-top: 4px; }
+
+  .work-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .toggle { display: flex; }
+  .toggle button { width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid transparent; background: none; cursor: pointer; opacity: 0.45; }
+  .toggle button[aria-pressed='true'] { border-color: var(--border); opacity: 1; }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; }
+  .cell { padding: 36px; border-bottom: 1px solid var(--border); }
+  .cell:nth-child(odd) { border-right: 1px solid var(--border); }
+  .cell:nth-last-child(-n + 2) { border-bottom: 0; }
+
+  .table-wrap { display: none; overflow-x: auto; }
+  .work[data-view='table'] .grid { display: none; }
+  .work[data-view='table'] .table-wrap { display: block; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; padding: 16px; border-bottom: 1px solid var(--border-soft); vertical-align: middle; }
+  thead th { font-weight: 700; }
+  tbody th { font-weight: 500; font-size: 16px; }
+  td:last-child { text-align: right; }
+
+  @media (max-width: 1000px) {
+    .principles { grid-template-columns: 1fr; gap: 16px; }
+  }
+  @media (max-width: 799px) {
+    .hero { grid-template-columns: 1fr; gap: 24px; }
+    .portrait { width: 140px; height: 140px; }
+    .grid { grid-template-columns: 1fr; }
+    .cell { padding: 24px 16px; border-right: 0 !important; border-bottom: 1px solid var(--border) !important; }
+    .cell:last-child { border-bottom: 0 !important; }
+    table, thead, tbody, tr, th, td { display: block; }
+    thead { display: none; }
+    tr { padding: 16px; border-bottom: 1px solid var(--border-soft); display: grid; gap: 8px; }
+    th, td { padding: 0; border: 0; }
+    td:last-child { text-align: left; margin-top: 4px; }
+  }
+</style>

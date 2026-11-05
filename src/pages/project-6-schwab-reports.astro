@@ -1,0 +1,100 @@
+---
+import Base from '../layouts/Base.astro';
+import CaseHero from '../components/CaseHero.astro';
+import Section from '../components/Section.astro';
+import Dashes from '../components/Dashes.astro';
+import Figure from '../components/Figure.astro';
+import MoreWork from '../components/MoreWork.astro';
+import { getProject } from '../data/projects';
+import hero from '../assets/schwab-reports/hero.png';
+import successes from '../assets/schwab-reports/successes.png';
+import audiences from '../assets/schwab-reports/two-audiences.png';
+import competitive from '../assets/schwab-reports/competitive-analysis.png';
+import figjam1 from '../assets/schwab-reports/figjam-1.png';
+import figjam2 from '../assets/schwab-reports/figjam-2.png';
+import redesigned from '../assets/schwab-reports/redesigned-statements.png';
+import affinity from '../assets/schwab-reports/affinity-map.png';
+
+const p = getProject('project-6-schwab-reports');
+const approach = [
+  ['Competitive Analysis', 'Our first job was to complete a competitive analysis with examples we had on hand from past agency work.'],
+  ['Research', 'In order to gain insights on best-practices within the field of bank and brokerage statements we utilized our agency’s library of previously created work. Utilizing this library was expedient because it is challenging to obtain statements unless you are a client of said bank/brokerage. With our examples we conducted a competitive analysis of statements feature sets and informational modules.'],
+  ['Content Analysis', 'Next, we needed to catalogue each data module in the statements by purpose and investment strategy. At this stage we worked closely with the business stakeholders at Schwab to bring a hierarchical clarity to each module and how it fit into the larger whole.'],
+  ['Wireframes', 'Creation of low to high-fidelity designs based on an existing design system. These designs would then be user tested with both clients and Schwab Financial Advisors.'],
+  ['User-Testing & Affinity Mapping', 'Based on user data from interviews we used affinity mapping to synthesize user testing findings to fine-tune the designs to match specific themes we found.'],
+  ['Hi-Fi Designs', 'Armed with catalogued user data we finalized designs and created developer handoff documents.'],
+];
+---
+<Base title={`${p.title} | Jeremy Hamann`} description={p.description}>
+  <CaseHero project={p} image={hero} bg="#efd1c8" alt="Redesigned Schwab managed account statement" />
+
+  <div class="prose">
+    <Section label="Lay of the Land" id="lay-of-the-land">
+      <p>In June 2024 I redesigned Schwab’s Managed Account statements with a 10 week timeframe.</p>
+      <p>Managed Accounts are utilized by the highest-net-worth customers of banks and brokerages.</p>
+      <p>Professional financial advisors manage the wealth of these customers with different investment strategies. Our project would be to design for both the customer and the financial advisor.</p>
+    </Section>
+    <Section label="Successes">
+      <Dashes items={[
+        'Led end-to-end research, design, and testing of high-fidelity redesigns for Schwab\'s Managed Accounts reports, shipped within a 10-week timeline',
+        'Authored a comprehensive design brief that aligned stakeholders on process, scope, and milestones from day one',
+        'Facilitated twice-weekly client critiques and workshops that kept design decisions grounded in stakeholder and business needs',
+        'Designed and ran user testing that surfaced key usability gaps between customer and advisor needs',
+        'Synthesized testing data via affinity mapping into actionable design changes, directly shaping the final statement layouts',
+        'Delivered developer handoff documentation alongside final designs, ensuring a smooth transition from design to implementation',
+      ]} />
+      <Figure src={successes} alt="Redesigned statement pages" />
+    </Section>
+    <Section label="The Challenge" id="challenge">
+      <p>The outdated and contextually complicated data-visualizations of the old-style statements needed to be brought into a cohesive whole. Designs needed to be user tested to confirm UI and layout design met the needs of the exacting end user. Phase one of this project was for printable PDFs and so contrast and legibility even in black and white was important.</p>
+      <p>Above and beyond the visual/data design challenges of this project, we would need to create designs that satisfied two user bases:</p>
+      <Dashes items={['High-net-worth clientele', 'Schwab’s Financial Consultants']} />
+      <Figure src={audiences} alt="The two audiences: customers and advisors" caption="We needed to design for both Schwab customers and Schwab Advisors" />
+    </Section>
+    <Section label="Approach">
+      <dl class="approach">
+        {approach.map(([t, d]) => (<div><dt>{t}</dt><dd>{d}</dd></div>))}
+      </dl>
+      <Figure src={competitive} alt="Competitive analysis of statements" caption="Competitive analysis" />
+    </Section>
+    <Section label="Virtual Collaboration" id="collaboration">
+      <p>Working together with our client in a cloud-based whiteboard like FigJam streamlined these early stages of the design process and enabled clear communication. We used FigJam to establish a coherent layout of each data module inside of each statement.</p>
+      <p>With our stakeholders we utilized the interactive whiteboard to get sign-off on layout. Once we were all happy with the initial layouts, we moved on to high fidelity designs of each module.</p>
+      <div class="pair">
+        <Figure src={figjam1} alt="FigJam information architecture board" sizes="(max-width: 799px) 100vw, 540px" />
+        <Figure src={figjam2} alt="FigJam module layout board" sizes="(max-width: 799px) 100vw, 540px" />
+      </div>
+      <p class="caption">We used FigJam and Figma to work through multiple discovery phases like information architecture</p>
+    </Section>
+    <Section label="Revamped UI" id="revamped-ui">
+      <p>Each data-visualization from old to new needed a full UI revamp. Even if the module was a seemingly cut-and-dry table, there were opportunities to bring visual upgrades. At this point we hadn’t reached user testing so we leaned heavily on previously established styles.</p>
+      <Figure src={redesigned} alt="Redesigned statements" caption="Redesigned statements" />
+    </Section>
+    <Section label="User Testing" id="user-testing">
+      <p>A few weeks of user testing with both Schwab customers and Financial Advisors revealed important strategy shifts in layout and module design. We gained insights that were both granular and broad. We utilized affinity diagramming to synthesize our large amount of findings.</p>
+      <p>Customers wanted to see:</p>
+      <Dashes items={['Account/portfolio balance as clearly as possible', 'Clear delineation between each of the modules in the statement']} />
+      <p>Schwab Financial Advisors wanted:</p>
+      <Dashes items={['Specific complex data to be explained well on page so that the user could navigate the statement on their own if needed']} />
+      <Figure src={affinity} alt="Affinity map of user testing findings" caption="We put our designs through dozens of rounds of testing and then collated the results with affinity mapping" />
+    </Section>
+    <Section label="Results">
+      <p>Phase 1 has been implemented and these designs are now part of the PDF Managed Account statements. Because of the success of the design, Phase 2 will implement this experience for the web.</p>
+      <p>Schwab now has three completely redesigned Managed Accounts statements which help Schwab’s highest-earning clientele to understand the performance of their accounts and portfolio.</p>
+      <p>Schwab Financial Consultants now are also able to better serve these clients as a result of this redesign because the data contained in the Managed Accounts statements is more conversational.</p>
+    </Section>
+  </div>
+
+  <MoreWork slugs={['project-3-advisor-dashboard', 'project-4-ai-notetaker']} />
+</Base>
+
+<style>
+  .prose { background: var(--panel-glass); padding-block: 12px; }
+  .approach { display: grid; gap: 16px; margin: 0; max-width: 1080px; }
+  .approach dt { font-weight: 700; display: inline; }
+  .approach dt::after { content: ': '; }
+  .approach dd { display: inline; margin: 0; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .caption { font-size: 14px; text-align: center; max-width: none !important; }
+  @media (max-width: 799px) { .pair { grid-template-columns: 1fr; } }
+</style>

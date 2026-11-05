@@ -1,0 +1,30 @@
+---
+import loop from '../assets/icons/loop-arrow.svg';
+interface Props { title: string; body: string; solvedTitle: string; solvedBody: string }
+const { title, body, solvedTitle, solvedBody } = Astro.props;
+---
+<div class="challenge">
+  <div class="problem">
+    <h3>{title}</h3>
+    <p>{body}</p>
+  </div>
+  <span class="loop mask-icon" style={`--icon:url(${loop.src})`} aria-hidden="true"></span>
+  <div class="solved">
+    <p class="kicker">Solved Via</p>
+    <h4>{solvedTitle}</h4>
+    <p>{solvedBody}</p>
+  </div>
+</div>
+<style>
+  .challenge { display: grid; grid-template-columns: 1fr 64px 1fr; gap: 24px; align-items: center; padding-block: 24px; border-top: 1px solid rgb(255 255 255 / 0.15); }
+  .challenge:first-child { border-top: 0; }
+  .problem, .solved { display: grid; gap: 8px; }
+  h3 { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; color: var(--eyebrow-peach); }
+  .kicker { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; color: var(--eyebrow-lime); }
+  h4 { font-size: 24px; font-weight: 700; line-height: 1.2; }
+  .loop { width: 48px; height: 48px; color: var(--eyebrow-lime); justify-self: center; }
+  @media (max-width: 799px) {
+    .challenge { grid-template-columns: 1fr; }
+    .loop { transform: rotate(90deg); justify-self: start; width: 36px; height: 36px; }
+  }
+</style>

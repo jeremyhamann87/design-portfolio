@@ -1,0 +1,86 @@
+---
+import Base from '../layouts/Base.astro';
+import CaseHero from '../components/CaseHero.astro';
+import Section from '../components/Section.astro';
+import Dashes from '../components/Dashes.astro';
+import Figure from '../components/Figure.astro';
+import MoreWork from '../components/MoreWork.astro';
+import { getProject } from '../data/projects';
+import hero from '../assets/schwab-trading/hero.png';
+import responsive from '../assets/schwab-trading/responsive-behavior.png';
+import m1 from '../assets/schwab-trading/module-1.png';
+import m2 from '../assets/schwab-trading/module-2.png';
+import m3 from '../assets/schwab-trading/module-3.png';
+import m4 from '../assets/schwab-trading/module-4.png';
+import whiteboard from '../assets/schwab-trading/whiteboard.png';
+import desktop from '../assets/schwab-trading/desktop.png';
+import tablet from '../assets/schwab-trading/tablet.png';
+import mobile from '../assets/schwab-trading/mobile.png';
+
+const p = getProject('project-5-schwab-trading');
+---
+<Base title={`${p.title} | Jeremy Hamann`} description={p.description}>
+  <CaseHero project={p} image={hero} bg="var(--hero-schwab)" alt="Schwab trading research platform" />
+
+  <div class="prose">
+    <Section label="Lay of the Land" id="lay-of-the-land">
+      <p>In late 2020 I joined the team helping bring Charles Schwab’s new retail trading research experience out of beta phase. The research section of Schwab’s retail trading platform is used by customers all over the world to help them make wise trading decisions. I led the design of 30+ trading research modules’ responsive behaviors.</p>
+    </Section>
+    <Section label="Success">
+      <p>After a successful release from beta into full production, Schwab has implemented the experience on their retail trading research site.</p>
+      <p>As a result of creating a set of responsive guidelines, Schwab will be able to continue to design modules that are useful no matter the screen size.</p>
+      <Dashes items={[
+        'Created responsive designs for each research platform module',
+        'Led collaborative design consistency workshops',
+        'Led weekly design reviews with Schwab’s business stakeholders, internal design teams and developers',
+        'Provided continual support for the Schwab engineering team during the development cycle leading to deployment',
+      ]} />
+      <Figure src={responsive} alt="Responsive behavior of a research module" caption="Responsive behavior of Schwab’s trading research platform" />
+    </Section>
+    <Section label="The challenge" id="challenge">
+      <p>Our task was to help the Schwab team establish a coherent responsivity ruleset for a wide variety of informational modules. We needed to get stakeholder buy-in on each module's viability so that development could create these modules in the allotted timeframe before launch.</p>
+    </Section>
+    <Section label="Approach">
+      <p>Based on Schwab stakeholders' goals (make this happen as fast as possible) and timeframe we took a module-by-module approach to tackling each different circumstance of responsive design. We worked together with Schwab’s stakeholders and internal design team to verify each module’s viability in terms of usability and scope of development.</p>
+    </Section>
+    <Section label="Research">
+      <p>As a part of our initial design approach we conducted a competitive analysis of other banks' and brokerages' responsive designs to determine a best-practice approach.</p>
+      <div class="gallery">
+        <Figure src={m1} alt="Research module" sizes="(max-width: 799px) 50vw, 260px" />
+        <Figure src={m2} alt="Research module" sizes="(max-width: 799px) 50vw, 260px" />
+        <Figure src={m3} alt="Research module" sizes="(max-width: 799px) 50vw, 260px" />
+        <Figure src={m4} alt="Research module" sizes="(max-width: 799px) 50vw, 260px" />
+      </div>
+      <p class="caption">A small selection of the 30+ responsive modules needed for the platform</p>
+    </Section>
+    <Section label="Creatively Working Together" id="working-together">
+      <p>As our team encountered each new responsive challenge we began to compile a working list of our rulesets. We used InVision whiteboard to collect, categorize and consistently bounce each of these responsive rulesets off of Schwab stakeholders and their own internal design team. Our stakeholders were wowed and loved the flexibility and clarity a tool like a digital whiteboard gave to the process.</p>
+      <Figure src={whiteboard} alt="Whiteboard of responsive rulesets" caption="Whiteboard workshops with stakeholders helped us to develop guidelines depending on the module/data type." />
+    </Section>
+    <Section label="Coherence & Complexity" id="coherence">
+      <p>Various tables, charts, graphs, and visualizations all needed a unique design touch. Some modules were just simple tables that could easily use wrapped content with a scroll. Others, like complex charting, needed a more nuanced touch to maintain usability.</p>
+      <p>Our design work was not only in creating various configurations of data visualization that fit multiple screen sizes, but also in codifying and implementing comprehensive responsivity guidelines that applied to all modules across the Schwab Retail Research website (now and into the future). These guidelines needed to take into account potentially complex data displayed in various ways including tabular data and charting of various kinds. Because the site is a retail trading platform, usability was also paramount to the non-professional traders who use it.</p>
+      <div class="devices">
+        <Figure src={desktop} alt="Module at desktop width" caption="Desktop" sizes="(max-width: 799px) 100vw, 540px" />
+        <Figure src={tablet} alt="Module at tablet width" caption="Tablet" sizes="(max-width: 799px) 100vw, 300px" />
+        <Figure src={mobile} alt="Module at mobile width" caption="Mobile" sizes="(max-width: 799px) 100vw, 200px" />
+      </div>
+    </Section>
+    <Section label="Results">
+      <p>Beyond the 30+ modules shipped, the lasting result is the guideline set itself: a documented, reusable rule set that Schwab’s designers and developers can apply to every future module, whatever the data type or screen size.</p>
+    </Section>
+  </div>
+
+  <MoreWork slugs={['project-2-commsec', 'project-1-seven-post-client-portal']} />
+</Base>
+
+<style>
+  .prose { background: var(--panel-glass); padding-block: 12px; }
+  .gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; align-items: start; }
+  .caption { font-size: 14px; text-align: center; max-width: none !important; }
+  .devices { display: grid; grid-template-columns: 2.2fr 1.2fr 0.8fr; gap: 24px; align-items: end; }
+  @media (max-width: 799px) {
+    .gallery { grid-template-columns: 1fr 1fr; }
+    .devices { grid-template-columns: 1fr; }
+  }
+</style>

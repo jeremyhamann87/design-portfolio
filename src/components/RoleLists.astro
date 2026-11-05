@@ -1,0 +1,17 @@
+---
+interface Props { role: string[]; collaborators: string[] }
+const { role, collaborators } = Astro.props;
+---
+<div class="roles">
+  <div class="col glass"><h3>My Role</h3><ul>{role.map((r) => <li>{r}</li>)}</ul></div>
+  <div class="col glass"><h3>I Collaborated With</h3><ul>{collaborators.map((r) => <li>{r}</li>)}</ul></div>
+</div>
+<style>
+  .roles { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .col { padding: 24px; border: 1px solid var(--border-soft); border-radius: 4px; display: grid; gap: 12px; align-content: start; }
+  h3 { font-size: 16px; font-weight: 700; }
+  ul { display: grid; gap: 8px; }
+  li { padding-left: 20px; position: relative; }
+  li::before { content: '–'; position: absolute; left: 0; }
+  @media (max-width: 799px) { .roles { grid-template-columns: 1fr; } }
+</style>

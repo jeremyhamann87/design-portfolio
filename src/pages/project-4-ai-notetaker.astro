@@ -1,0 +1,69 @@
+---
+import Base from '../layouts/Base.astro';
+import CaseHero from '../components/CaseHero.astro';
+import Section from '../components/Section.astro';
+import Feature from '../components/Feature.astro';
+import Step from '../components/Step.astro';
+import Figure from '../components/Figure.astro';
+import MoreWork from '../components/MoreWork.astro';
+import { getProject } from '../data/projects';
+import hero from '../assets/ai-notetaker/hero.png';
+import overview from '../assets/ai-notetaker/features-overview.png';
+import fPrep from '../assets/ai-notetaker/feature-meeting-prep.png';
+import fCapture from '../assets/ai-notetaker/feature-data-capture.png';
+import fTranscript from '../assets/ai-notetaker/feature-transcription.png';
+import fActions from '../assets/ai-notetaker/feature-action-items.png';
+import fSummary from '../assets/ai-notetaker/feature-summary.png';
+import define from '../assets/ai-notetaker/process-define.png';
+import wireframes from '../assets/ai-notetaker/process-wireframes.png';
+import design from '../assets/ai-notetaker/process-design.png';
+
+const p = getProject('project-4-ai-notetaker');
+---
+<Base title={`${p.title} | Jeremy Hamann`} description={p.description}>
+  <CaseHero project={p} image={hero} bg="var(--hero-notetaker)" alt="AI note taking meeting space on a desktop monitor" />
+
+  <Section label="Goals" tone="light">
+    <p>Financial advisors spend significant time after client meetings reconstructing notes, chasing down action items, and manually updating CRM records, time that could be spent building client relationships. This project set out to solve that problem by creating an AI-powered conversation capture tool that records, transcribes, and extracts key action items in real time, so advisors can stay fully present during meetings and trust that nothing falls through the cracks.</p>
+  </Section>
+
+  <Section label="Key Features" tone="dark" intro="We designed a tool that helps advisors stay focused and available during important client meetings. Our product is an easy-to-use AI that captures conversations and creates clear meeting notes, insights, and action items, so advisors can better support their clients.">
+    <Figure src={overview} alt="Overview of the AI note taking product" />
+    <Feature eyebrow="AI Generated Meeting Prep" title="Be ready to meet with clients" image={fPrep}>
+      An advisor can trust that all important client information is gathered from past meetings and CRM records. This information is sourced and sorted by AI. If an advisor is not satisfied with these notes they may ask the AI to regenerate or manually adjust in the rich text editor.
+    </Feature>
+    <Feature eyebrow="Upload or record in real time" title="Flexible data capture" image={fCapture} side="right">
+      We put the power in the hands of the advisor to either upload an audio file, text notes or record a conversation in real time.
+    </Feature>
+    <Feature eyebrow="Real-time transcription" title="Look who’s talking" image={fTranscript}>
+      AI voice recognition can determine the speaker and capture an exact transcription and timestamp to create an accurate record of what was said and when it was said.
+    </Feature>
+    <Feature eyebrow="Real-time action items" title="Next steps made easy" image={fActions} side="right">
+      Our product enables advisors to clearly identify the next steps required for each client conversation. Advisors can approve or dismiss each suggested action item.
+    </Feature>
+    <Feature eyebrow="Comprehensive post-meeting synthesis" title="Summary + Insights" image={fSummary}>
+      After the meeting our product gives the advisor deeper insights like a meeting summary, next steps, audio playback and updates to client data which all feeds back into our deep AI knowledge base.
+    </Feature>
+  </Section>
+
+  <Section label="Design Process" tone="light" intro="We followed a step-by-step process starting with research and definition, moving through exploration, and ending with delivery, turning insights into practical solutions at each stage.">
+    <Step n="01" title="Define with technology partners">
+      <p>We partnered with our third-party AI services provider to conduct an initial capabilities study, assessing what was technically possible and establishing the boundaries of what our solution could realistically achieve.</p>
+      <Figure src={define} alt="Capabilities study with the AI services provider" />
+    </Step>
+    <Step n="02" title="Wireframes & Data Architecture">
+      <p>We produced several rounds of low and medium fidelity wireframes to map out how our technology partner's capabilities could fit within our existing product experience, testing structure and flow before committing to visual design.</p>
+      <Figure src={wireframes} alt="Low and medium fidelity wireframes" />
+    </Step>
+    <Step n="03" title="Design and Delivery">
+      <p>We produced multiple rounds of high-fidelity designs in close collaboration with technology partners, stakeholders, and developers, ensuring the solution remained technically grounded at every iteration. We engaged external clients throughout the process to validate that the designs met their real-world needs. To refine our decisions, we ran A/B testing both internally and with external users, using those results to guide final design choices before handoff.</p>
+      <Figure src={design} alt="High-fidelity designs" />
+    </Step>
+  </Section>
+
+  <Section label="Outcomes" tone="none">
+    <p>We created an AI note-taking product that can be restyled and configured for any advisory client across the globe. This product has helped Communify to further establish its advisory AI product line and grow its bottom line significantly.</p>
+  </Section>
+
+  <MoreWork slugs={['project-2-commsec', 'project-1-seven-post-client-portal']} />
+</Base>

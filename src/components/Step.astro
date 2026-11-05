@@ -1,0 +1,14 @@
+---
+interface Props { n: string; title: string }
+const { n, title } = Astro.props;
+---
+<div class="step">
+  <h3><span class="n">{n}</span>{title}</h3>
+  <div class="body"><slot /></div>
+</div>
+<style>
+  .step { display: grid; gap: 16px; padding-block: 12px; }
+  h3 { display: flex; gap: 16px; font-size: 16px; font-weight: 700; }
+  .n { font-weight: 400; }
+  .body { display: grid; gap: 24px; }
+</style>

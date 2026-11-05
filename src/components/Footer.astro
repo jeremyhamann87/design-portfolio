@@ -1,0 +1,28 @@
+---
+import instagram from '../assets/icons/instagram.svg';
+import linkedin from '../assets/icons/linkedin.svg';
+import medium from '../assets/icons/medium.svg';
+import { contact } from '../data/projects';
+const year = 2026;
+---
+<footer class="footer">
+  <div class="wrap row">
+    <div class="meta">
+      <p>For all inquiries: <a href={`mailto:${contact.email}`}>{contact.email}</a></p>
+      <p>Copyright © Jeremy Hamann {year}</p>
+    </div>
+    <ul class="social">
+      <li><a href={contact.instagram} target="_blank" rel="noopener"><img src={instagram.src} alt="Instagram" width="24" height="24" /></a></li>
+      <li><a href={contact.linkedin} target="_blank" rel="noopener"><img src={linkedin.src} alt="LinkedIn" width="24" height="24" /></a></li>
+      <li><a href={contact.medium} target="_blank" rel="noopener"><img src={medium.src} alt="Medium" width="24" height="24" /></a></li>
+    </ul>
+  </div>
+</footer>
+
+<style>
+  .footer { padding-block: 48px 36px; font-size: 14px; font-weight: 400; }
+  .row { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .meta { display: grid; gap: 16px; }
+  .social { display: flex; gap: 12px; }
+  .social img { width: 24px; height: 24px; }
+</style>

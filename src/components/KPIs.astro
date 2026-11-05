@@ -1,0 +1,21 @@
+---
+interface Props { items: { value: string; label: string; note: string }[] }
+const { items } = Astro.props;
+---
+<dl class="kpis">
+  {items.map((k) => (
+    <div class="kpi">
+      <dt>{k.label}</dt>
+      <dd class="value">{k.value}</dd>
+      <dd class="note">{k.note}</dd>
+    </div>
+  ))}
+</dl>
+<style>
+  .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; margin: 0; }
+  .kpi { display: flex; flex-direction: column; }
+  .value { order: -1; font-size: var(--fs-display); font-weight: 700; line-height: 1.1; margin: 0; }
+  dt { font-weight: 500; margin-top: 4px; }
+  .note { font-size: 12px; font-weight: 200; margin: 2px 0 0; }
+  @media (max-width: 799px) { .kpis { grid-template-columns: 1fr; gap: 24px; } }
+</style>

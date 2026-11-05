@@ -1,0 +1,40 @@
+---
+import { Image, getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  src: ImageMetadata | string;
+  alt: string;
+  caption?: string;
+  /** Rendered width hint for responsive sizes. */
+  sizes?: string;
+  zoom?: boolean;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+  width?: number;
+  height?: number;
+}
+const { src, alt, caption, sizes = '(max-width: 1280px) 100vw, 1080px', zoom = true, class: cls, loading = 'lazy', width, height } = Astro.props;
+const isStatic = typeof src !== 'string';
+const full = isStatic ? (await getImage({ src, width: Math.min(src.width, 2400), format: 'webp' })).src : src;
+const widths = isStatic ? [480, 800, 1200, 1600, 2400].filter((w) => w <= src.width) : [];
+---
+<figure class:list={['fig', cls]}>
+  {zoom ? (
+    <button type="button" class="zoom" data-zoom={full} aria-label={`Expand image: ${alt || caption || 'image'}`}>
+      {isStatic
+        ? <Image src={src} alt={alt} widths={widths} sizes={sizes} format="webp" loading={loading} />
+        : <img src={src} alt={alt} loading={loading} width={width} height={height} />}
+    </button>
+  ) : isStatic
+    ? <Image src={src} alt={alt} widths={widths} sizes={sizes} format="webp" loading={loading} />
+    : <img src={src} alt={alt} loading={loading} width={width} height={height} />}
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<style>
+  .fig { display: grid; gap: 12px; }
+  .fig :global(img) { width: 100%; height: auto; border-radius: 4px; }
+  .zoom { display: block; padding: 0; border: 0; background: none; cursor: zoom-in; width: 100%; }
+  figcaption { font-size: 14px; font-weight: 300; text-align: center; }
+</style>

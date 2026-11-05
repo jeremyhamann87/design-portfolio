@@ -1,0 +1,27 @@
+---
+import { getProject } from '../data/projects';
+import WorkCard from './WorkCard.astro';
+import loopDown from '../assets/icons/loop-arrow-down.svg';
+import { url } from '../lib/url';
+interface Props { slugs: [string, string] }
+const items = Astro.props.slugs.map(getProject);
+---
+<section class="more" aria-labelledby="more-work">
+  <div class="wrap-case">
+    <img class="loop" src={loopDown.src} alt="" width="40" height="40" />
+    <div class="head">
+      <h2 id="more-work">More work</h2>
+      <a href={url('/')}>See All</a>
+    </div>
+    <div class="grid">{items.map((p) => <WorkCard project={p} size="small" />)}</div>
+  </div>
+</section>
+<style>
+  .more { padding-block: 48px 24px; }
+  .loop { width: 40px; height: auto; margin-bottom: 16px; }
+  .head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; }
+  h2 { font-size: 24px; font-weight: 400; }
+  .head a { font-weight: 400; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; }
+  @media (max-width: 799px) { .grid { grid-template-columns: 1fr; } }
+</style>

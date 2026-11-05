@@ -1,0 +1,126 @@
+---
+import Base from '../layouts/Base.astro';
+import CaseHero from '../components/CaseHero.astro';
+import Section from '../components/Section.astro';
+import Dashes from '../components/Dashes.astro';
+import RoleLists from '../components/RoleLists.astro';
+import KPIs from '../components/KPIs.astro';
+import Feature from '../components/Feature.astro';
+import Step from '../components/Step.astro';
+import Figure from '../components/Figure.astro';
+import Challenge from '../components/Challenge.astro';
+import MoreWork from '../components/MoreWork.astro';
+import { getProject } from '../data/projects';
+import { url } from '../lib/url';
+import hero from '../assets/cards/commsec.png';
+import fSector from '../assets/commsec/feature-sector.png';
+import fCurrencies from '../assets/commsec/feature-currencies.png';
+import discover from '../assets/commsec/discover.png';
+import define from '../assets/commsec/define.png';
+import explore from '../assets/commsec/explore.png';
+import deliver from '../assets/commsec/deliver.png';
+
+const p = getProject('project-2-commsec');
+---
+<Base title={`${p.title} | Jeremy Hamann`} description={p.description}>
+  <CaseHero project={p} image={hero} bg="var(--hero-commsec)" alt="CommSec markets research on an iPad" />
+
+  <div class="light">
+    <Section label="Goals">
+      <Dashes items={[
+        'Improve the market research experience for Australian retail investors.',
+        'Make it clear, easy to use, and responsive. We also built flexible modules that work across different CommSec channels and platforms.',
+        'Existing designs will be analyzed and modified, using relevant data, to ensure they are ready for development.',
+      ]} />
+    </Section>
+    <Section label="Method">
+      <RoleLists
+        role={['Collaborated with another designer on end-to-end UX/UI', 'Product Strategy', 'Mobile Design', 'Client Liaison']}
+        collaborators={['Financial Experts', 'Client Product Owners', 'Internal and Client Engineers', 'Internal Tech Partners']}
+      />
+    </Section>
+    <Section label="Problems & Constraints" id="problems">
+      <Dashes items={[
+        'This was the first design engagement for this two-person design team, and I was working alongside a first-time design lead.',
+        'The client had no design language or system.',
+        'The client was located in Australia and so getting consistent contact was challenging with the time difference.',
+      ]} />
+    </Section>
+    <Section label="Outcomes">
+      <KPIs items={[
+        { value: '$750,000', label: 'Annual Recurring Revenue', note: 'As of Sep 2026' },
+        { value: 'Brand New', label: 'Design System', note: 'For CommSec' },
+        { value: '3 Million', label: 'CommSec Customers', note: 'Can Research Markets with Ease' },
+      ]} />
+    </Section>
+  </div>
+
+  <Section label="Key Features" tone="dark" intro="From global indices to Australia-specific insights, each feature was designed to visualize, compare, and connect market data, bridging global trends with local perspectives through a unified research experience.">
+    <Feature eyebrow="World indices" title="Track Global Markets At A Glance" image={url('/media/commsec-world-indices.webp')} alt="Animated world indices module">
+      Visualizing the performance of major global markets helps users compare trends and assess economic conditions across regions. It also serves as a gateway to deeper index insights.
+    </Feature>
+    <Feature eyebrow="Sector performance" title="Find the Leaders Behind Every Sector" image={fSector} side="right">
+      A dynamic heatmap and a top-movers view show how different sectors are performing. This helps users spot new trends and investment opportunities without feeling overloaded with information.
+    </Feature>
+    <Feature eyebrow="Market event calendar" title="Stay Ahead of Every Market Moment" image={url('/media/commsec-calendar.webp')} alt="Animated market event calendar">
+      A unified calendar highlights key events, including earnings, IPOs, and macroeconomic data, allowing users to scan, filter, and plan for current and upcoming market movements.
+    </Feature>
+    <Feature eyebrow="Currencies & commodities & bonds" title="Read the Global Pulse in One Glance" image={fCurrencies} side="right">
+      Gain real-time insights into currencies, commodities, and bonds, comparing Australian and global markets to help users interpret economic signals and identify shifts across regions.
+    </Feature>
+    <Feature eyebrow="Completely flexible" title="Designed to Adapt, Built to Perform" image={url('/media/commsec-flexible.webp')} alt="Animated responsive and themed modules">
+      The UI was designed and built to work well on any device, regardless of screen size or color theme. By following MUI’s component system, we ensured it remains consistent and performs well across all views of financial data.
+    </Feature>
+  </Section>
+
+  <Section label="Design Process" tone="light" intro="We use a step-by-step design process that starts with research and definition, moves through exploration, and ends with delivery. This approach helps us turn insights into practical solutions.">
+    <Step n="01" title="Discover">
+      <p>Analyzed the existing platform and built proof-of-concept designs, while researching competitor experiences to uncover opportunities for improvement.</p>
+      <Figure src={discover} alt="Platform analysis and competitor research" />
+    </Step>
+    <Step n="02" title="Define">
+      <p>Collaborated closely with the client through a creative brief exercise to define project goals, challenges, dependencies, and scope with clarity and alignment.</p>
+      <Figure src={define} alt="Creative brief" />
+    </Step>
+    <Step n="03" title="Explore">
+      <p>Developed wireframes and multiple UI directions aligned with defined goals, refining the concept through data-driven iterations and progressive detailing.</p>
+      <Figure src={explore} alt="Wireframes and UI directions" />
+    </Step>
+    <Step n="04" title="Deliver">
+      <p>Executed full design exploration and interactive prototypes, delivering final layouts, documentation, and implementation-ready assets for handoff.</p>
+      <Figure src={deliver} alt="Final layouts and documentation" />
+    </Step>
+  </Section>
+
+  <Section label="Challenges" tone="dark" intro="Every challenge was an opportunity to scale. Here's how I approached it.">
+    <Challenge
+      title="Unclear Scope & Platform Direction"
+      body="The CommSec and CBA ecosystem included multiple websites and native apps, but the project scope was undefined. The goal was to design flexible modules that could live across all platforms seamlessly."
+      solvedTitle="Define Through a Creative Brief"
+      solvedBody="Created a detailed creative brief to clarify project goals and structure, enabling the design of adaptable, modular components that fit any platform context."
+    />
+    <Challenge
+      title="No Established UI System"
+      body="CommSec’s new UI system was still under development, with no clear visual or structural standards to follow at the start of the project."
+      solvedTitle="Alignment Through MUI system"
+      solvedBody="Collaborated closely with CommSec’s design team, studied their MUI-based foundation, and customized our system for full alignment with their upcoming UI design standards."
+    />
+    <Challenge
+      title="New Team, First-Time Lead"
+      body="I was working alongside a first-time leader on a brand-new two-person team, so building a productive working relationship from day one was essential."
+      solvedTitle="Serving as close support and maintaining working rapport"
+      solvedBody="Served as close support and kept a strong working rapport to maintain momentum from day one."
+    />
+  </Section>
+
+  <Section label="Outcomes" tone="light" id="in-the-end">
+    <p>This project strengthened our partnership with CBA CommSec, Australia’s largest online broking organization and a leader in the financial industry. By working closely with their product and design teams, we supported CommSec’s expansion beyond Australia and helped deliver accurate, real-time global market data for securities, commodities, and foreign exchange.</p>
+    <p>The development of the Markets and Research Apps for CommSec initiated our company-wide initiative to create and expand our internal Markets app library. As a result, financial institutions worldwide now utilize Markets Apps from Communify, inspired by this project.</p>
+  </Section>
+
+  <MoreWork slugs={['project-1-seven-post-client-portal', 'project-4-ai-notetaker']} />
+</Base>
+
+<style>
+  .light { background: var(--panel-glass); padding-block: 12px; }
+</style>

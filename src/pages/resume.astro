@@ -1,0 +1,105 @@
+---
+import Base from '../layouts/Base.astro';
+
+const experience = [
+  {
+    company: 'Communify', note: 'Fincentric Acquisition', role: 'Senior Product Designer', years: '2023 - Present',
+    points: [
+      'Led product design for client and advisor platforms used by Fortune 500 financial institutions, delivering intuitive, high-impact digital experiences. Managed design systems and a small team of designers.',
+      'Design work helped close on Communify’s first ever Mid-market advisory client securing multi-million dollar yearly recurring revenue from client Seven Post.',
+      'Drove end-to-end design process, from information architecture to high-fidelity prototypes and user testing, aligning user needs with business outcomes.',
+      'Partnered cross-functionally with product, engineering, and stakeholders to ship scalable, user-centered solutions.',
+    ],
+  },
+  {
+    company: 'S&P Global', note: 'IHS Markit Acquisition', role: 'Product Designer', years: '2020 - 2023',
+    points: [
+      'Led end-to-end product design for Fortune 500 financial institutions, specializing in onboarding flows for banks and translating complex regulatory and compliance requirements into clear, high-converting user journeys.',
+      'Conducted UX research, including user interviews and usability testing, to inform design decisions and validate onboarding flows before and after launch, aligning user needs with business and compliance goals.',
+      'Designed and built retail research platforms for trading platforms, turning dense market and financial data into clear, actionable interfaces for retail investors making high-stakes decisions.',
+    ],
+  },
+  {
+    company: 'Rewally', role: 'UX/UI Designer', years: '2020',
+    points: [
+      'Designed and delivered a credit card rewards application for a startup, translating business goals into a market-ready product.',
+      'Partnered with stakeholders to define success metrics, product strategy, and core feature set.',
+      'Led end-to-end product design, from concept to developer-ready handoff, ensuring feasibility and clarity.',
+      'Produced a polished, launch-ready solution as the capstone project for Flatiron School, demonstrating full-cycle product design expertise.',
+    ],
+  },
+  {
+    company: 'Aspen Counseling Group', role: 'Mental Health Counselor', years: '2017 - 2019',
+    points: [
+      'Provided individual, couples, and family counseling, delivering tailored, evidence-based support to diverse client populations.',
+      'Built and managed a private practice, fostering strong client relationships and driving positive mental health outcomes.',
+    ],
+  },
+  {
+    company: 'Hat Creek Burger Company', role: 'Marketing Director', years: '2014',
+    points: [
+      'Led marketing initiatives for a regional restaurant chain, driving brand awareness and customer engagement across multiple locations.',
+      'Developed and executed targeted campaigns that increased foot traffic and supported revenue growth.',
+    ],
+  },
+];
+const education = [
+  { school: 'Nielsen Norman Group', degree: 'UI/UX Certification', years: '2024' },
+  { school: 'Flatiron School', degree: 'UI/UX Certification', years: '2020' },
+  { school: 'St. Edward’s University', degree: 'Master’s of Counseling', years: '2014 - 2016' },
+  { school: 'University of Nebraska-Lincoln', degree: 'Bachelor’s of Journalism', years: '2006 - 2010' },
+];
+---
+<Base title="Resume | Jeremy Hamann" description="Experience and education for Jeremy Hamann, Senior Product Designer.">
+  <div class="wrap resume">
+    <h1 class="visually-hidden">Resume</h1>
+    <section aria-labelledby="experience">
+      <h2 id="experience">Experience</h2>
+      <div class="table glass" role="table" aria-labelledby="experience">
+        <div class="row head" role="row">
+          <span role="columnheader">Company</span><span role="columnheader">Role</span><span role="columnheader">Timeframe</span><span role="columnheader">Description</span>
+        </div>
+        {experience.map((e) => (
+          <div class="row" role="row">
+            <span role="cell" class="co">{e.company}{e.note && <span class="note">({e.note})</span>}</span>
+            <span role="cell">{e.role}</span>
+            <span role="cell">{e.years}</span>
+            <ul role="cell" class="points">{e.points.map((p) => <li>{p}</li>)}</ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section aria-labelledby="education">
+      <h2 id="education">Education</h2>
+      <div class="table glass edu" role="table" aria-labelledby="education">
+        <div class="row head" role="row">
+          <span role="columnheader">School</span><span role="columnheader">Degree</span><span role="columnheader">Timeframe</span>
+        </div>
+        {education.map((e) => (
+          <div class="row" role="row">
+            <span role="cell" class="co">{e.school}</span><span role="cell">{e.degree}</span><span role="cell">{e.years}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .resume { display: grid; gap: 48px; padding-block: 12px 48px; }
+  h2 { font-size: 24px; font-weight: 400; margin-bottom: 16px; }
+  .table { font-size: 14px; }
+  .row { display: grid; grid-template-columns: 200px 180px 120px 1fr; gap: 24px; padding: 16px; border-bottom: 1px solid var(--border-soft); }
+  .edu .row { grid-template-columns: 260px 260px 1fr; }
+  .row:last-child { border-bottom: 0; }
+  .head { font-weight: 700; }
+  .co { font-weight: 500; display: grid; }
+  .note { font-weight: 300; }
+  .points { display: grid; gap: 8px; list-style: disc; padding-left: 18px; }
+  @media (max-width: 899px) {
+    .head { display: none; }
+    .row, .edu .row { grid-template-columns: 1fr; gap: 4px; }
+    .points { margin-top: 8px; }
+  }
+</style>

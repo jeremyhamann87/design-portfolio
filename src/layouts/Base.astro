@@ -1,0 +1,42 @@
+---
+import '../styles/global.css';
+import { getImage } from 'astro:assets';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Lightbox from '../components/Lightbox.astro';
+import noise from '../assets/shared/noise-gradient.png';
+import { url } from '../lib/url';
+
+interface Props { title?: string; description?: string }
+const {
+  title = 'Jeremy Hamann Portfolio Home',
+  description = "This is the place you can find Jeremy's latest product design work",
+} = Astro.props;
+const bg = await getImage({ src: noise, width: 1600, format: 'webp', quality: 70 });
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/png" href={url('/favicon.png')} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet" />
+    <style is:inline set:html={`:root{--bg-image:url(${bg.src})}`}></style>
+  </head>
+  <body>
+    <a class="skip visually-hidden" href="#main">Skip to content</a>
+    <Nav />
+    <main id="main"><slot /></main>
+    <Footer />
+    <Lightbox />
+  </body>
+</html>

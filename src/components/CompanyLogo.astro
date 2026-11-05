@@ -1,0 +1,30 @@
+---
+import { Image } from 'astro:assets';
+import type { CompanyKey } from '../data/projects';
+import { companies } from '../data/projects';
+import sevenPost from '../assets/logos/seven-post.svg';
+import communify from '../assets/logos/communify.svg';
+import commsec from '../assets/logos/commsec.png';
+import schwab from '../assets/logos/schwab.png';
+
+interface Props { company: CompanyKey; link?: boolean }
+const { company, link = true } = Astro.props;
+const c = companies[company];
+---
+<span class="company">
+  <span class={`mark mark-${company}`} aria-hidden="true">
+    {company === 'seven-post' && <Image src={sevenPost} alt="" width={6} height={20} />}
+    {company === 'communify' && <Image src={communify} alt="" width={16} height={12} />}
+    {company === 'commsec' && <Image src={commsec} alt="" width={20} height={20} />}
+    {company === 'schwab' && <Image src={schwab} alt="" width={24} height={24} />}
+  </span>
+  {link ? <a href={c.url} target="_blank" rel="noopener">{c.name}</a> : <span>{c.name}</span>}
+</span>
+
+<style>
+  .company { display: inline-flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 400; }
+  .mark { width: 24px; height: 24px; display: grid; place-items: center; border-radius: 1000px; flex: none; overflow: hidden; }
+  .mark-seven-post { background: #968100; }
+  .mark-communify { background: #0c2c4e; }
+  .mark :global(img) { display: block; }
+</style>
