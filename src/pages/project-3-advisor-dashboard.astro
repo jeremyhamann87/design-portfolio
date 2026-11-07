@@ -6,6 +6,8 @@ import Step from '../components/Step.astro';
 import Figure from '../components/Figure.astro';
 import Challenge from '../components/Challenge.astro';
 import MoreWork from '../components/MoreWork.astro';
+import Summary from '../components/Summary.astro';
+import ContactCTA from '../components/ContactCTA.astro';
 import { getProject } from '../data/projects';
 import hero from '../assets/advisor-portal/hero.png';
 import full from '../assets/advisor-portal/full-dashboard.png';
@@ -17,6 +19,13 @@ const p = getProject('project-3-advisor-dashboard');
 ---
 <Base title={`${p.title} | Jeremy Hamann`} description={p.description}>
   <CaseHero project={p} image={hero} bg="var(--hero-advisor)" alt="Advisor dashboard on a laptop" />
+
+  <Summary
+    problem="Communify’s advisor dashboard was built around wealth data, while modern advisors work as relationship managers first."
+    role="Lead product designer."
+    result="A relationship-first dashboard refresh, delivered in a couple of days."
+    decisions={["I reorganized the Relationships module around the client, adding personal context and AI-generated client podcasts.", "I connected curated news to the clients it affects, so advisors know exactly who to reach out to.", "I added sharing between advisor and client, which the old system couldn’t do at all."]}
+  />
 
   <Section label="Goals" tone="light">
     <p>This project focused on the refresh of an outdated financial advisor dashboard product. We wanted to bring in more client-centered, relationship driven actions and metrics. Being a financial advisor in the twenty-first century means being a relationship manager first and a wealth manager second.</p>
@@ -36,7 +45,7 @@ const p = getProject('project-3-advisor-dashboard');
       <Figure src={curated} alt="Curated content module, old and new" />
     </Step>
     <Step n="03" title="Shareable Content">
-      <p>The old system had no ability to share content between advisor and client. A modern advisory experience leverages the power of Almighty Content to build strong advisor client bonds. If you know your advisor is thinking of you, you can trust they are managing your wealth well.</p>
+      <p>The old system had no ability to share content between advisor and client. A modern advisory experience uses shared content to build strong advisor-client bonds. If you know your advisor is thinking of you, you can trust they are managing your wealth well.</p>
       <Figure src={shareable} alt="Shareable content module, old and new" />
     </Step>
   </Section>
@@ -51,13 +60,13 @@ const p = getProject('project-3-advisor-dashboard');
       title="Very quick turnaround"
       body="This project was a couple of days in total between getting the requirements and completion."
       solvedTitle="Move fast, stay focused"
-      solvedBody="Not much to do but just work harder and faster. Good thing I know what I’m doing (most of the time.)"
+      solvedBody="I focused on the modules with the most relationship value and worked in tight loops with the product team to finish on time."
     />
     <Challenge
       title="Pioneering designs"
       body="There was no precedent to the kinds of relationship metrics and share-ability aspects to these designs."
       solvedTitle="Pick some brains"
-      solvedBody="I needed to think quick and plumb the rich design depths of our product team for ideas and solutions. It always pays to ask for help!"
+      solvedBody="I pulled in ideas from across our product team early, which gave the new metrics and sharing features a stronger foundation."
     />
     <Challenge
       title="Uncertain path to production"
@@ -66,6 +75,8 @@ const p = getProject('project-3-advisor-dashboard');
       solvedBody="Design and actual implementation are two very different processes. A wise designer understands that even if a design doesn't get fully developed, it still serves as valuable information for future work."
     />
   </Section>
+
+  <ContactCTA />
 
   <MoreWork slugs={['project-4-ai-notetaker', 'project-2-commsec']} />
 </Base>

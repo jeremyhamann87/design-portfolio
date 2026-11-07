@@ -27,6 +27,12 @@ export interface Project {
   field: string;
   date: string;
   card: ImageMetadata;
+  /** Who the work was for, shown under the company mark. */
+  byline: string;
+  /** Headline result shown on cards. */
+  outcome: string;
+  /** Featured projects get large cards on home; the rest go in the compact list. */
+  featured: boolean;
 }
 
 /** Order matches the home page grid. */
@@ -42,6 +48,9 @@ export const projects: Project[] = [
     field: 'Fintech',
     date: 'June 2025 - February 2026',
     card: sevenPostCard,
+    byline: 'Communify, for Seven Post',
+    outcome: '$10B AUM managed digitally · $1.5M ARR · launched in under 9 months',
+    featured: true,
   },
   {
     slug: 'project-2-commsec',
@@ -54,6 +63,9 @@ export const projects: Project[] = [
     field: 'International, Fintech',
     date: 'August - December 2023',
     card: commsecCard,
+    byline: 'Communify, for CommSec',
+    outcome: '$750K ARR · 3M customers · brand-new design system',
+    featured: true,
   },
   {
     slug: 'project-4-ai-notetaker',
@@ -66,6 +78,9 @@ export const projects: Project[] = [
     field: 'Fintech, AI',
     date: 'February 2026',
     card: notetakerCard,
+    byline: 'Communify',
+    outcome: 'New AI product line, configurable for any advisory client',
+    featured: true,
   },
   {
     slug: 'project-3-advisor-dashboard',
@@ -78,6 +93,9 @@ export const projects: Project[] = [
     field: 'Fintech',
     date: 'September 2025',
     card: advisorCard,
+    byline: 'Communify',
+    outcome: 'Relationship-first dashboard refresh, delivered in days',
+    featured: false,
   },
   {
     slug: 'project-5-schwab-trading',
@@ -90,6 +108,9 @@ export const projects: Project[] = [
     field: 'Fintech',
     date: 'February 2024',
     card: schwabTradingCard,
+    byline: 'For Charles Schwab',
+    outcome: 'Responsive rules for 30+ modules, beta to production',
+    featured: false,
   },
   {
     slug: 'project-6-schwab-reports',
@@ -101,6 +122,9 @@ export const projects: Project[] = [
     field: 'UX Research, Fintech',
     date: 'June 2024',
     card: schwabReportsCard,
+    byline: 'For Charles Schwab',
+    outcome: 'Phase 1 shipped in 10 weeks · web rollout in Phase 2',
+    featured: true,
   },
 ];
 
@@ -116,4 +140,5 @@ export const contact = {
   art: 'https://www.jeremyhamann.com',
   instagram: 'https://www.instagram.com/jeremyhamann.art/',
   medium: 'https://medium.com/@jeremyhamann87',
+  resumePdf: '/Jeremy-Hamann-Resume.pdf',
 };

@@ -5,6 +5,8 @@ import Section from '../components/Section.astro';
 import Dashes from '../components/Dashes.astro';
 import Figure from '../components/Figure.astro';
 import MoreWork from '../components/MoreWork.astro';
+import Summary from '../components/Summary.astro';
+import ContactCTA from '../components/ContactCTA.astro';
 import { getProject } from '../data/projects';
 import hero from '../assets/schwab-reports/hero.png';
 import successes from '../assets/schwab-reports/successes.png';
@@ -27,6 +29,13 @@ const approach = [
 ---
 <Base title={`${p.title} | Jeremy Hamann`} description={p.description}>
   <CaseHero project={p} image={hero} bg="#efd1c8" alt="Redesigned Schwab managed account statement" />
+
+  <Summary
+    problem="Schwab’s managed account statements were outdated and hard to read, for both high-net-worth clients and their advisors."
+    role="Led research, design and testing over a 10-week timeline."
+    result="Phase 1 shipped in Schwab’s PDF statements, and the design was approved for the web in Phase 2."
+    decisions={["I designed for two audiences at once, clients and Financial Consultants, and tested with both.", "I made black-and-white print legibility a requirement, since Phase 1 shipped as PDF.", "I used affinity mapping to turn dozens of test rounds into specific layout changes."]}
+  />
 
   <div class="prose">
     <Section label="Lay of the Land" id="lay-of-the-land">
@@ -84,6 +93,8 @@ const approach = [
       <p>Schwab Financial Consultants now are also able to better serve these clients as a result of this redesign because the data contained in the Managed Accounts statements is more conversational.</p>
     </Section>
   </div>
+
+  <ContactCTA />
 
   <MoreWork slugs={['project-3-advisor-dashboard', 'project-4-ai-notetaker']} />
 </Base>

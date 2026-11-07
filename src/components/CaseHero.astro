@@ -11,7 +11,7 @@ const { project: p, image, bg, alt = '', full = false } = Astro.props;
   <div class="wrap-case inner">
     <div class="text">
       <h1>{p.title}</h1>
-      <CompanyLogo company={p.company} />
+      <CompanyLogo company={p.company} label={p.byline} />
       <ul class="tags">{p.tags.map((t) => <li class="tag">{t}</li>)}</ul>
       <p class="date">{p.date}</p>
     </div>

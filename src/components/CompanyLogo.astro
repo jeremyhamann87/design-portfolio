@@ -7,8 +7,8 @@ import communify from '../assets/logos/communify.svg';
 import commsec from '../assets/logos/commsec.png';
 import schwab from '../assets/logos/schwab.png';
 
-interface Props { company: CompanyKey; link?: boolean }
-const { company, link = true } = Astro.props;
+interface Props { company: CompanyKey; link?: boolean; label?: string }
+const { company, link = true, label } = Astro.props;
 const c = companies[company];
 ---
 <span class="company">
@@ -18,7 +18,7 @@ const c = companies[company];
     {company === 'commsec' && <Image src={commsec} alt="" width={20} height={20} />}
     {company === 'schwab' && <Image src={schwab} alt="" width={24} height={24} />}
   </span>
-  {link ? <a href={c.url} target="_blank" rel="noopener">{c.name}</a> : <span>{c.name}</span>}
+  {link ? <a href={c.url} target="_blank" rel="noopener">{label ?? c.name}</a> : <span>{label ?? c.name}</span>}
 </span>
 
 <style>

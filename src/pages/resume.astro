@@ -1,5 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
+import { contact } from '../data/projects';
+import { url } from '../lib/url';
 
 const experience = [
   {
@@ -52,7 +54,10 @@ const education = [
 ---
 <Base title="Resume | Jeremy Hamann" description="Experience and education for Jeremy Hamann, Senior Product Designer.">
   <div class="wrap resume">
-    <h1 class="visually-hidden">Resume</h1>
+    <div class="top">
+      <h1>Resume</h1>
+      <a class="btn" href={url(contact.resumePdf)} target="_blank" rel="noopener" download="Jeremy-Hamann-Resume.pdf">Download PDF</a>
+    </div>
     <section aria-labelledby="experience">
       <h2 id="experience">Experience</h2>
       <div class="table glass" role="table" aria-labelledby="experience">
@@ -87,6 +92,8 @@ const education = [
 </Base>
 
 <style>
+  .top { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .top h1 { font-size: var(--fs-display); font-weight: 700; }
   .resume { display: grid; gap: 48px; padding-block: 12px 48px; }
   h2 { font-size: 24px; font-weight: 400; margin-bottom: 16px; }
   .table { font-size: 14px; }

@@ -6,6 +6,8 @@ import Feature from '../components/Feature.astro';
 import Step from '../components/Step.astro';
 import Figure from '../components/Figure.astro';
 import MoreWork from '../components/MoreWork.astro';
+import Summary from '../components/Summary.astro';
+import ContactCTA from '../components/ContactCTA.astro';
 import { getProject } from '../data/projects';
 import hero from '../assets/ai-notetaker/hero.png';
 import overview from '../assets/ai-notetaker/features-overview.png';
@@ -22,6 +24,13 @@ const p = getProject('project-4-ai-notetaker');
 ---
 <Base title={`${p.title} | Jeremy Hamann`} description={p.description}>
   <CaseHero project={p} image={hero} bg="var(--hero-notetaker)" alt="AI note taking meeting space on a desktop monitor" />
+
+  <Summary
+    problem="Advisors lose hours after client meetings rebuilding notes, chasing action items and updating the CRM."
+    role="Lead product designer, working with a third-party AI provider, stakeholders and engineers."
+    result="A configurable AI note-taking product for any advisory client, now part of Communify’s AI product line."
+    decisions={["I ran a capabilities study with our AI provider before wireframing, so the designs stayed within what the technology could really do.", "I kept advisors in control: every AI action item can be approved or dismissed, and AI notes can be regenerated or edited.", "I validated the final direction with A/B tests, both internally and with external users."]}
+  />
 
   <Section label="Goals" tone="light">
     <p>Financial advisors spend significant time after client meetings reconstructing notes, chasing down action items, and manually updating CRM records, time that could be spent building client relationships. This project set out to solve that problem by creating an AI-powered conversation capture tool that records, transcribes, and extracts key action items in real time, so advisors can stay fully present during meetings and trust that nothing falls through the cracks.</p>
@@ -64,6 +73,8 @@ const p = getProject('project-4-ai-notetaker');
   <Section label="Outcomes" tone="none">
     <p>We created an AI note-taking product that can be restyled and configured for any advisory client across the globe. This product has helped Communify to further establish its advisory AI product line and grow its bottom line significantly.</p>
   </Section>
+
+  <ContactCTA />
 
   <MoreWork slugs={['project-2-commsec', 'project-1-seven-post-client-portal']} />
 </Base>
