@@ -24,7 +24,7 @@ const { problem, role, result, decisions } = Astro.props;
   .result dd { font-weight: 600; }
   h2 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px; }
   ol { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; counter-reset: d; }
-  li { counter-increment: d; position: relative; padding: 16px 16px 16px 52px; background: var(--surface); border: 1px solid var(--border-soft); border-radius: 4px; font-weight: 300; }
+  li { counter-increment: d; position: relative; padding: 16px 16px 16px 52px; background: var(--surface); border: 1px solid var(--border-soft); font-weight: 300; }
   li::before { content: counter(d, decimal-leading-zero); position: absolute; left: 16px; top: 15px; font-weight: 700; }
   @media (max-width: 799px) { .tldr { grid-template-columns: 1fr; } }
 </style>

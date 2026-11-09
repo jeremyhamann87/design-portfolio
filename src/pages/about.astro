@@ -59,11 +59,11 @@ const photos = [p1, p2, p3, p4];
   .contact { display: grid; gap: 8px; }
   .contact a { display: grid; grid-template-columns: 40px 1fr auto; align-items: center; gap: 16px; padding: 12px 16px; text-decoration: none; }
   .contact a:hover .val { text-decoration: underline; }
-  .contact img { width: 40px; height: 40px; border-radius: 4px; }
+  .contact img { width: 40px; height: 40px; }
   .lbl { font-size: 12px; font-weight: 200; }
   .val { font-weight: 400; }
   .photos { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .photos :global(img) { width: 100%; aspect-ratio: 222 / 332; object-fit: cover; border-radius: 4px; }
+  .photos :global(img) { width: 100%; aspect-ratio: 222 / 332; object-fit: cover; }
   @media (max-width: 1100px) { .about { --gutter: 36px; grid-template-columns: 1fr 360px; } }
   @media (max-width: 799px) {
     .about { --gutter: 16px; grid-template-columns: 1fr; }

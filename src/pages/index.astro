@@ -138,15 +138,15 @@ const tableRows = tableOrder.map((s) => projects.find((p) => p.slug === s)!);
   .section-title { font-size: 24px; font-weight: 400; }
   .skills-title { grid-area: skills-title; align-self: end; line-height: 1; padding-bottom: 6px; }
 
-  .video { grid-area: video; position: relative; aspect-ratio: 16 / 9; border-radius: 8px; border: 1px solid var(--ink); background: var(--panel-glass); display: grid; place-items: center; overflow: hidden; }
+  .video { grid-area: video; position: relative; aspect-ratio: 16 / 9; background: var(--panel-glass); display: grid; place-items: center; overflow: hidden; }
   .play { width: 72px; height: 72px; border-radius: 50%; border: 2px solid var(--ink); display: grid; place-items: center; padding-left: 4px; color: var(--ink); background: var(--panel); }
   .video-note { position: absolute; bottom: 12px; left: 16px; font-size: 12px; font-weight: 400; opacity: 0.7; }
 
   /* Same height as the video: the grid row is sized by the video, the cards fill it. */
   .skills { grid-area: skills; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, minmax(0, 1fr)); gap: 12px; min-height: 0; contain: size; }
   .skills li { min-height: 0; }
-  .skills a { display: grid; grid-template-rows: 2fr 1fr; height: 100%; overflow: hidden; border: 1px solid var(--ink); border-radius: 8px; background: var(--panel); text-decoration: none; transition: background 0.15s, color 0.15s; }
-  .thumb { position: relative; overflow: hidden; border-bottom: 1px solid var(--ink); background: var(--surface); min-height: 0; }
+  .skills a { display: grid; grid-template-rows: 2fr 1fr; height: 100%; overflow: hidden; background: var(--panel); text-decoration: none; transition: background 0.15s, color 0.15s; }
+  .thumb { position: relative; overflow: hidden; background: var(--surface); min-height: 0; }
   .thumb :global(img), .thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform 0.3s ease; }
   .copy { display: grid; align-content: center; gap: 2px; padding: 6px 10px; min-height: 0; overflow: hidden; }
   .skills a:hover, .skills a:focus-visible { background: var(--ink); color: var(--on-ink); }

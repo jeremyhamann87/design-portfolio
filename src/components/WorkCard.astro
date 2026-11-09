@@ -24,7 +24,7 @@ const { project: p, size = 'large', headingLevel: H = 'h3' } = Astro.props;
 
 <style>
   .card { display: grid; gap: 16px; align-content: start; position: relative; }
-  .media { display: block; overflow: hidden; border-radius: 4px; }
+  .media { display: block; overflow: hidden; }
   .media :global(img) { width: 100%; aspect-ratio: 568 / 394; object-fit: cover; transition: transform 0.3s ease; }
   .card:hover .media :global(img) { transform: scale(1.02); }
   @media (prefers-reduced-motion: reduce) { .card:hover .media :global(img) { transform: none; } }
@@ -35,7 +35,7 @@ const { project: p, size = 'large', headingLevel: H = 'h3' } = Astro.props;
   .title a::after { content: ''; position: absolute; inset: 0; }
   .title a:hover { text-decoration: underline; }
   .desc { font-weight: 300; }
-  .outcome { font-size: 14px; font-weight: 600; letter-spacing: 0.01em; padding: 6px 10px; background: var(--ink); color: var(--on-ink); border-radius: 4px; justify-self: start; }
+  .outcome { font-size: 14px; font-weight: 600; letter-spacing: 0.01em; padding: 6px 10px; background: var(--ink); color: var(--on-ink); justify-self: start; }
   .small .outcome { font-size: 13px; }
   .tags { position: relative; }
 </style>

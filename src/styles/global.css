@@ -45,9 +45,10 @@
   --max: 1280px;
 
   /* Radius */
-  --r-sm: 4px;
-  --r-md: 8px;
-  --r-pill: 1000px;
+  /* Square corners everywhere (circles like the portrait and logo marks stay round). */
+  --r-sm: 0;
+  --r-md: 0;
+  --r-pill: 0;
 }
 
 @media (max-width: 1100px) {
@@ -139,7 +140,7 @@ ul, ol { padding: 0; list-style: none; }
   color: var(--on-ink);
   font-weight: 200;
   text-decoration: none;
-  transition: border-radius 0.15s, font-weight 0.15s;
+  transition: font-weight 0.15s;
   white-space: nowrap;
 }
 .btn:hover { font-weight: 400; border-radius: var(--r-md); text-decoration: none; }
