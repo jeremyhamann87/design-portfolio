@@ -1,101 +1,58 @@
 ---
-import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import WorkCard from '../components/WorkCard.astro';
 import CompanyLogo from '../components/CompanyLogo.astro';
 import ContactCTA from '../components/ContactCTA.astro';
-import { projects, contact } from '../data/projects';
+import { projects } from '../data/projects';
 import { url } from '../lib/url';
-import portrait from '../assets/home/portrait.png';
-import listen from '../assets/icons/principle-listen.svg';
-import together from '../assets/icons/principle-together.svg';
-import refine from '../assets/icons/principle-refine.svg';
 import gridIcon from '../assets/icons/view-grid.svg';
 import tableIcon from '../assets/icons/view-table.svg';
 import arrow from '../assets/icons/arrow-right.svg';
-import imgMobile from '../assets/seven-post/feature-mobile.png';
-import imgAi from '../assets/ai-notetaker/feature-action-items.png';
-import imgSystem from '../assets/commsec/feature-sector.png';
-import imgResearch from '../assets/schwab-reports/affinity-map.png';
-import imgResponsive from '../assets/schwab-trading/desktop.png';
-import imgJourney from '../assets/seven-post/journey-map.png';
 
-const metrics = [
-  { value: '$10B', label: 'in assets moved to a portal I designed' },
-  { value: '$1.5M', label: 'annual recurring revenue from that portal' },
-  { value: '3M', label: 'customers using research tools I designed' },
-  { value: '< 9 mo', label: 'from zero to a launched wealth portal' },
-];
-
-// Each skill is shown with real work and links to the case study that proves it.
+// Six skills, each linking to the case study that proves it.
 const skills = [
-  { skill: '0→1 product design', proof: 'A wealth portal for desktop and mobile, launched in under 9 months.', img: imgMobile, href: '/project-1-seven-post-client-portal', size: 'big' },
-  { skill: 'AI product design', proof: 'Advisors approve or dismiss every AI action item.', img: imgAi, href: '/project-4-ai-notetaker' },
-  { skill: 'Data-dense UI', proof: 'Live global markets data, readable at a glance.', video: '/media/commsec-world-indices.webp', href: '/project-2-commsec' },
-  { skill: 'Design systems', proof: 'A new MUI-based system for Australia’s largest broker.', img: imgSystem, href: '/project-2-commsec' },
-  { skill: 'Journey mapping', proof: 'Personas and journeys built without direct client access.', img: imgJourney, href: '/project-1-seven-post-client-portal' },
-  { skill: 'Research & testing', proof: 'Dozens of test rounds with clients and advisors, synthesized into layout changes.', img: imgResearch, href: '/project-6-schwab-reports', size: 'wide' },
-  { skill: 'Responsive rules', proof: '30+ data-heavy modules, one reusable ruleset.', img: imgResponsive, href: '/project-5-schwab-trading', size: 'wide' },
+  { skill: '0→1 product design', proof: 'Wealth portal launched in under 9 months', href: '/project-1-seven-post-client-portal' },
+  { skill: 'AI product design', proof: 'AI note taking for financial advisors', href: '/project-4-ai-notetaker' },
+  { skill: 'Data-dense UI', proof: 'Markets research for 3M customers', href: '/project-2-commsec' },
+  { skill: 'Design systems', proof: 'A new MUI-based system for CommSec', href: '/project-2-commsec' },
+  { skill: 'Research & testing', proof: 'Tested with clients and advisors', href: '/project-6-schwab-reports' },
+  { skill: 'Responsive design', proof: 'Rules for 30+ data-heavy modules', href: '/project-5-schwab-trading' },
 ];
 
-const principles = [
-  { icon: listen, title: 'Listen First', body: 'I map real workflows, constraints and compliance needs with advisors, investors and stakeholders before I draw a screen.' },
-  { icon: together, title: 'Solve Together', body: 'I design alongside engineers and product owners from day one, so the solution is one everyone owns and can ship.' },
-  { icon: refine, title: 'Refine until perfection', body: 'Wireframes, prototypes, testing, then the edge cases, until the product is clear and trustworthy.' },
-];
-
-const featured = projects.filter((p) => p.featured);
-const more = projects.filter((p) => !p.featured);
 const tableOrder = ['project-4-ai-notetaker', 'project-3-advisor-dashboard', 'project-1-seven-post-client-portal', 'project-2-commsec', 'project-5-schwab-trading', 'project-6-schwab-reports'];
 const tableRows = tableOrder.map((s) => projects.find((p) => p.slug === s)!);
 ---
 <Base>
-  <section class="wrap hero">
-    <div class="hero-text">
-      <p class="eyebrow">Senior Product Designer · Fintech · AI</p>
-      <h1>I design products people and institutions trust with their most sensitive assets and data.</h1>
-      <p class="sub">6+ years designing for Bank of America, Merrill, Charles Schwab, CommSec and Edward Jones. Former mental health counselor.</p>
-      <div class="actions">
-        <a class="btn" href="#my-work">See the work <img src={arrow.src} alt="" width="16" height="16" /></a>
-        <a class="btn ghost" href={url(contact.resumePdf)} target="_blank" rel="noopener">Resume (PDF)</a>
+  <section class="wrap intro" aria-labelledby="hello">
+    <div class="video-col">
+      <h1 id="hello">Hello!</h1>
+      <!-- Placeholder until the intro video is ready: swap this div for a <video> or embed. -->
+      <div class="video" role="img" aria-label="Intro video coming soon">
+        <span class="play" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5.5v13l11-6.5z" fill="currentColor" /></svg>
+        </span>
+        <span class="video-note">Intro video coming soon</span>
       </div>
     </div>
-    <Image src={portrait} alt="Portrait of Jeremy Hamann" width={220} height={220} densities={[1, 2]} class="portrait" loading="eager" />
-  </section>
 
-  <section class="wrap" aria-label="Impact">
-    <dl class="metrics">
-      {metrics.map((m) => (
-        <div class="metric"><dt>{m.label}</dt><dd>{m.value}</dd></div>
-      ))}
-    </dl>
-  </section>
-
-  <section class="wrap skills-sec" aria-labelledby="skills">
-    <h2 id="skills" class="section-title">Skills, shown</h2>
-    <ul class="bento">
-      {skills.map((s) => (
-        <li class:list={['tile', s.size]}>
-          <a href={url(s.href)}>
-            <span class="media">
-              {s.img
-                ? <Image src={s.img} alt="" widths={[400, 700, 1100]} sizes={s.size ? '(max-width: 799px) 100vw, 600px' : '(max-width: 799px) 100vw, 300px'} format="webp" />
-                : <img src={url(s.video!)} alt="" loading="lazy" />}
-            </span>
-            <span class="caption">
+    <div class="skills-col">
+      <h2 class="section-title">Skills</h2>
+      <ul class="skills">
+        {skills.map((s) => (
+          <li>
+            <a href={url(s.href)}>
               <span class="skill">{s.skill}</span>
               <span class="proof">{s.proof}</span>
-              <span class="go" aria-hidden="true">View case study →</span>
-            </span>
-          </a>
-        </li>
-      ))}
-    </ul>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
   </section>
 
   <section class="wrap work" aria-labelledby="my-work" data-view="grid">
     <div class="work-head">
-      <h2 id="my-work" class="section-title">Selected work</h2>
+      <h2 id="my-work" class="section-title">Work</h2>
       <div class="toggle glass" role="group" aria-label="Layout">
         <button type="button" data-set-view="grid" aria-pressed="true" aria-label="Grid view">
           <img src={gridIcon.src} alt="" width="20" height="18" />
@@ -106,14 +63,8 @@ const tableRows = tableOrder.map((s) => projects.find((p) => p.slug === s)!);
       </div>
     </div>
 
-    <div class="grid-view">
-      <div class="grid glass">
-        {featured.map((p) => <div class="cell"><WorkCard project={p} /></div>)}
-      </div>
-      <h3 class="more-title">More work</h3>
-      <div class="more">
-        {more.map((p) => <WorkCard project={p} size="small" />)}
-      </div>
+    <div class="grid glass">
+      {projects.map((p) => <div class="cell"><WorkCard project={p} /></div>)}
     </div>
 
     <div class="table-wrap glass">
@@ -139,19 +90,6 @@ const tableRows = tableOrder.map((s) => projects.find((p) => p.slug === s)!);
         </tbody>
       </table>
     </div>
-  </section>
-
-  <section class="wrap philosophy" aria-labelledby="philosophy">
-    <h2 id="philosophy" class="section-title">How I work</h2>
-    <ul class="principles">
-      {principles.map((p) => (
-        <li class="principle glass">
-          <img src={p.icon.src} alt="" width="32" height="32" />
-          <h3>{p.title}</h3>
-          <p>{p.body}</p>
-        </li>
-      ))}
-    </ul>
   </section>
 
   <ContactCTA />
@@ -180,37 +118,21 @@ const tableRows = tableOrder.map((s) => projects.find((p) => p.slug === s)!);
 </script>
 
 <style>
-  .hero { display: grid; grid-template-columns: 1fr 220px; gap: 48px; align-items: center; padding-block: 24px 36px; }
-  .hero-text { display: grid; gap: 16px; justify-items: start; }
-  .eyebrow { font-size: 14px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
-  .hero h1 { font-size: clamp(32px, 4.4vw, 52px); font-weight: 700; line-height: 1.08; letter-spacing: -0.01em; max-width: 880px; }
-  .sub { font-size: 18px; font-weight: 300; max-width: 640px; }
-  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px; }
-  .btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--ink); font-weight: 400; }
-  .portrait { width: 220px; height: 220px; border-radius: 50%; object-fit: cover; }
-
-  .metrics { display: grid; grid-template-columns: repeat(4, 1fr); margin: 0 0 48px; border-block: 1px solid var(--ink); }
-  .metric { display: flex; flex-direction: column; padding: 20px 20px 20px 0; }
-  .metric + .metric { padding-left: 20px; border-left: 1px solid var(--border); }
-  .metric dd { order: -1; margin: 0; font-size: 40px; font-weight: 700; line-height: 1; }
-  .metric dt { font-size: 14px; font-weight: 300; margin-top: 8px; }
-
+  .intro { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 36px; align-items: stretch; padding-block: 12px 48px; }
+  .video-col, .skills-col { display: grid; gap: 16px; grid-template-rows: auto 1fr; }
+  .skills-col .section-title { align-self: end; line-height: 1; padding-bottom: 6px; }
+  h1 { font-size: var(--fs-display-xl); font-weight: 700; line-height: 1; }
   .section-title { font-size: 24px; font-weight: 400; }
-  .skills-sec { display: grid; gap: 16px; padding-bottom: 48px; }
-  .bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 220px; gap: 16px; }
-  .tile.big { grid-column: span 2; grid-row: span 2; }
-  .tile.wide { grid-column: span 2; }
-  .tile a { position: relative; display: block; height: 100%; overflow: hidden; border-radius: 8px; background: var(--ink); color: var(--on-ink); text-decoration: none; isolation: isolate; }
-  .media, .media :global(img), .media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
-  .media :global(img), .media img { transition: transform 0.4s ease, opacity 0.3s; opacity: 0.92; }
-  .tile a:hover .media :global(img), .tile a:focus-visible .media :global(img), .tile a:hover .media img { transform: scale(1.04); opacity: 1; }
-  .caption { position: absolute; inset: auto 0 0 0; z-index: 1; display: grid; gap: 4px; padding: 48px 16px 16px; background: linear-gradient(to top, rgb(59 65 78 / 0.96) 45%, rgb(59 65 78 / 0)); }
-  .skill { font-size: 18px; font-weight: 700; }
-  .big .skill { font-size: 28px; }
-  .proof { font-size: 14px; font-weight: 300; }
-  .go { font-size: 13px; font-weight: 500; color: var(--eyebrow-lime); max-height: 0; overflow: hidden; transition: max-height 0.25s; }
-  .tile a:hover .go, .tile a:focus-visible .go { max-height: 20px; }
-  @media (prefers-reduced-motion: reduce) { .media :global(img), .media img, .go { transition: none; } }
+
+  .video { position: relative; aspect-ratio: 16 / 9; border-radius: 8px; border: 1px solid var(--ink); background: var(--panel-glass); display: grid; place-items: center; overflow: hidden; }
+  .play { width: 72px; height: 72px; border-radius: 50%; border: 2px solid var(--ink); display: grid; place-items: center; padding-left: 4px; color: var(--ink); background: var(--panel); }
+  .video-note { position: absolute; bottom: 12px; left: 16px; font-size: 12px; font-weight: 400; opacity: 0.7; }
+
+  .skills { display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: 1fr; gap: 12px; }
+  .skills a { display: grid; gap: 4px; height: 100%; padding: 14px 16px; align-content: center; border: 1px solid var(--ink); border-radius: 8px; background: var(--panel-glass); text-decoration: none; transition: background 0.15s, color 0.15s; }
+  .skills a:hover, .skills a:focus-visible { background: var(--ink); color: var(--on-ink); }
+  .skill { font-size: 16px; font-weight: 600; line-height: 1.2; }
+  .proof { font-size: 13px; font-weight: 300; line-height: 1.3; }
 
   .work { padding-bottom: 48px; }
   .work-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
@@ -222,11 +144,9 @@ const tableRows = tableOrder.map((s) => projects.find((p) => p.slug === s)!);
   .cell { padding: 36px; border-bottom: 1px solid var(--border); }
   .cell:nth-child(odd) { border-right: 1px solid var(--border); }
   .cell:nth-last-child(-n + 2) { border-bottom: 0; }
-  .more-title { font-size: 20px; font-weight: 400; margin: 36px 0 16px; }
-  .more { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; }
 
   .table-wrap { display: none; overflow-x: auto; }
-  .work[data-view='table'] .grid-view { display: none; }
+  .work[data-view='table'] .grid { display: none; }
   .work[data-view='table'] .table-wrap { display: block; }
   table { width: 100%; border-collapse: collapse; font-size: 14px; }
   th, td { text-align: left; padding: 16px; border-bottom: 1px solid var(--border-soft); vertical-align: middle; }
@@ -234,28 +154,14 @@ const tableRows = tableOrder.map((s) => projects.find((p) => p.slug === s)!);
   tbody th { font-weight: 500; font-size: 16px; }
   td:last-child { text-align: right; }
 
-  .philosophy { display: grid; gap: 16px; padding-bottom: 48px; }
-  .principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-  .principle { padding: 24px; border: 1px solid var(--ink); display: grid; gap: 8px; align-content: start; }
-  .principle h3 { font-size: 20px; font-weight: 500; margin-top: 4px; }
-
   @media (max-width: 1000px) {
-    .bento { grid-template-columns: repeat(2, 1fr); }
-    .principles { grid-template-columns: 1fr; gap: 16px; }
-    .metrics { grid-template-columns: repeat(2, 1fr); }
-    .metric:nth-child(3) { padding-left: 0; border-left: 0; }
-    .metric:nth-child(n + 3) { border-top: 1px solid var(--border); }
+    .intro { grid-template-columns: 1fr; align-items: start; }
+    .skills { grid-template-columns: repeat(3, 1fr); }
   }
   @media (max-width: 799px) {
-    .hero { grid-template-columns: 1fr; gap: 24px; }
-    .portrait { order: -1; width: 120px; height: 120px; }
-    .sub { font-size: 16px; }
-    .metric dd { font-size: 30px; }
-    .bento { grid-template-columns: 1fr; grid-auto-rows: 200px; }
-    .tile.big, .tile.wide { grid-column: auto; grid-row: span 1; }
-    .big .skill { font-size: 22px; }
-    .go { max-height: 20px; }
-    .grid, .more { grid-template-columns: 1fr; }
+    .skills { grid-template-columns: 1fr 1fr; }
+    .play { width: 56px; height: 56px; }
+    .grid { grid-template-columns: 1fr; }
     .cell { padding: 24px 16px; border-right: 0 !important; border-bottom: 1px solid var(--border) !important; }
     .cell:last-child { border-bottom: 0 !important; }
     table, thead, tbody, tr, th, td { display: block; }
