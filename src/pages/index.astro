@@ -17,12 +17,12 @@ import imgResponsive from '../assets/schwab-trading/desktop.png';
 
 // Six skills, each linking to the case study that proves it.
 const skills = [
-  { skill: '0→1 product design', proof: 'Wealth portal launched in under 9 months', href: '/project-1-seven-post-client-portal', img: imgMobile },
-  { skill: 'AI product design', proof: 'AI note taking for financial advisors', href: '/project-4-ai-notetaker', img: imgAi, pos: 'left top' },
-  { skill: 'Data-dense UI', proof: 'Markets research for 3M customers', href: '/project-2-commsec', anim: '/media/commsec-world-indices.webp' },
-  { skill: 'Design systems', proof: 'A new MUI-based system for CommSec', href: '/project-2-commsec', img: imgSystem },
-  { skill: 'Research & testing', proof: 'Tested with clients and advisors', href: '/project-6-schwab-reports', img: imgResearch },
-  { skill: 'Responsive design', proof: 'Rules for 30+ data-heavy modules', href: '/project-5-schwab-trading', img: imgResponsive },
+  { skill: '0→1 product design', href: '/project-1-seven-post-client-portal', img: imgMobile },
+  { skill: 'AI product design', href: '/project-4-ai-notetaker', img: imgAi, pos: 'left top' },
+  { skill: 'Data-dense UI', href: '/project-2-commsec', anim: '/media/commsec-world-indices.webp' },
+  { skill: 'Design systems', href: '/project-2-commsec', img: imgSystem },
+  { skill: 'Research & testing', href: '/project-6-schwab-reports', img: imgResearch },
+  { skill: 'Responsive design', href: '/project-5-schwab-trading', img: imgResponsive },
 ];
 
 const tableOrder = ['project-4-ai-notetaker', 'project-3-advisor-dashboard', 'project-1-seven-post-client-portal', 'project-2-commsec', 'project-5-schwab-trading', 'project-6-schwab-reports'];
@@ -51,7 +51,6 @@ const tableRows = tableOrder.map((s) => projects.find((p) => p.slug === s)!);
             </span>
             <span class="copy">
               <span class="skill">{s.skill}</span>
-              <span class="proof">{s.proof}</span>
             </span>
           </a>
         </li>
@@ -153,7 +152,6 @@ const tableRows = tableOrder.map((s) => projects.find((p) => p.slug === s)!);
   .skills a:hover .thumb :global(img), .skills a:hover .thumb img { transform: scale(1.05); }
   @media (prefers-reduced-motion: reduce) { .thumb :global(img), .thumb img { transition: none; } }
   .skill { font-size: 14px; font-weight: 600; line-height: 1.15; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .proof { font-size: 12px; font-weight: 300; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
   .work { padding-bottom: 48px; }
   .work-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
@@ -181,7 +179,7 @@ const tableRows = tableOrder.map((s) => projects.find((p) => p.slug === s)!);
     .skills { grid-template-columns: repeat(3, 1fr); grid-template-rows: none; contain: none; }
     .skills a { grid-template-rows: 110px auto; }
     .copy { padding: 8px 10px; }
-    .skill, .proof { white-space: normal; }
+    .skill { white-space: normal; }
   }
   @media (max-width: 799px) {
     .skills { grid-template-columns: 1fr 1fr; }
