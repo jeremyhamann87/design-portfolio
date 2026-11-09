@@ -6,6 +6,8 @@ import { url } from '../lib/url';
 
 interface Props { project: Project; size?: 'large' | 'small'; headingLevel?: 'h2' | 'h3' }
 const { project: p, size = 'large', headingLevel: H = 'h3' } = Astro.props;
+const kpis = p.outcome.split(' · ');
+const pills = size === 'large' ? [...kpis, ...p.tags] : kpis;
 ---
 <article class:list={['card', size]}>
   <a class="media" href={url(`/${p.slug}`)} tabindex="-1" aria-hidden="true">
@@ -13,12 +15,9 @@ const { project: p, size = 'large', headingLevel: H = 'h3' } = Astro.props;
   </a>
   <div class="body">
     <H class="title"><a href={url(`/${p.slug}`)}>{p.title}</a></H>
-    <p class="outcome">{p.outcome}</p>
     <p class="desc">{p.description}</p>
     <CompanyLogo company={p.company} link={false} label={p.byline} />
-    {size === 'large' && (
-      <ul class="tags">{p.tags.map((t) => <li class="tag">{t}</li>)}</ul>
-    )}
+    <ul class="tags">{pills.map((t) => <li class="tag">{t}</li>)}</ul>
   </div>
 </article>
 
@@ -35,7 +34,5 @@ const { project: p, size = 'large', headingLevel: H = 'h3' } = Astro.props;
   .title a::after { content: ''; position: absolute; inset: 0; }
   .title a:hover { text-decoration: underline; }
   .desc { font-weight: 300; }
-  .outcome { font-size: 14px; font-weight: 600; letter-spacing: 0.01em; padding: 6px 10px; background: var(--ink); color: var(--on-ink); justify-self: start; }
-  .small .outcome { font-size: 13px; }
   .tags { position: relative; }
 </style>
