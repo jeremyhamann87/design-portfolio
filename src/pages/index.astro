@@ -22,7 +22,6 @@ const skills = [
   { skill: 'Responsive design', body: 'Wrote the responsive rules for 30+ data-heavy trading modules and took Schwab’s research section from beta to production.', href: '/project-5-schwab-trading', img: imgResponsive, project: 'Schwab trading platform' },
 ];
 
-const filters = ['All', 'Fintech', 'AI', 'UX Research', 'International'];
 const telHref = contact.phone ? `tel:${contact.phone.replace(/[^+\d]/g, '')}` : '';
 ---
 <Base title="Jeremy Hamann - Senior Product Designer" description="Senior Product Designer in fintech and AI. Watch the intro, browse case studies, and get in touch.">
@@ -83,14 +82,9 @@ const telHref = contact.phone ? `tel:${contact.phone.replace(/[^+\d]/g, '')}` : 
 
     <aside class="secondary" aria-labelledby="work-heading">
       <h2 id="work-heading" class="visually-hidden">Work</h2>
-      <div class="chips" role="group" aria-label="Filter projects">
-        {filters.map((f, i) => (
-          <button type="button" class="chip" data-filter={f} aria-pressed={i === 0 ? 'true' : 'false'}>{f}</button>
-        ))}
-      </div>
       <ul class="up-next">
         {projects.map((p) => (
-          <li data-tags={[...p.tags, p.field].join('|')}>
+          <li>
             <a class="next-item" href={url(`/${p.slug}`)}>
               <span class="thumb">
                 <Image src={p.card} alt="" widths={[200, 400]} sizes="(max-width: 999px) 40vw, 168px" format="webp" />
@@ -98,8 +92,9 @@ const telHref = contact.phone ? `tel:${contact.phone.replace(/[^+\d]/g, '')}` : 
               </span>
               <span class="next-text">
                 <span class="next-title">{p.title}</span>
-                <span class="next-meta">{p.byline}</span>
-                <span class="next-meta">{p.outcome.split(' · ')[0]}</span>
+                <span class="pills">
+                  {[...p.outcome.split(' · '), ...p.tags].map((t) => <span class="tag">{t}</span>)}
+                </span>
               </span>
             </a>
           </li>
@@ -109,20 +104,6 @@ const telHref = contact.phone ? `tel:${contact.phone.replace(/[^+\d]/g, '')}` : 
   </div>
 </Base>
 
-<script>
-  const chips = document.querySelectorAll<HTMLButtonElement>('.chip');
-  const items = document.querySelectorAll<HTMLElement>('.up-next li');
-  chips.forEach((chip) =>
-    chip.addEventListener('click', () => {
-      const f = chip.dataset.filter!;
-      chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
-      items.forEach((li) => {
-        const tags = li.dataset.tags!.toLowerCase();
-        li.hidden = f !== 'All' && !tags.includes(f.toLowerCase());
-      });
-    }),
-  );
-</script>
 
 <style>
   .watch { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 24px; padding-block: 0 48px; align-items: start; }
@@ -163,12 +144,9 @@ const telHref = contact.phone ? `tel:${contact.phone.replace(/[^+\d]/g, '')}` : 
   .comment-link { font-size: 13px; font-weight: 600; justify-self: start; margin-top: 2px; }
 
   .secondary { display: grid; gap: 12px; min-width: 0; }
-  .chips { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
-  .chip { flex: none; height: 32px; padding: 0 12px; border: 0; background: var(--panel); color: var(--ink); font: inherit; font-size: 14px; font-weight: 500; cursor: pointer; }
-  .chip[aria-pressed='true'] { background: var(--ink); color: var(--on-ink); }
-  .up-next { display: grid; gap: 8px; }
-  .up-next li[hidden] { display: none; }
-  .next-item { display: grid; grid-template-columns: 168px 1fr; gap: 8px; text-decoration: none; }
+  .up-next { gap: 12px; }
+  .up-next { display: grid; }
+  .next-item { display: grid; grid-template-columns: 168px 1fr; gap: 10px; align-items: start; text-decoration: none; }
   .next-item:hover .next-title { text-decoration: underline; }
   .thumb { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: var(--panel); }
   .thumb :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
@@ -177,7 +155,8 @@ const telHref = contact.phone ? `tel:${contact.phone.replace(/[^+\d]/g, '')}` : 
   .badge { position: absolute; right: 4px; bottom: 4px; background: rgb(59 65 78 / 0.85); color: var(--on-ink); font-size: 12px; font-weight: 500; padding: 1px 4px; }
   .next-text { display: grid; gap: 2px; align-content: start; min-width: 0; }
   .next-title { font-size: 14px; font-weight: 600; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-  .next-meta { font-size: 12px; font-weight: 300; }
+  .pills { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+  .pills .tag { font-size: 11px; line-height: 14px; padding: 2px 6px; }
 
   /* Narrow screens: video, title and actions, then work, then skills. */
   @media (max-width: 999px) {
