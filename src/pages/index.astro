@@ -1,196 +1,195 @@
 ---
-import Base from '../layouts/Base.astro';
-import WorkCard from '../components/WorkCard.astro';
-import CompanyLogo from '../components/CompanyLogo.astro';
-import ContactCTA from '../components/ContactCTA.astro';
-import { projects } from '../data/projects';
-import { url } from '../lib/url';
-import gridIcon from '../assets/icons/view-grid.svg';
-import tableIcon from '../assets/icons/view-table.svg';
-import arrow from '../assets/icons/arrow-right.svg';
+// Home laid out like a video watch page: the intro video is the centerpiece,
+// projects sit in the right-hand "up next" column, and skills read as the comments.
 import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import { projects, contact } from '../data/projects';
+import { url } from '../lib/url';
+import portrait from '../assets/home/portrait.png';
 import imgMobile from '../assets/seven-post/feature-mobile.png';
 import imgAi from '../assets/ai-notetaker/feature-transcription.png';
+import imgData from '../assets/commsec/feature-currencies.png';
 import imgSystem from '../assets/commsec/feature-sector.png';
 import imgResearch from '../assets/schwab-reports/affinity-map.png';
 import imgResponsive from '../assets/schwab-trading/desktop.png';
 
-// Six skills, each linking to the case study that proves it.
 const skills = [
-  { skill: '0→1 product design', href: '/project-1-seven-post-client-portal', img: imgMobile },
-  { skill: 'AI product design', href: '/project-4-ai-notetaker', img: imgAi, pos: 'left top' },
-  { skill: 'Data-dense UI', href: '/project-2-commsec', anim: '/media/commsec-world-indices.webp' },
-  { skill: 'Design systems', href: '/project-2-commsec', img: imgSystem },
-  { skill: 'Research & testing', href: '/project-6-schwab-reports', img: imgResearch },
-  { skill: 'Responsive design', href: '/project-5-schwab-trading', img: imgResponsive },
+  { skill: '0→1 product design', body: 'Took a wealth client portal from zero digital footprint to launch in under 9 months. It now carries $10B in assets and $1.5M in ARR.', href: '/project-1-seven-post-client-portal', img: imgMobile, project: 'Seven Post client portal' },
+  { skill: 'AI product design', body: 'Designed an AI note taker that records, transcribes and suggests action items, with advisors approving or dismissing every one.', href: '/project-4-ai-notetaker', img: imgAi, project: 'AI note taking' },
+  { skill: 'Data-dense UI', body: 'Turned global markets data into a research experience 3M CommSec customers can read at a glance.', href: '/project-2-commsec', img: imgData, project: 'CommSec markets research' },
+  { skill: 'Design systems', body: 'Built a new MUI-based system for Australia’s largest online broker, with modules that work on any platform or theme.', href: '/project-2-commsec', img: imgSystem, project: 'CommSec markets research' },
+  { skill: 'Research & testing', body: 'Ran dozens of test rounds with Schwab clients and advisors, then used affinity mapping to turn findings into layout changes.', href: '/project-6-schwab-reports', img: imgResearch, project: 'Schwab managed account reports' },
+  { skill: 'Responsive design', body: 'Wrote the responsive rules for 30+ data-heavy trading modules and took Schwab’s research section from beta to production.', href: '/project-5-schwab-trading', img: imgResponsive, project: 'Schwab trading platform' },
 ];
 
-const tableOrder = ['project-4-ai-notetaker', 'project-3-advisor-dashboard', 'project-1-seven-post-client-portal', 'project-2-commsec', 'project-5-schwab-trading', 'project-6-schwab-reports'];
-const tableRows = tableOrder.map((s) => projects.find((p) => p.slug === s)!);
+const filters = ['All', 'Fintech', 'AI', 'UX Research', 'International'];
+const telHref = contact.phone ? `tel:${contact.phone.replace(/[^+\d]/g, '')}` : '';
 ---
-<Base>
-  <section class="wrap intro" aria-labelledby="hello">
-    <h1 id="hello">Hello!</h1>
-    <!-- Placeholder until the intro video is ready: swap this div for a <video> or embed. -->
-    <div class="video" role="img" aria-label="Intro video coming soon">
-      <span class="play" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5.5v13l11-6.5z" fill="currentColor" /></svg>
-      </span>
-      <span class="video-note">Intro video coming soon</span>
-    </div>
-
-    <h2 class="section-title skills-title">Skills</h2>
-    <ul class="skills" aria-label="Skills">
-      {skills.map((s) => (
-        <li>
-          <a href={url(s.href)}>
-            <span class="thumb">
-              {s.img
-                ? <Image src={s.img} alt="" widths={[240, 480]} sizes="(max-width: 799px) 50vw, 240px" format="webp" style={s.pos ? `object-position:${s.pos}` : undefined} />
-                : <img src={url(s.anim!)} alt="" loading="lazy" />}
-            </span>
-            <span class="copy">
-              <span class="skill">{s.skill}</span>
-            </span>
-          </a>
-        </li>
-      ))}
-    </ul>
-  </section>
-
-  <section class="wrap work" aria-labelledby="my-work" data-view="grid">
-    <div class="work-head">
-      <h2 id="my-work" class="section-title">Work</h2>
-      <div class="toggle glass" role="group" aria-label="Layout">
-        <button type="button" data-set-view="grid" aria-pressed="true" aria-label="Grid view">
-          <img src={gridIcon.src} alt="" width="20" height="18" />
-        </button>
-        <button type="button" data-set-view="table" aria-pressed="false" aria-label="Table view">
-          <img src={tableIcon.src} alt="" width="20" height="16" />
-        </button>
+<Base title="Jeremy Hamann - Senior Product Designer" description="Senior Product Designer in fintech and AI. Watch the intro, browse case studies, and get in touch.">
+  <div class="wrap watch">
+    <div class="primary">
+      <!-- Placeholder until the intro video is ready: swap this div for a <video> or embed. -->
+      <div class="video" role="img" aria-label="Intro video coming soon">
+        <span class="play" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5.5v13l11-6.5z" fill="currentColor" /></svg>
+        </span>
+        <span class="video-note">Intro video coming soon</span>
       </div>
-    </div>
 
-    <div class="grid glass">
-      {projects.map((p) => <div class="cell"><WorkCard project={p} /></div>)}
-    </div>
+      <h1 class="video-title">Jeremy Hamann - Senior Product Designer</h1>
 
-    <div class="table-wrap glass">
-      <table>
-        <thead>
-          <tr><th scope="col">Project</th><th scope="col">Company</th><th scope="col">Result</th><th scope="col">Field</th><th scope="col"><span class="visually-hidden">Link</span></th></tr>
-        </thead>
-        <tbody>
-          {tableRows.map((p) => (
-            <tr>
-              <th scope="row">{p.title}</th>
-              <td><CompanyLogo company={p.company} label={p.byline} link={false} /></td>
-              <td>{p.outcome}</td>
-              <td>{p.field}</td>
-              <td>
-                <a class="btn" href={url(`/${p.slug}`)}>
-                  View Project <img src={arrow.src} alt="" width="16" height="16" />
-                  <span class="visually-hidden">: {p.title}</span>
-                </a>
-              </td>
-            </tr>
+      <div class="channel-row">
+        <div class="channel">
+          <Image src={portrait} alt="" width={40} height={40} densities={[1, 2]} class="avatar" loading="eager" />
+          <div class="channel-text">
+            <span class="channel-name">Jeremy Hamann</span>
+            <span class="channel-sub">Senior Product Designer at Communify</span>
+          </div>
+          <div class="contact-btns">
+            {telHref && <a class="pill-btn solid" href={telHref}>Call</a>}
+            <a class="pill-btn solid" href={`mailto:${contact.email}`}>Email</a>
+          </div>
+        </div>
+        <div class="actions">
+          <a class="pill-btn soft" href={url(contact.resumePdf)} target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Resume
+          </a>
+          <a class="pill-btn soft" href={contact.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+
+      <section class="description" aria-label="About">
+        <p class="desc-meta">6+ years · Fintech & AI · Bank of America, Merrill, Charles Schwab, CommSec, Edward Jones</p>
+        <p>I design products that people and institutions trust with their most sensitive assets and data. I lead design from research to launch, and lately that includes AI. Before design, I was a mental health counselor, and I bring that same empathy to every team I work with.</p>
+      </section>
+
+      <section class="comments" aria-labelledby="skills-heading">
+        <h2 id="skills-heading" class="comments-count">{skills.length} Skills</h2>
+        <ol class="comment-list">
+          {skills.map((s) => (
+            <li class="comment">
+              <Image src={s.img} alt="" width={40} height={40} densities={[1, 2]} fit="cover" class="comment-avatar" />
+              <div class="comment-body">
+                <p class="comment-head"><span class="handle">@{s.skill}</span> <span class="comment-meta">· {s.project}</span></p>
+                <p class="comment-text">{s.body}</p>
+                <a class="comment-link" href={url(s.href)}>View case study</a>
+              </div>
+            </li>
           ))}
-        </tbody>
-      </table>
+        </ol>
+      </section>
     </div>
-  </section>
 
-  <ContactCTA />
+    <aside class="secondary" aria-labelledby="work-heading">
+      <h2 id="work-heading" class="visually-hidden">Work</h2>
+      <div class="chips" role="group" aria-label="Filter projects">
+        {filters.map((f, i) => (
+          <button type="button" class="chip" data-filter={f} aria-pressed={i === 0 ? 'true' : 'false'}>{f}</button>
+        ))}
+      </div>
+      <ul class="up-next">
+        {projects.map((p) => (
+          <li data-tags={[...p.tags, p.field].join('|')}>
+            <a class="next-item" href={url(`/${p.slug}`)}>
+              <span class="thumb">
+                <Image src={p.card} alt="" widths={[200, 400]} sizes="(max-width: 999px) 40vw, 168px" format="webp" />
+                <span class="badge">{p.date.match(/\d{4}/g)?.at(-1)}</span>
+              </span>
+              <span class="next-text">
+                <span class="next-title">{p.title}</span>
+                <span class="next-meta">{p.byline}</span>
+                <span class="next-meta">{p.outcome.split(' · ')[0]}</span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </aside>
+  </div>
 </Base>
 
 <script>
-  const section = document.querySelector<HTMLElement>('.work');
-  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-set-view]');
-  const KEY = 'work-view';
-  function apply(view: string, persist = true) {
-    if (!section) return;
-    const v = view === 'table' ? 'table' : 'grid';
-    section.dataset.view = v;
-    buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.setView === v)));
-    if (!persist) return;
-    try { localStorage.setItem(KEY, v); } catch {}
-    const u = new URL(location.href);
-    if (v === 'table') u.searchParams.set('view', 'table'); else u.searchParams.delete('view');
-    history.replaceState(null, '', u);
-  }
-  const fromUrl = new URLSearchParams(location.search).get('view');
-  let stored: string | null = null;
-  try { stored = localStorage.getItem(KEY); } catch {}
-  apply(fromUrl ?? stored ?? 'grid', Boolean(fromUrl));
-  buttons.forEach((b) => b.addEventListener('click', () => apply(b.dataset.setView!)));
+  const chips = document.querySelectorAll<HTMLButtonElement>('.chip');
+  const items = document.querySelectorAll<HTMLElement>('.up-next li');
+  chips.forEach((chip) =>
+    chip.addEventListener('click', () => {
+      const f = chip.dataset.filter!;
+      chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
+      items.forEach((li) => {
+        const tags = li.dataset.tags!.toLowerCase();
+        li.hidden = f !== 'All' && !tags.includes(f.toLowerCase());
+      });
+    }),
+  );
 </script>
 
 <style>
-  .intro {
-    display: grid;
-    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
-    grid-template-areas: 'hello skills-title' 'video skills';
-    column-gap: 36px; row-gap: 16px;
-    padding-block: 12px 48px;
-  }
-  h1 { grid-area: hello; font-size: var(--fs-display-xl); font-weight: 700; line-height: 1; align-self: end; }
-  .section-title { font-size: 24px; font-weight: 400; }
-  .skills-title { grid-area: skills-title; align-self: end; line-height: 1; padding-bottom: 6px; }
+  .watch { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 24px; padding-block: 0 48px; align-items: start; }
+  .primary { display: grid; gap: 12px; min-width: 0; }
 
-  .video { grid-area: video; position: relative; aspect-ratio: 16 / 9; background: var(--panel-glass); display: grid; place-items: center; overflow: hidden; }
+  .video { position: relative; aspect-ratio: 16 / 9; background: var(--panel-glass); display: grid; place-items: center; overflow: hidden; }
   .play { width: 72px; height: 72px; border-radius: 50%; border: 2px solid var(--ink); display: grid; place-items: center; padding-left: 4px; color: var(--ink); background: var(--panel); }
   .video-note { position: absolute; bottom: 12px; left: 16px; font-size: 12px; font-weight: 400; opacity: 0.7; }
 
-  /* Same height as the video: the grid row is sized by the video, the cards fill it. */
-  .skills { grid-area: skills; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, minmax(0, 1fr)); gap: 12px; min-height: 0; contain: size; }
-  .skills li { min-height: 0; }
-  .skills a { display: grid; grid-template-rows: 2fr 1fr; height: 100%; overflow: hidden; background: var(--panel); text-decoration: none; transition: background 0.15s, color 0.15s; }
-  .thumb { position: relative; overflow: hidden; background: var(--surface); min-height: 0; }
-  .thumb :global(img), .thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform 0.3s ease; }
-  .copy { display: grid; align-content: center; gap: 2px; padding: 6px 10px; min-height: 0; overflow: hidden; }
-  .skills a:hover, .skills a:focus-visible { background: var(--ink); color: var(--on-ink); }
-  .skills a:hover .thumb :global(img), .skills a:hover .thumb img { transform: scale(1.05); }
-  @media (prefers-reduced-motion: reduce) { .thumb :global(img), .thumb img { transition: none; } }
-  .skill { font-size: 14px; font-weight: 600; line-height: 1.15; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .video-title { font-size: 20px; font-weight: 700; line-height: 1.3; margin-top: 4px; }
 
-  .work { padding-bottom: 48px; }
-  .work-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-  .toggle { display: flex; }
-  .toggle button { width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid transparent; background: none; cursor: pointer; opacity: 0.45; }
-  .toggle button[aria-pressed='true'] { border-color: var(--border); opacity: 1; }
+  .channel-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; }
+  .channel { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+  .channel-text { display: grid; line-height: 1.25; margin-right: 12px; }
+  .channel-name { font-size: 16px; font-weight: 600; }
+  .channel-sub { font-size: 12px; font-weight: 300; }
+  .contact-btns, .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .pill-btn { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 16px; font-size: 14px; font-weight: 500; text-decoration: none; white-space: nowrap; }
+  .pill-btn.solid { background: var(--ink); color: var(--on-ink); }
+  .pill-btn.soft { background: var(--panel); color: var(--ink); }
+  .pill-btn:hover { text-decoration: none; filter: brightness(0.94); }
+  .pill-btn.solid:hover { filter: brightness(1.2); }
 
-  .grid { display: grid; grid-template-columns: 1fr 1fr; }
-  .cell { padding: 36px; border-bottom: 1px solid var(--border); }
-  .cell:nth-child(odd) { border-right: 1px solid var(--border); }
-  .cell:nth-last-child(-n + 2) { border-bottom: 0; }
+  .description { background: var(--panel-glass); padding: 12px 14px; display: grid; gap: 6px; font-size: 14px; }
+  .desc-meta { font-weight: 600; }
 
-  .table-wrap { display: none; overflow-x: auto; }
-  .work[data-view='table'] .grid { display: none; }
-  .work[data-view='table'] .table-wrap { display: block; }
-  table { width: 100%; border-collapse: collapse; font-size: 14px; }
-  th, td { text-align: left; padding: 16px; border-bottom: 1px solid var(--border-soft); vertical-align: middle; }
-  thead th { font-weight: 700; }
-  tbody th { font-weight: 500; font-size: 16px; }
-  td:last-child { text-align: right; }
+  .comments { margin-top: 16px; display: grid; gap: 20px; }
+  .comments-count { font-size: 20px; font-weight: 700; }
+  .comment-list { display: grid; gap: 20px; }
+  .comment { display: grid; grid-template-columns: 40px 1fr; gap: 14px; align-items: start; }
+  .comment-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; background: var(--panel); }
+  .comment-body { display: grid; gap: 4px; }
+  .comment-head { font-size: 13px; }
+  .handle { font-weight: 600; }
+  .comment-meta { font-weight: 300; }
+  .comment-text { font-size: 14px; font-weight: 300; max-width: 720px; }
+  .comment-link { font-size: 13px; font-weight: 600; justify-self: start; margin-top: 2px; }
 
-  @media (max-width: 1000px) {
-    .intro { grid-template-columns: 1fr; grid-template-areas: 'hello' 'video' 'skills-title' 'skills'; }
-    .skills-title { margin-top: 20px; }
-    .skills { grid-template-columns: repeat(3, 1fr); grid-template-rows: none; contain: none; }
-    .skills a { grid-template-rows: 110px auto; }
-    .copy { padding: 8px 10px; }
-    .skill { white-space: normal; }
+  .secondary { display: grid; gap: 12px; min-width: 0; }
+  .chips { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+  .chip { flex: none; height: 32px; padding: 0 12px; border: 0; background: var(--panel); color: var(--ink); font: inherit; font-size: 14px; font-weight: 500; cursor: pointer; }
+  .chip[aria-pressed='true'] { background: var(--ink); color: var(--on-ink); }
+  .up-next { display: grid; gap: 8px; }
+  .up-next li[hidden] { display: none; }
+  .next-item { display: grid; grid-template-columns: 168px 1fr; gap: 8px; text-decoration: none; }
+  .next-item:hover .next-title { text-decoration: underline; }
+  .thumb { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: var(--panel); }
+  .thumb :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+  .next-item:hover .thumb :global(img) { transform: scale(1.04); }
+  @media (prefers-reduced-motion: reduce) { .thumb :global(img) { transition: none; } }
+  .badge { position: absolute; right: 4px; bottom: 4px; background: rgb(59 65 78 / 0.85); color: var(--on-ink); font-size: 12px; font-weight: 500; padding: 1px 4px; }
+  .next-text { display: grid; gap: 2px; align-content: start; min-width: 0; }
+  .next-title { font-size: 14px; font-weight: 600; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .next-meta { font-size: 12px; font-weight: 300; }
+
+  /* Narrow screens: video, title and actions, then work, then skills. */
+  @media (max-width: 999px) {
+    .watch { grid-template-columns: 1fr; }
+    .primary { display: contents; }
+    .video, .video-title, .channel-row, .description { order: 0; }
+    .secondary { order: 1; margin-top: 12px; }
+    .comments { order: 2; }
   }
   @media (max-width: 799px) {
-    .skills { grid-template-columns: 1fr 1fr; }
+    .watch { padding-top: 0; }
+    .next-item { grid-template-columns: 40% 1fr; }
     .play { width: 56px; height: 56px; }
-    .grid { grid-template-columns: 1fr; }
-    .cell { padding: 24px 16px; border-right: 0 !important; border-bottom: 1px solid var(--border) !important; }
-    .cell:last-child { border-bottom: 0 !important; }
-    table, thead, tbody, tr, th, td { display: block; }
-    thead { display: none; }
-    tr { padding: 16px; border-bottom: 1px solid var(--border-soft); display: grid; gap: 8px; }
-    th, td { padding: 0; border: 0; }
-    td:last-child { text-align: left; margin-top: 4px; }
   }
 </style>

@@ -141,4 +141,6 @@ export const contact = {
   instagram: 'https://www.instagram.com/jeremyhamann.art/',
   medium: 'https://medium.com/@jeremyhamann87',
   resumePdf: '/Jeremy-Hamann-Resume.pdf',
+  /** Digits only with country code, e.g. '+15125550123'. The Call button stays hidden while this is empty. */
+  phone: '',
 };
