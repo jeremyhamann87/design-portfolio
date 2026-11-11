@@ -23,6 +23,7 @@
   --hero-advisor: #b0e9da;
   --hero-notetaker: #bcb0ff;
   --hero-schwab: #f8fcff;
+  --hero-schwab-reports: #efd1c8;
 
   /* Type */
   --font: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
@@ -76,6 +77,7 @@
   --hero-advisor: #17322b;
   --hero-notetaker: #25203f;
   --hero-schwab: #1a2a3a;
+  --hero-schwab-reports: #3a231e;
   color-scheme: dark;
 }
 
