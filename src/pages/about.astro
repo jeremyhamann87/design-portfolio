@@ -11,9 +11,13 @@ import iLinkedin from '../assets/icons/contact-linkedin.svg';
 import iArt from '../assets/icons/contact-art.svg';
 import iInstagram from '../assets/icons/contact-instagram.svg';
 import iMedium from '../assets/icons/contact-medium.svg';
+import iPhone from '../assets/icons/contact-phone.svg';
+import iLocation from '../assets/icons/contact-location.svg';
 
 const rows = [
   { icon: iEmail, label: 'Email', value: contact.email, href: `mailto:${contact.email}` },
+  { icon: iPhone, label: 'Phone', value: contact.phoneDisplay, href: `tel:${contact.phone}` },
+  { icon: iLocation, label: 'Location', value: contact.location, href: '' },
   { icon: iLinkedin, label: 'LinkedIn', value: 'Jeremy Hamann', href: contact.linkedin },
   { icon: iArt, label: 'Art Portfolio', value: 'www.jeremyhamann.com', href: contact.art },
   { icon: iInstagram, label: 'Instagram', value: '@jeremyhamann.art', href: contact.instagram },
@@ -25,21 +29,40 @@ const photos = [p1, p2, p3, p4];
   <div class="wrap about">
     <div class="intro">
       <h1>Hi, I'm Jeremy</h1>
-      <p>
-        I’m a Senior Product Designer at Communify. I design end-to-end experiences for financial advisors and their
-        clients, work that's helped close multi-million dollar client relationships and scaled design systems across a
-        growing product line. Before design, I was a mental health counselor, and I bring that same empathy to every
-        financial product I build. I believe personal finance is pivotal to life success, and that's the story behind
-        everything you'll see here.
-      </p>
+      <div class="bio">
+        <p>
+          I’m a Senior Product Designer at Communify. I design end-to-end experiences for financial advisors and their
+          clients, work that's helped close multi-million dollar client relationships and scaled design systems across a
+          growing product line. I believe personal finance is pivotal to life success, and that's the story behind
+          everything you'll see here.
+        </p>
+        <p>
+          Before design, I was a mental health counselor with master’s-level training in communication styles, empathy
+          and conflict resolution. That’s what makes me a different kind of designer. I listen for what people actually
+          need, I stay steady in hard conversations with stakeholders, and I help teams work through disagreement instead
+          of around it.
+        </p>
+        <p>
+          Outside of work, I’m a dad to two little girls. I love being outside, running, working out, painting, doing yoga
+          and reading science fiction.
+        </p>
+      </div>
       <ul class="contact">
         {rows.map((r) => (
           <li>
-            <a class="glass" href={r.href} target={r.href.startsWith('mailto') ? undefined : '_blank'} rel="noopener">
-              <img src={r.icon.src} alt="" width="40" height="40" />
-              <span class="lbl">{r.label}</span>
-              <span class="val">{r.value}</span>
-            </a>
+            {r.href ? (
+              <a class="glass" href={r.href} target={/^(mailto|tel):/.test(r.href) ? undefined : '_blank'} rel="noopener">
+                <span class="mask-icon cicon" style={`--icon:url(${r.icon.src})`} aria-hidden="true"></span>
+                <span class="lbl">{r.label}</span>
+                <span class="val">{r.value}</span>
+              </a>
+            ) : (
+              <div class="glass row">
+                <span class="mask-icon cicon" style={`--icon:url(${r.icon.src})`} aria-hidden="true"></span>
+                <span class="lbl">{r.label}</span>
+                <span class="val">{r.value}</span>
+              </div>
+            )}
           </li>
         ))}
       </ul>
@@ -57,9 +80,10 @@ const photos = [p1, p2, p3, p4];
   .intro { display: grid; gap: 24px; }
   h1 { font-size: var(--fs-display-xl); font-weight: 700; line-height: 1.1; }
   .contact { display: grid; gap: 8px; }
-  .contact a { display: grid; grid-template-columns: 40px 1fr auto; align-items: center; gap: 16px; padding: 12px 16px; text-decoration: none; }
+  .bio { display: grid; gap: 12px; }
+  .contact a, .contact .row { display: grid; grid-template-columns: 40px 1fr auto; align-items: center; gap: 16px; padding: 12px 16px; text-decoration: none; }
   .contact a:hover .val { text-decoration: underline; }
-  .contact img { width: 40px; height: 40px; }
+  .contact .cicon { width: 28px; height: 28px; justify-self: center; }
   .lbl { font-size: 12px; font-weight: 200; }
   .val { font-weight: 400; }
   .photos { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -67,9 +91,9 @@ const photos = [p1, p2, p3, p4];
   @media (max-width: 1100px) { .about { --gutter: 36px; grid-template-columns: 1fr 360px; } }
   @media (max-width: 799px) {
     .about { --gutter: 16px; grid-template-columns: 1fr; }
-    .contact a { grid-template-columns: 40px 1fr; }
+    .contact a, .contact .row { grid-template-columns: 40px 1fr; }
     .val { grid-column: 2; }
     .lbl { grid-row: 1; grid-column: 2; }
-    .contact img { grid-row: span 2; }
+    .contact .cicon { grid-row: span 2; }
   }
 </style>

@@ -20,6 +20,7 @@ const skills = [
   { skill: 'Design systems', body: 'Built a new MUI-based system for Australia’s largest online broker, with modules that work on any platform or theme.', href: '/project-2-commsec', img: imgSystem, project: 'CommSec markets research' },
   { skill: 'Research & testing', body: 'Ran dozens of test rounds with Schwab clients and advisors, then used affinity mapping to turn findings into layout changes.', href: '/project-6-schwab-reports', img: imgResearch, project: 'Schwab managed account reports' },
   { skill: 'Responsive design', body: 'Wrote the responsive rules for 30+ data-heavy trading modules and took Schwab’s research section from beta to production.', href: '/project-5-schwab-trading', img: imgResponsive, project: 'Schwab trading platform' },
+  { skill: 'Counseling & communication', body: 'Trained to a master’s level as a counselor, with hands-on experience in communication styles, empathy and conflict resolution. I bring that to every design team as a steady, collaborative teammate who helps people feel heard.', project: 'Master’s-level training' },
 ];
 
 const telHref = contact.phone ? `tel:${contact.phone.replace(/[^+\d]/g, '')}` : '';
@@ -68,11 +69,17 @@ const telHref = contact.phone ? `tel:${contact.phone.replace(/[^+\d]/g, '')}` : 
         <ol class="comment-list">
           {skills.map((s) => (
             <li class="comment">
-              <Image src={s.img} alt="" width={40} height={40} densities={[1, 2]} fit="cover" class="comment-avatar" />
+              {s.img ? (
+                <Image src={s.img} alt="" width={40} height={40} densities={[1, 2]} fit="cover" class="comment-avatar" />
+              ) : (
+                <span class="comment-avatar icon-avatar" aria-hidden="true">
+                  <svg viewBox="0 -960 960 960" width="22" height="22"><path fill="currentColor" d="M260-100v-161q-57-52-88.5-119T140-520q0-142 99-241t241-99q117 0 208.5 69.5T808-610l46 185q5 17-6 31t-29 14h-79v128q0 30-21 51t-51 21h-88v80h-60v-140h148q5 0 8.5-3.5t3.5-8.5v-188h108l-38-155q-23-91-98.5-148T480-800q-116 0-198 81t-82 197q0 60 24.5 114T294-312l26 24v188h-60Z"/></svg>
+                </span>
+              )}
               <div class="comment-body">
                 <p class="comment-head"><span class="handle">@{s.skill}</span> <span class="comment-meta">· {s.project}</span></p>
                 <p class="comment-text">{s.body}</p>
-                <a class="comment-link" href={url(s.href)}>View case study</a>
+                {s.href && <a class="comment-link" href={url(s.href)}>View case study</a>}
               </div>
             </li>
           ))}
@@ -135,6 +142,7 @@ const telHref = contact.phone ? `tel:${contact.phone.replace(/[^+\d]/g, '')}` : 
   .comments-count { font-size: 20px; font-weight: 700; }
   .comment-list { display: grid; gap: 20px; }
   .comment { display: grid; grid-template-columns: 40px 1fr; gap: 14px; align-items: start; }
+  .icon-avatar { display: grid; place-items: center; background: var(--ink) !important; color: var(--on-ink); }
   .comment-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; background: var(--panel); }
   .comment-body { display: grid; gap: 4px; }
   .comment-head { font-size: 13px; }

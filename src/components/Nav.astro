@@ -7,16 +7,16 @@ import { contact } from '../data/projects';
 
 const path = Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$/, ''), '') || '/';
 const links = [
-  { label: 'Work', href: '/' },
+  { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
-  { label: 'Resume', href: '/resume' },
 ];
+const resumeHref = url(contact.resumePdf);
 const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
 ---
 <header class="nav">
   <div class="wrap bar">
     <a class="brand" href={url('/')}>
-      <img src={smiley.src} alt="" width="31" height="29" />
+      <img class="ink-img" src={smiley.src} alt="" width="31" height="29" />
       <span>Jeremy Hamann</span>
     </a>
     <nav aria-label="Main">
@@ -25,22 +25,33 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
           <li><a href={url(l.href)} aria-current={isCurrent(l.href) ? 'page' : undefined}>{l.label}</a></li>
         ))}
         <li>
+          <a href={resumeHref} download="Jeremy-Hamann-Resume.pdf" class="ext">Resume <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </li>
+        <li>
           <a href={contact.art} target="_blank" rel="noopener" class="ext">
             Fine Arts <span class="mask-icon" style={`--icon:url(${external.src})`} aria-hidden="true"></span>
             <span class="visually-hidden">(opens in a new tab)</span>
           </a>
         </li>
+        <li><div class="theme-toggle" role="group" aria-label="Color theme">
+  <button type="button" data-set-theme="light" aria-label="Light mode">
+    <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.5 1.5M17.2 17.2l1.5 1.5M5.3 18.7l1.5-1.5M17.2 6.8l1.5-1.5"/></g></svg>
+  </button>
+  <button type="button" data-set-theme="dark" aria-label="Dark mode">
+    <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M20.5 14.6A8.6 8.6 0 0 1 9.4 3.5a8.6 8.6 0 1 0 11.1 11.1z" fill="currentColor"/></svg>
+  </button>
+</div></li>
       </ul>
     </nav>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
-      <img src={menu.src} alt="" width="24" height="24" />
+      <img class="ink-img" src={menu.src} alt="" width="24" height="24" />
     </button>
   </div>
 
   <div id="mobile-menu" class="mobile-menu" hidden>
     <div class="wrap bar">
       <a class="brand" href={url('/')}>
-        <img src={smiley.src} alt="" width="31" height="29" />
+        <img class="ink-img" src={smiley.src} alt="" width="31" height="29" />
         <span>Jeremy Hamann</span>
       </a>
       <button class="close-btn" type="button" aria-label="Close menu">
@@ -52,7 +63,21 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
         {links.map((l) => (
           <li><a href={url(l.href)} aria-current={isCurrent(l.href) ? 'page' : undefined}>{l.label}</a></li>
         ))}
-        <li><a href={contact.art} target="_blank" rel="noopener">Fine Arts</a></li>
+        <li><a href={resumeHref} download="Jeremy-Hamann-Resume.pdf" class="ext">Resume <svg viewBox="0 0 24 24" width="36" height="36" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+        <li>
+          <a href={contact.art} target="_blank" rel="noopener" class="ext">
+            Fine Arts <span class="mask-icon big" style={`--icon:url(${external.src})`} aria-hidden="true"></span>
+            <span class="visually-hidden">(opens in a new tab)</span>
+          </a>
+        </li>
+        <li class="mobile-toggle"><div class="theme-toggle" role="group" aria-label="Color theme">
+  <button type="button" data-set-theme="light" aria-label="Light mode">
+    <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.5 1.5M17.2 17.2l1.5 1.5M5.3 18.7l1.5-1.5M17.2 6.8l1.5-1.5"/></g></svg>
+  </button>
+  <button type="button" data-set-theme="dark" aria-label="Dark mode">
+    <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M20.5 14.6A8.6 8.6 0 0 1 9.4 3.5a8.6 8.6 0 1 0 11.1 11.1z" fill="currentColor"/></svg>
+  </button>
+</div></li>
       </ul>
     </nav>
   </div>
@@ -72,6 +97,17 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
   btn?.addEventListener('click', () => setOpen(true));
   close?.addEventListener('click', () => setOpen(false));
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menuEl && !menuEl.hidden) setOpen(false); });
+  // Theme toggle: remember the choice and mark the active button.
+  const root = document.documentElement;
+  function syncTheme() {
+    document.querySelectorAll<HTMLButtonElement>('[data-set-theme]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.setTheme === root.dataset.theme)));
+  }
+  document.querySelectorAll<HTMLButtonElement>('[data-set-theme]').forEach((b) => b.addEventListener('click', () => {
+    root.dataset.theme = b.dataset.setTheme;
+    try { localStorage.setItem('theme', b.dataset.setTheme!); } catch (e) {}
+    syncTheme();
+  }));
+  syncTheme();
   window.matchMedia('(min-width: 800px)').addEventListener('change', (e) => { if (e.matches) setOpen(false); });
 </script>
 
@@ -79,12 +115,17 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
   .nav { position: relative; z-index: 10; }
   .bar { display: flex; align-items: center; justify-content: space-between; padding-block: 36px; }
   .brand { display: inline-flex; align-items: center; gap: 12px; font-size: 24px; font-weight: 400; text-decoration: none; }
-  .links { display: flex; gap: 36px; font-weight: 400; }
+  .links { display: flex; align-items: center; gap: 36px; font-weight: 400; }
+  .theme-toggle { display: inline-flex; gap: 4px; }
+  .theme-toggle button { width: 24px; height: 24px; border-radius: 50%; border: 0; padding: 0; display: grid; place-items: center; background: transparent; color: var(--ink); cursor: pointer; }
+  .theme-toggle button[aria-pressed='true'] { background: var(--ink); color: var(--on-ink); }
+  .mobile-toggle { padding-top: 8px; }
+  .mask-icon.big { width: 32px; height: 34px; }
   .links a[aria-current='page'] { text-decoration-thickness: 2px; }
   .ext { display: inline-flex; align-items: center; gap: 4px; }
   .ext .mask-icon { width: 16px; height: 17px; }
   .menu-btn, .close-btn { display: none; background: none; border: 0; padding: 4px; cursor: pointer; color: var(--ink); }
-  .mobile-menu { position: fixed; inset: 0; background: linear-gradient(rgb(255 255 255 / 0.75), rgb(255 255 255 / 0.75)), var(--bg-image) center / cover, var(--surface); overflow: auto; }
+  .mobile-menu { position: fixed; inset: 0; background: linear-gradient(var(--menu-veil), var(--menu-veil)), var(--bg-image) center / cover, var(--surface); overflow: auto; }
   .mobile-menu .close-btn { display: block; }
   .mobile-links { display: flex; flex-direction: column; gap: 24px; padding-top: 24px; }
   .mobile-links a { font-size: 48px; font-weight: 200; }

@@ -11,6 +11,12 @@
   --panel-glass: rgb(248 252 255 / 0.5);
   --border: #d9d9d9;
   --border-soft: #e4e7ec;
+  /* Dark sections (feature bands, contact CTA) stay dark in both themes. */
+  --inverse: #3b414e;
+  --on-inverse: #ffffff;
+  --menu-veil: rgb(255 255 255 / 0.75);
+  --noise-opacity: 0.25;
+  color-scheme: light;
 
   --hero-seven-post: #f4efdb;
   --hero-commsec: #f3f3f3;
@@ -49,6 +55,28 @@
   --r-sm: 0;
   --r-md: 0;
   --r-pill: 0;
+}
+
+/* Dark theme: set by the nav toggle (data-theme on <html>), defaulting to the OS preference. */
+:root[data-theme='dark'] {
+  --ink: #e6e9ef;
+  --ink-strong: #f2f2f2;
+  --on-ink: #121519;
+  --surface: #121519;
+  --panel: #1c2029;
+  --panel-glass: rgb(28 32 41 / 0.6);
+  --border: #363c48;
+  --border-soft: #2c313c;
+  --inverse: #262b36;
+  --on-inverse: #f8fcff;
+  --menu-veil: rgb(18 21 25 / 0.88);
+  --noise-opacity: 0.12;
+  --hero-seven-post: #2a2719;
+  --hero-commsec: #22252b;
+  --hero-advisor: #17322b;
+  --hero-notetaker: #25203f;
+  --hero-schwab: #1a2a3a;
+  color-scheme: dark;
 }
 
 @media (max-width: 1100px) {
@@ -90,7 +118,7 @@ body::before {
   inset: 0;
   z-index: -1;
   background: var(--bg-image) center / cover no-repeat;
-  opacity: 0.25;
+  opacity: var(--noise-opacity);
   pointer-events: none;
 }
 
@@ -154,3 +182,6 @@ ul, ol { padding: 0; list-style: none; }
   -webkit-mask: var(--icon) center / contain no-repeat;
   mask: var(--icon) center / contain no-repeat;
 }
+
+/* Single-colour ink icons loaded as <img> (brand smiley, menu) follow the theme. */
+:root[data-theme='dark'] .ink-img { filter: invert(0.92); }

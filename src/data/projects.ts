@@ -142,5 +142,7 @@ export const contact = {
   medium: 'https://medium.com/@jeremyhamann87',
   resumePdf: '/Jeremy-Hamann-Resume.pdf',
   /** Digits only with country code, e.g. '+15125550123'. The Call button stays hidden while this is empty. */
-  phone: '',
+  phone: '+15125450695',
+  phoneDisplay: '512-545-0695',
+  location: 'Longmont, Colorado',
 };
