@@ -3,7 +3,7 @@ import type { ImageMetadata } from 'astro';
 import sevenPostCard from '../assets/cards/seven-post.png';
 import commsecCard from '../assets/cards/commsec.png';
 import notetakerCard from '../assets/cards/ai-notetaker.png';
-import advisorCard from '../assets/cards/advisor-portal.png';
+import maiCard from '../assets/cards/mai-advisor-portal.png';
 import schwabTradingCard from '../assets/cards/schwab-trading.png';
 import schwabReportsCard from '../assets/cards/schwab-reports.png';
 import aiDocsCard from '../assets/cards/ai-docs.png';
@@ -105,20 +105,20 @@ export const projects: Project[] = [
     blurb: 'New AI product line, configurable for any advisory client. Lead Product Design.',
   },
   {
-    slug: 'project-3-advisor-dashboard',
-    title: 'Client-Relationship Advisor Portal',
+    slug: 'project-3-mai-advisor-portal',
+    title: 'AI-Driven Advisor Portal for MAI Capital Management',
     description:
-      'Led design of the advisor workspace for managing client relationships on Communify’s advisory platform.',
+      'Led design of a fully revamped, AI-driven advisor portal for an $80B wealth manager, and built the 100+ screen prototype the whole deal team presented from.',
     company: 'communify',
     role: 'Lead Product Design',
-    tags: ['Lead Product Design', 'Fintech', 'Figma'],
-    field: 'Fintech',
-    date: 'September 2025',
-    card: advisorCard,
+    tags: ['Lead Product Design', 'Prototyping', 'Fintech', 'AI', 'Figma'],
+    field: 'Prototyping, Fintech, AI',
+    date: '2025 - 2026',
+    card: maiCard,
     byline: 'Communify',
-    outcome: 'Relationship-first dashboard refresh, delivered in days',
-    featured: false,
-    blurb: 'Relationship-first dashboard refresh, delivered in days. Lead Product Design.',
+    outcome: '$80.4B wealth manager · 100+ screen prototype · 2,300+ interactions',
+    featured: true,
+    blurb: 'One of Communify’s largest deals. A 100+ screen prototype with 2,300+ interactions. Lead Product Design & Prototyping.',
   },
   {
     slug: 'project-5-schwab-trading',
@@ -154,7 +154,7 @@ export const projects: Project[] = [
 ];
 
 /** Order of the home "My Work" list, matching the Figma design. */
-export const homeOrder = ['project-7-ai-design-documentation','project-4-ai-notetaker','project-1-seven-post-client-portal','project-2-commsec','project-3-advisor-dashboard','project-5-schwab-trading','project-6-schwab-reports'];
+export const homeOrder = ['project-7-ai-design-documentation','project-4-ai-notetaker','project-1-seven-post-client-portal','project-2-commsec','project-3-mai-advisor-portal','project-5-schwab-trading','project-6-schwab-reports'];
 
 export function getProject(slug: string): Project {
   const p = projects.find((x) => x.slug === slug);
