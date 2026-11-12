@@ -1,0 +1,160 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import CaseHero from '../components/CaseHero.astro';
+import Section from '../components/Section.astro';
+import KPIs from '../components/KPIs.astro';
+import Feature from '../components/Feature.astro';
+import Step from '../components/Step.astro';
+import Figure from '../components/Figure.astro';
+import RoleLists from '../components/RoleLists.astro';
+import KeyDecisions from '../components/KeyDecisions.astro';
+import MoreWork from '../components/MoreWork.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+import { getProject } from '../data/projects';
+import hero from '../assets/mai/hero.png';
+import grid from '../assets/mai/screens-grid.png';
+import fullDash from '../assets/mai/full-dashboard.png';
+import fDash from '../assets/mai/feature-dashboard.png';
+import fHouseholds from '../assets/mai/feature-households.png';
+import fMoneyMap from '../assets/mai/feature-money-map.png';
+import fPfs from '../assets/mai/feature-pfs.png';
+import fPortfolios from '../assets/mai/feature-portfolios.png';
+import fMeetings from '../assets/mai/feature-meetings.png';
+import fChat from '../assets/mai/feature-ai-chat.png';
+import fDocs from '../assets/mai/feature-documents.png';
+
+const p = getProject('project-3-mai-advisor-portal');
+const prototypeUrl =
+  'https://www.figma.com/proto/gLe52BuXyX4JKNM1jMPzFC/MAI?node-id=22-61534&p=f&viewport=-231%2C97%2C0.03&t=4XksfDY3GsXqLfVj-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=22%3A61534&page-id=0%3A1';
+
+const client = [
+  { term: 'Combined assets', value: '$80.4B', note: '$73.8B under management + $6.6B under advisement, as of June 30, 2026' },
+  { term: 'Headquarters', value: 'Cleveland, Ohio', note: '42+ offices across the United States' },
+  { term: 'Ownership', value: 'Carlyle', note: 'Majority-owned by funds managed by Carlyle, with employees holding a minority stake' },
+];
+
+const steps = [
+  ['Start at the front door', 'The prototype opens on MAI’s branded log in and multi-factor screens, then lands on the advisor’s home dashboard. Every demo starts the way a real advisor’s day does.'],
+  ['Map every journey', 'I organized the file into the portal’s real areas: Home, Clients, Households, Meetings, Money Map, AI Chat, Documents, MAI Insights, Markets & Research, Podcasts and Education. Each one connects to the others, so presenters can follow a client from the dashboard to their household, their statement and their next meeting.'],
+  ['Let components do the work', 'Tabs, toggles and expandable rows are interactive components with their own states, so a click changes the screen in place instead of jumping to a duplicate frame. That keeps the file lean and the clicks believable.'],
+  ['Layer in overlays', 'More than 180 overlays bring in modals, AI stories, ClientScore™ details and the document mapping review on top of the page, the way they will behave in the build.'],
+  ['Keep it presentation ready', 'One starting point and fixed content scaling mean anyone on the team can open the link and present, with no designer in the room. As the designs changed, I kept the prototype current so it stayed the source of truth.'],
+];
+---
+<Base title={`${p.title} | Jeremy Hamann`} description={p.description}>
+  <CaseHero project={p} image={hero} bg="var(--hero-mai)" alt="MAI advisor portal screens: log in, household profile and the advisor dashboard" />
+
+  <div class="light">
+    <Section label="Goals">
+      <p>MAI Capital Management is one of the largest wealth managers in the country, and they wanted a completely revamped digital experience for their advisors. I was the lead product designer from the very beginning. I supported our sales team with marketing and sales materials, created the first designs, and led design all the way through. It’s the most complex AI-driven wealth management suite Communify has designed to date, built on our wealth management product library, and one of the largest deals Communify has ever made.</p>
+      <p>To win and keep that trust, the client had to <em>feel</em> the product long before it was built. So I made the prototype the centerpiece of the project.</p>
+    </Section>
+    <Section label="Results">
+      <KPIs items={[
+        { value: '100+', label: 'Screens In One Prototype', note: 'From log in to household financial statements' },
+        { value: '2,300+', label: 'Prototype Interactions', note: 'Including 180+ overlays and modals' },
+        { value: 'Largest Deal', label: 'In Communify History', note: 'For an $80.4B wealth manager' },
+      ]} />
+    </Section>
+  </div>
+
+  <Section label="About The Client" id="about-client">
+    <dl class="client">
+      {client.map((c) => (
+        <div>
+          <dt>{c.term}</dt>
+          <dd class="value">{c.value}</dd>
+          <dd class="note">{c.note}</dd>
+        </div>
+      ))}
+    </dl>
+    <p class="source">Source: <a href="https://mai.capital/firm/" target="_blank" rel="noopener">mai.capital</a></p>
+  </Section>
+
+  <Section label="The Prototype" id="prototype" tone="dark" intro="I built this prototype as a living tool for our product managers, data experts and business development team. They used it again and again to walk MAI through the designs, so it had to work end to end without me in the room.">
+    <div class="proto">
+      <Figure src={grid} alt="Twelve screens from the MAI advisor portal prototype" sizes="(max-width: 1280px) 100vw, 1080px" />
+      <div class="proto-cta">
+        <a class="btn light" href={prototypeUrl} target="_blank" rel="noopener">Open the live prototype in Figma ↗</a>
+        <p class="hint">Opens in Figma and starts at log in. Best viewed on a desktop.</p>
+      </div>
+    </div>
+  </Section>
+
+  <KeyDecisions items={[
+    { title: 'Build one connected prototype instead of separate demo flows', constraint: 'Product managers, data experts and business development all had to present the vision to MAI, often without a designer in the room.', tradeoff: 'A much bigger file to build and maintain, but every presenter tells the same story, from log in to insight.' },
+    { title: 'Build on our wealth management product library', constraint: 'A completely revamped suite, on the timeline of one of Communify’s largest deals.', tradeoff: 'Less room for one-off visuals, but MAI’s brand sits on proven components, so what the client sees maps straight to what engineering builds.' },
+    { title: 'Keep the prototype alive as the designs changed', constraint: 'The designs kept evolving as the client gave feedback throughout the deal.', tradeoff: 'Ongoing upkeep every time a screen changed, but the prototype was always the current source of truth for demos.' },
+  ]} />
+
+  <Section label="How I Built It" intro="A prototype this size only works if it’s organized like the product itself. These are the principles I built it on.">
+    <div class="steps">
+      {steps.map(([t, d], i) => <Step n={String(i + 1).padStart(2, '0')} title={t}><p>{d}</p></Step>)}
+    </div>
+  </Section>
+
+  <Section label="Key Features" tone="dark" intro="The portal brings an advisor’s whole book together: dashboards, clients, households, accounts, meetings, documents and insights, with AI built into every part and proprietary tools like Money Map.">
+    <Feature eyebrow="Home" title="An advisor’s whole book at a glance" image={fDash} alt="Advisor home dashboard with book totals, ClientScore chart and households">
+      Book totals, a ClientScore™ chart that plots every client by net worth and cash flow, households by priority, AI recommended actions, alerts, market movers and a daily AI podcast briefing.
+    </Feature>
+    <Feature eyebrow="Clients & householding" title="Every relationship in one place" image={fHouseholds} side="right" alt="Household profile with members, asset allocation, accounts and holdings">
+      Households group family members, trusts and foundations, with total AUM, a HouseholdScore™, accounts, transactions, holdings, recent documents and the full client team.
+    </Feature>
+    <Feature eyebrow="Money Map" title="From uploaded documents to a balance sheet" image={fMoneyMap} alt="Money Map document mapping review with confidence scores">
+      Advisors upload statements and AI maps each value to the right asset, liability, income or expense, with a confidence score. The advisor approves, rejects or edits every pair before anything is saved.
+    </Feature>
+    <Feature eyebrow="Personal financial statements" title="Net worth and cash flow, explained" image={fPfs} side="right" alt="Personal financial statement with ClientScore and AI client story">
+      A full personal financial statement for each client or household, with an AI-written client story, ClientScore™ and every category ready to expand, connect or update.
+    </Feature>
+    <Feature eyebrow="Portfolios" title="Deep account detail on demand" image={fPortfolios} alt="Portfolio summary with market value chart and asset class allocation">
+      Market value over time, allocation by asset class, sub-asset class and sector, plus fixed income, equity, performance, gains and losses, tax lots and transactions, with an AI portfolio story.
+    </Feature>
+    <Feature eyebrow="Meetings" title="Prepare, record and recap" image={fMeetings} side="right" alt="Meeting space with an AI proposed agenda">
+      A meeting space with an AI proposed agenda, client summary and pre-meeting email, live recording, then a transcript, outline, to-dos, follow-up email and meeting score.
+    </Feature>
+    <Feature eyebrow="AI chat" title="Ask anything about your book" image={fChat} alt="AI chat answering a request for a client financial summary">
+      An Intelligent Adviser Agent that answers in plain language, like a financial summary of a client with their key data, available from anywhere in the portal.
+    </Feature>
+    <Feature eyebrow="Documents & insights" title="Statements, research and education" image={fDocs} side="right" alt="Documents page with recent documents and a statements table">
+      A document vault for every client and account, plus MAI Insights articles, podcasts, markets research and education content that advisors can share with clients.
+    </Feature>
+  </Section>
+
+  <Section label="The Whole Dashboard" id="whole-dashboard" intro="Here is the advisor home dashboard in all its long-scrolling glory.">
+    <Figure src={fullDash} alt="The full MAI advisor home dashboard" class="full-scroll" sizes="(max-width: 799px) 100vw, 900px" />
+  </Section>
+
+  <Section label="My Role" tone="light">
+    <RoleLists
+      role={['Lead product designer from first sale to build', 'Sales and marketing materials for the pitch', 'First designs for the revamped suite', 'End-to-end interactive prototype', 'Ongoing design and prototype updates']}
+      collaborators={['Product managers', 'Data experts', 'Business development and sales', 'Engineering', 'MAI Capital Management stakeholders']}
+    />
+  </Section>
+
+  <Section label="Outcomes" tone="none">
+    <p>The prototype became the way the whole team talked about the product. Product managers, data experts and business development used it to present to MAI throughout the deal, and it helped land one of the largest deals in Communify’s history. Above all, it shows what I love about prototyping: when people can click through the real thing, the conversation moves from “what if” to “when.”</p>
+    <p><a class="btn" href={prototypeUrl} target="_blank" rel="noopener">Explore the prototype ↗</a></p>
+  </Section>
+
+  <ContactCTA />
+
+  <MoreWork slugs={['project-4-ai-notetaker', 'project-1-seven-post-client-portal']} />
+</Base>
+
+<style>
+  .light { background: var(--panel-glass); padding-block: 12px; }
+  .client { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; margin: 0; }
+  .client > div { display: flex; flex-direction: column; padding-top: 12px; border-top: 2px solid var(--ink); }
+  .client dt { font-weight: 500; margin-top: 4px; }
+  .client .value { order: -1; font-size: var(--fs-display); font-weight: 700; line-height: 1.1; margin: 0; }
+  .client .note { font-size: 14px; font-weight: 300; margin: 4px 0 0; }
+  .source { font-size: 12px; font-weight: 300; }
+  .proto { display: grid; gap: 24px; }
+  .proto-cta { display: grid; gap: 8px; justify-items: start; }
+  .proto-cta .btn { font-size: 18px; padding: 12px 20px; background: var(--on-inverse); color: #3b414e; font-weight: 500; }
+  .hint { font-size: 14px; font-weight: 300; }
+  .steps { display: grid; gap: 8px; }
+  .full-scroll { max-width: 900px; margin-inline: auto; }
+  @media (max-width: 799px) { .client { grid-template-columns: 1fr; gap: 24px; } }
+</style>

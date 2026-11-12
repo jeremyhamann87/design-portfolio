@@ -17,5 +17,7 @@ export default defineConfig({
     // Old Figma Sites pages that are now states of other pages.
     '/home-table-view': withBase('/?view=table'),
     '/mobile-nav': withBase('/'),
+    // The advisor dashboard case study was replaced by the MAI advisor portal.
+    '/project-3-advisor-dashboard': withBase('/project-3-mai-advisor-portal'),
   },
 });
