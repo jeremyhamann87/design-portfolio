@@ -34,7 +34,7 @@ const widths = isStatic ? [480, 800, 1200, 1600, 2400].filter((w) => w <= src.wi
 
 <style>
   .fig { display: grid; gap: 12px; }
-  .fig :global(img) { width: 100%; height: auto; }
+  .fig :global(img) { width: 100%; height: auto; border-radius: var(--r-module); }
   .zoom { display: block; padding: 0; border: 0; background: none; cursor: zoom-in; width: 100%; }
   figcaption { font-size: 14px; font-weight: 300; text-align: center; }
 </style>

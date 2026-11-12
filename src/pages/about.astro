@@ -87,7 +87,7 @@ const photos = [p1, p2, p3, p4];
   .lbl { font-size: 12px; font-weight: 200; }
   .val { font-weight: 400; }
   .photos { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .photos :global(img) { width: 100%; aspect-ratio: 222 / 332; object-fit: cover; }
+  .photos :global(img) { width: 100%; aspect-ratio: 222 / 332; object-fit: cover; border-radius: var(--r-module); }
   @media (max-width: 1100px) { .about { --gutter: 36px; grid-template-columns: 1fr 360px; } }
   @media (max-width: 799px) {
     .about { --gutter: 16px; grid-template-columns: 1fr; }

@@ -113,7 +113,7 @@ const steps = [
   .light { background: var(--panel-glass); padding-block: 12px; }
   .book { display: grid; grid-auto-flow: column; grid-auto-columns: 300px; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; }
   .book figure { scroll-snap-align: start; display: grid; gap: 8px; }
-  .book :global(img) { width: 300px; height: 300px; object-fit: cover; object-position: top; background: #fff; }
+  .book :global(img) { width: 300px; height: 300px; object-fit: cover; object-position: top; background: #fff; border-radius: var(--r-module); }
   .book figcaption { font-size: 13px; font-weight: 400; }
   .steps { display: grid; gap: 8px; }
   .prompt-label { font-weight: 500; }
