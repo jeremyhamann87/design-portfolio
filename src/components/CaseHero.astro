@@ -4,10 +4,10 @@ import type { ImageMetadata } from 'astro';
 import type { Project } from '../data/projects';
 import CompanyLogo from './CompanyLogo.astro';
 
-interface Props { project: Project; image: ImageMetadata; bg: string; alt?: string; full?: boolean }
-const { project: p, image, bg, alt = '', full = false } = Astro.props;
+interface Props { project: Project; image: ImageMetadata; bg: string; alt?: string; full?: boolean; bleed?: boolean }
+const { project: p, image, bg, alt = '', full = false, bleed = false } = Astro.props;
 ---
-<section class:list={['hero', { full }]} style={`--band:${bg}`}>
+<section class:list={['hero', { full, bleed }]} style={`--band:${bg}`}>
   <div class="wrap-case inner">
     <div class="text">
       <h1>{p.title}</h1>
@@ -27,11 +27,16 @@ const { project: p, image, bg, alt = '', full = false } = Astro.props;
   .text { display: grid; gap: 16px; justify-items: start; }
   h1 { font-size: var(--fs-display); font-weight: 700; line-height: 1.15; }
   .date { font-size: 14px; font-weight: 300; }
-  .tag { background: var(--panel); }
+  .tag { background: var(--panel); font-size: 16px; line-height: 19px; }
   .art :global(img) { width: 100%; max-height: 460px; object-fit: contain; }
+  .bleed .inner { padding-block: 0; }
+  .bleed .art { align-self: stretch; position: relative; min-height: 500px; }
+  .bleed .art :global(img) { position: absolute; left: 0; top: -14%; width: 100%; height: 128%; max-height: none; object-fit: contain; }
   @media (max-width: 799px) {
     .inner { grid-template-columns: 1fr; min-height: 0; padding-block: 24px 36px; }
     .art { order: -1; }
     .art :global(img) { max-height: 320px; }
+    .bleed .art { min-height: 340px; }
+    .bleed .art :global(img) { top: -8%; height: 116%; }
   }
 </style>

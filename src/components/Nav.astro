@@ -13,7 +13,7 @@ const resumeHref = url(contact.resumePdf);
 const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
 ---
 <header class="nav">
-  <div class="wrap bar">
+  <div class="bar">
     <a class="brand" href={url('/')}>
       <img class="ink-img" src={smiley.src} alt="" width="31" height="29" />
       <span>Jeremy Hamann</span>
@@ -112,7 +112,7 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
 
 <style>
   .nav { position: relative; z-index: 10; }
-  .bar { display: flex; align-items: center; justify-content: space-between; padding-block: 36px; }
+  .bar { display: flex; align-items: center; justify-content: space-between; padding: 36px var(--gutter); }
   .brand { display: inline-flex; align-items: center; gap: 12px; font-size: 24px; font-weight: 400; text-decoration: none; }
   .links { display: flex; align-items: center; gap: 36px; font-weight: 400; }
   .theme-toggle { display: inline-flex; gap: 4px; }
@@ -120,7 +120,8 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
   .theme-toggle button[aria-pressed='true'] { background: var(--ink); color: var(--on-ink); }
   .mobile-toggle { padding-top: 8px; }
   .mask-icon.big { width: 32px; height: 34px; }
-  .links a[aria-current='page'] { text-decoration-thickness: 2px; }
+  .links a, .mobile-links a { text-decoration: none; }
+  .links a:hover, .mobile-links a:hover { text-decoration: underline; text-underline-offset: 3px; }
   .ext { display: inline-flex; align-items: center; gap: 4px; }
   .ext .mask-icon { width: 16px; height: 17px; }
   .menu-btn, .close-btn { display: none; background: none; border: 0; padding: 4px; cursor: pointer; color: var(--ink); }
@@ -130,7 +131,7 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
   .mobile-links a { font-size: 48px; font-weight: 200; }
 
   @media (max-width: 799px) {
-    .bar { padding-block: 24px; }
+    .bar { padding: 24px var(--gutter); }
     .brand { font-size: 20px; }
     nav[aria-label='Main'] { display: none; }
     .menu-btn { display: block; }

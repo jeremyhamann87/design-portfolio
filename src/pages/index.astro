@@ -61,7 +61,7 @@ void projects;
         </div>
         <div class="actions">
           <a class="pill-btn solid" href={`mailto:${contact.email}`}>
-            <svg viewBox="0 -960 960 960" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M172.31-180Q142-180 121-201q-21-21-21-51.31v-455.38Q100-738 121-759q21-21 51.31-21h615.38Q818-780 839-759q21 21 21 51.31v455.38Q860-222 839-201q-21 21-51.31 21H172.31ZM480-457.69 160-662.31v410q0 5.39 3.46 8.85t8.85 3.46h615.38q5.39 0 8.85-3.46t3.46-8.85v-410L480-457.69Zm0-62.31 313.85-200h-627.7L480-520Z"/></svg>
+            <svg viewBox="0 -960 960 960" width="24" height="24" aria-hidden="true"><path fill="currentColor" d="M172.31-180Q142-180 121-201q-21-21-21-51.31v-455.38Q100-738 121-759q21-21 51.31-21h615.38Q818-780 839-759q21 21 21 51.31v455.38Q860-222 839-201q-21 21-51.31 21H172.31ZM480-457.69 160-662.31v410q0 5.39 3.46 8.85t8.85 3.46h615.38q5.39 0 8.85-3.46t3.46-8.85v-410L480-457.69Zm0-62.31 313.85-200h-627.7L480-520Z"/></svg>
             Email Me
           </a>
           <a class="pill-btn soft" href={url(contact.resumePdf)} download="Jeremy-Hamann-Resume.pdf">
@@ -137,7 +137,7 @@ void projects;
     </div>
 
     <aside class="secondary" aria-labelledby="work-heading">
-      <h2 id="work-heading" class="work-heading">My Work</h2>
+      <h2 id="work-heading" class="visually-hidden">My Work</h2>
       <ul class="up-next">
         {work.map((p) => (
           <li>
@@ -183,7 +183,8 @@ void projects;
 </script>
 
 <style>
-  .watch { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 24px; padding-block: 0 48px; align-items: start; }
+  .watch { display: grid; grid-template-columns: minmax(0, 1fr) 356px; gap: 24px; padding-block: 0 48px; align-items: start; }
+  @media (min-width: 1352px) { .watch { padding-inline: 0; } }
   .primary { display: grid; gap: 12px; min-width: 0; }
 
   .video { position: relative; aspect-ratio: 16 / 9; background: var(--panel-glass); display: grid; place-items: center; overflow: hidden; }
@@ -198,9 +199,10 @@ void projects;
   .channel-name { font-size: 16px; font-weight: 600; }
   .channel-sub { font-size: 12px; font-weight: 300; text-decoration: underline; text-underline-offset: 2px; }
   .actions { display: flex; gap: 8px; flex-wrap: wrap; }
-  .pill-btn { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 16px; font-size: 14px; font-weight: 500; text-decoration: none; white-space: nowrap; }
-  .pill-btn.solid { background: var(--panel); color: var(--ink); }
-  .pill-btn.soft { background: var(--ink); color: var(--on-ink); }
+  .pill-btn { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 16px; border-radius: 8px; font-size: 14px; font-weight: 500; line-height: 19.6px; text-decoration: none; white-space: nowrap; }
+  /* Email Me is the primary (ink) button; Resume and LinkedIn are light panels, as in Figma. */
+  .pill-btn.solid { background: var(--ink); color: var(--on-ink); }
+  .pill-btn.soft { background: var(--panel); color: var(--ink); }
   .pill-btn:hover { text-decoration: none; filter: brightness(0.94); }
 
   .description { background: var(--panel-glass); padding: 12px 14px; display: grid; gap: 6px; font-size: 14px; }
@@ -237,7 +239,7 @@ void projects;
 
   .secondary { display: grid; gap: 12px; min-width: 0; }
   .work-heading { font-size: 20px; font-weight: 600; }
-  .up-next { display: grid; gap: 12px; }
+  .up-next { display: grid; gap: 24px; }
   .next-item { display: grid; grid-template-columns: 168px 1fr; gap: 10px; align-items: start; text-decoration: none; }
   .next-item:hover .next-title { text-decoration: underline; }
   .thumb { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: var(--panel); }
