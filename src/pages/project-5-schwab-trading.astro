@@ -5,7 +5,7 @@ import Section from '../components/Section.astro';
 import Dashes from '../components/Dashes.astro';
 import Figure from '../components/Figure.astro';
 import MoreWork from '../components/MoreWork.astro';
-import Summary from '../components/Summary.astro';
+import KeyDecisions from '../components/KeyDecisions.astro';
 import ContactCTA from '../components/ContactCTA.astro';
 import { getProject } from '../data/projects';
 import hero from '../assets/schwab-trading/hero.png';
@@ -24,17 +24,12 @@ const p = getProject('project-5-schwab-trading');
 <Base title={`${p.title} | Jeremy Hamann`} description={p.description}>
   <CaseHero project={p} image={hero} bg="var(--hero-schwab)" alt="Schwab trading research platform" />
 
-  <Summary
-    problem="Schwab’s new trading research section had 30+ data-heavy modules, no responsive rules, and a fixed launch window."
-    role="Led responsive design for the modules, plus design workshops and weekly stakeholder reviews."
-    result="Out of beta into full production, with a reusable responsive guideline set for every future module."
-    decisions={["I worked module by module, getting stakeholder sign-off on each, so development could build within the launch window.", "I turned one-off fixes into a documented ruleset that covers tables, charts and future data types.", "I used a shared digital whiteboard to make every rule visible and easy for stakeholders to challenge."]}
-  />
 
   <div class="prose">
     <Section label="Lay of the Land" id="lay-of-the-land">
       <p>In late 2020 I joined the team helping bring Charles Schwab’s new retail trading research experience out of beta phase. The research section of Schwab’s retail trading platform is used by customers all over the world to help them make wise trading decisions. I led the design of 30+ trading research modules’ responsive behaviors.</p>
     </Section>
+    <KeyDecisions items={[{"title": "Work module by module, with stakeholder sign-off on each", "constraint": "30+ data-heavy modules and a fixed launch window.", "tradeoff": "More reviews along the way, but development could build each module as soon as it was approved."}, {"title": "Codify responsive rules, not just one-off layouts", "constraint": "New modules would keep coming after launch.", "tradeoff": "Upfront effort to document a ruleset, so future modules follow it without starting from zero."}, {"title": "Let simple tables scroll, and give complex charts their own treatment", "constraint": "Non-professional traders need usable data on every screen size.", "tradeoff": "Tables keep their full data with a horizontal scroll, while charts get a more tailored layout per screen size to stay usable."}]} />
     <Section label="Success">
       <p>After a successful release from beta into full production, Schwab has implemented the experience on their retail trading research site.</p>
       <p>As a result of creating a set of responsive guidelines, Schwab will be able to continue to design modules that are useful no matter the screen size.</p>

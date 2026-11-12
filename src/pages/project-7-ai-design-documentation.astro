@@ -1,0 +1,124 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import CaseHero from '../components/CaseHero.astro';
+import Section from '../components/Section.astro';
+import KPIs from '../components/KPIs.astro';
+import Feature from '../components/Feature.astro';
+import Step from '../components/Step.astro';
+import KeyDecisions from '../components/KeyDecisions.astro';
+import MoreWork from '../components/MoreWork.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+import { getProject } from '../data/projects';
+import hero from '../assets/ai-docs/hero.png';
+import f1 from '../assets/ai-docs/feature-1.png';
+import f2 from '../assets/ai-docs/feature-2.png';
+import f3 from '../assets/ai-docs/feature-3.png';
+import f4 from '../assets/ai-docs/feature-4.png';
+import f5 from '../assets/ai-docs/feature-5.png';
+import b1 from '../assets/ai-docs/book-1.png';
+import b2 from '../assets/ai-docs/book-2.png';
+import b3 from '../assets/ai-docs/book-3.png';
+import b4 from '../assets/ai-docs/book-4.png';
+import b5 from '../assets/ai-docs/book-5.png';
+import b6 from '../assets/ai-docs/book-6.png';
+import b7 from '../assets/ai-docs/book-7.png';
+import b8 from '../assets/ai-docs/book-8.png';
+import b9 from '../assets/ai-docs/book-9.png';
+import prompt from '../assets/ai-docs/prompt.png';
+import promptDark from '../assets/ai-docs/prompt-dark.png';
+
+const p = getProject('project-7-ai-design-documentation');
+const pages = [b1, b2, b3, b4, b5, b6, b7, b8, b9];
+const steps = [
+  ['Build the foundation', 'I start by designing the building blocks: callout dots, note cards, a notes bar, page headers and section breaks. Then I bring in finished examples from earlier projects, like past site maps and build books, so Claude has a clear picture of what good looks like.'],
+  ['Teach by example', 'I ask Claude to study those components and examples, and I write the rules down as a reusable prompt: where the facts come from, how pages are laid out, where callouts go and how quality is checked.'],
+  ['Experiment together', 'Before anything goes in the book, Claude explores a few directions, like different site map and navigation layouts. We compare them side by side and keep the best fit.'],
+  ['Annotate, build and keep watch', 'As the designs come together, I annotate each screen with Figma’s native annotations and draw arrow connectors to show where every tap leads. Claude reads both and turns them into numbered callouts and notes in the book. It also keeps an eye on the source designs and, whenever something changes, updates only the pages that are affected.'],
+  ['Export to keep it light', 'Claude exports every screen as a sharp image and re-imports it into the book, which keeps the pages consistent and the final PDF a manageable size for stakeholders.'],
+  ['Keep the structure in sync', 'Claude maintains the table of contents, site maps, section breaks and page numbers straight from our designs, so the book always matches the product.'],
+];
+---
+<Base title={`${p.title} | Jeremy Hamann`} description={p.description}>
+  <CaseHero project={p} image={hero} bg="var(--hero-ai-docs)" alt="Pages from the Intelligent CRM build book" />
+
+  <div class="light">
+    <Section label="Goals">
+      <p>Communify was building Intelligent CRM, a mobile-first client relationship management app for wealth advisors. I was brought in to help design the experience and to document the build for product managers, designers, engineers and stakeholders. Documentation usually trails design by weeks, and our deadlines left no room for that. We also wanted to cut out the painstaking pixel pushing of design documentation, which was costing designers hours of work that did nothing to move the product forward. So I set out to automate it with Claude.</p>
+    </Section>
+    <Section label="Results">
+      <KPIs items={[
+        { value: '10x', label: 'Faster Documentation', note: 'Polished build books, in a fraction of the time' },
+        { value: 'Every Deadline', label: 'Met On Time', note: 'With design integrity intact' },
+        { value: 'New AI Curriculum', label: 'For Other Design Teams', note: 'Automating docs with Claude Code in Figma' },
+      ]} />
+    </Section>
+  </div>
+
+  <KeyDecisions items={[
+    { title: 'Make native annotations the single source of truth', constraint: 'Documentation has to match the designs exactly, with no guesswork.', tradeoff: 'Designers annotate every screen in Figma, but Claude never invents behavior, so the book is always accurate.' },
+    { title: 'Flatten screens into images inside the book', constraint: 'A 62-page book has to stay fast to work in and small enough to share as a PDF.', tradeoff: 'Screens aren’t editable inside the book, but pages stay consistent and light, and the live designs stay in the source files.' },
+    { title: 'Refresh only what changed', constraint: 'Designs changed daily while the book had to stay current.', tradeoff: 'A little setup to compare exports against the book, so updates take minutes instead of a full rebuild.' },
+  ]} />
+
+  <Section label="Key Features" tone="dark" intro="I built a repeatable AI workflow in Figma that turns finished designs into a complete, annotated build book, so the documentation stays as current as the designs themselves.">
+    <div class="book" role="region" aria-label="Build book pages" tabindex="0">
+      {pages.map((img, i) => (
+        <figure>
+          <Image src={img} alt={`Build book page ${i + 1}`} widths={[400, 800]} sizes="320px" format="webp" />
+          <figcaption>Page {String(i + 1).padStart(2, '0')}</figcaption>
+        </figure>
+      ))}
+    </div>
+    <Feature eyebrow="From annotations to pages" title="Every screen explained" image={f1}>
+      Claude reads the native Figma annotations and prototype arrows on each screen, then lays out annotated pages with numbered callouts and notes tagged Interaction or Content. Nothing is invented: every note traces back to my annotations.
+    </Feature>
+    <Feature eyebrow="Quality checks built in" title="Sharp, verified screens" image={f2} side="right">
+      Screens are exported at 4x with our house drop shadow, then pixel-checked against the source so a blank avatar or a stale state never reaches a reader.
+    </Feature>
+    <Feature eyebrow="Navigation that builds itself" title="Contents, site map and page numbers" image={f3}>
+      The table of contents, site map and page numbers regenerate as sections are added, and every “See page” reference stays in sync across all 62 pages.
+    </Feature>
+    <Feature eyebrow="Section breaks" title="A device mockup for every section" image={f4} side="right">
+      Each of the 15 sections opens with a break page and an iPhone mockup generated from that section’s own lead screen.
+    </Feature>
+    <Feature eyebrow="Change detection" title="Update only what changed" image={f5}>
+      When designs change, Claude compares fresh exports against the book, refreshes only the screens that moved, and collates the whole book into a PDF for stakeholders.
+    </Feature>
+  </Section>
+
+  <Section label="How I Train Claude" intro="Training Claude works like onboarding a new designer: show it the system, let it practice, then hand it real work and keep it current.">
+    <div class="steps">
+      {steps.map(([t, d], i) => <Step n={String(i + 1).padStart(2, '0')} title={t}><p>{d}</p></Step>)}
+    </div>
+  </Section>
+
+  <Section label="The Prompt" intro="This is the actual prompt I wrote to teach Claude the documentation process. The bracketed items at the end are slots I fill in for each section of the book.">
+    <p class="prompt-label">Claude Code prompt · reusable for every section</p>
+    <div class="prompt">
+      <Image class="theme-light" src={prompt} alt="The reusable Claude Code prompt for building each section of the book" widths={[800, 1200, 2000]} sizes="(max-width: 1280px) 100vw, 1080px" format="webp" />
+      <Image class="theme-dark" src={promptDark} alt="" widths={[800, 1200, 2000]} sizes="(max-width: 1280px) 100vw, 1080px" format="webp" />
+    </div>
+  </Section>
+
+  <Section label="Outcomes" tone="dark">
+    <p>Documentation got about 10x faster, and we met consistently tight deadlines while designing and documenting side by side. The workflow frees our team to focus on the details of the design itself. I also created an easy-to-use curriculum so other design teams across Communify can get started with Claude and Figma in no time, and I continue to champion AI automation for designers.</p>
+  </Section>
+
+  <MoreWork slugs={['project-2-commsec', 'project-1-seven-post-client-portal']} />
+  <ContactCTA />
+</Base>
+
+<style>
+  .light { background: var(--panel-glass); padding-block: 12px; }
+  .book { display: grid; grid-auto-flow: column; grid-auto-columns: 300px; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; }
+  .book figure { scroll-snap-align: start; display: grid; gap: 8px; }
+  .book :global(img) { width: 300px; height: 300px; object-fit: cover; object-position: top; background: #fff; }
+  .book figcaption { font-size: 13px; font-weight: 400; }
+  .steps { display: grid; gap: 8px; }
+  .prompt-label { font-weight: 500; }
+  .prompt :global(img) { width: 100%; height: auto; }
+  .prompt :global(.theme-dark) { display: none; }
+  :global(:root[data-theme='dark']) .prompt :global(.theme-light) { display: none; }
+  :global(:root[data-theme='dark']) .prompt :global(.theme-dark) { display: block; }
+</style>

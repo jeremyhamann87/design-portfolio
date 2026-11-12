@@ -5,7 +5,7 @@ import Section from '../components/Section.astro';
 import Dashes from '../components/Dashes.astro';
 import Figure from '../components/Figure.astro';
 import MoreWork from '../components/MoreWork.astro';
-import Summary from '../components/Summary.astro';
+import KeyDecisions from '../components/KeyDecisions.astro';
 import ContactCTA from '../components/ContactCTA.astro';
 import { getProject } from '../data/projects';
 import hero from '../assets/schwab-reports/hero.png';
@@ -30,12 +30,6 @@ const approach = [
 <Base title={`${p.title} | Jeremy Hamann`} description={p.description}>
   <CaseHero project={p} image={hero} bg="var(--hero-schwab-reports)" alt="Redesigned Schwab managed account statement" />
 
-  <Summary
-    problem="Schwab’s managed account statements were outdated and hard to read, for both high-net-worth clients and their advisors."
-    role="Led research, design and testing over a 10-week timeline."
-    result="Phase 1 shipped in Schwab’s PDF statements, and the design was approved for the web in Phase 2."
-    decisions={["I designed for two audiences at once, clients and Financial Consultants, and tested with both.", "I made black-and-white print legibility a requirement, since Phase 1 shipped as PDF.", "I used affinity mapping to turn dozens of test rounds into specific layout changes."]}
-  />
 
   <div class="prose">
     <Section label="Lay of the Land" id="lay-of-the-land">
@@ -43,6 +37,7 @@ const approach = [
       <p>Managed Accounts are utilized by the highest-net-worth customers of banks and brokerages.</p>
       <p>Professional financial advisors manage the wealth of these customers with different investment strategies. Our project would be to design for both the customer and the financial advisor.</p>
     </Section>
+    <KeyDecisions items={[{"title": "Design for print first", "constraint": "Phase 1 shipped as printable PDFs, often read in black and white.", "tradeoff": "Fewer visual flourishes and color cues, in exchange for contrast and legibility in any format."}, {"title": "Serve clients and advisors in one statement", "constraint": "High-net-worth clients wanted clarity, while Financial Consultants needed detail.", "tradeoff": "Clear balances and module separation for clients, plus on-page explanations of complex data so the statement can stand on its own."}, {"title": "Lean on established styles before testing", "constraint": "A 10-week timeline with user testing still ahead.", "tradeoff": "Less visual exploration early, so we reached real users sooner and let their feedback drive the changes."}]} />
     <Section label="Successes">
       <Dashes items={[
         'Led end-to-end research, design, and testing of high-fidelity redesigns for Schwab\'s Managed Accounts reports, shipped within a 10-week timeline',

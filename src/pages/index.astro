@@ -1,29 +1,43 @@
 ---
-// Home laid out like a video watch page: the intro video is the centerpiece,
-// projects sit in the right-hand "up next" column, and skills read as the comments.
+// Home, matching the Figma "Video Portfolio" design: intro video, contact row and bio,
+// then tabs for My Skills / Work Experience / About Me, with the "My Work" list alongside.
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-import { projects, contact } from '../data/projects';
+import { projects, homeOrder, contact, getProject } from '../data/projects';
+import { skillIcons } from '../data/skill-icons';
 import { url } from '../lib/url';
 import portrait from '../assets/home/portrait.png';
-import imgMobile from '../assets/seven-post/feature-mobile.png';
-import imgAi from '../assets/ai-notetaker/feature-transcription.png';
-import imgData from '../assets/commsec/feature-currencies.png';
-import imgSystem from '../assets/commsec/feature-sector.png';
-import imgResearch from '../assets/schwab-reports/affinity-map.png';
-import imgResponsive from '../assets/schwab-trading/desktop.png';
+import p1 from '../assets/about/photo-1.jpg';
+import p2 from '../assets/about/photo-2.jpg';
+import p3 from '../assets/about/photo-3.jpg';
+import p4 from '../assets/about/photo-4.jpg';
+import iEmail from '../assets/icons/contact-email.svg';
+import iPhone from '../assets/icons/contact-phone.svg';
+import iLocation from '../assets/icons/contact-location.svg';
 
 const skills = [
-  { skill: '0→1 product design', body: 'Took a wealth client portal from zero digital footprint to launch in under 9 months. It now carries $10B in assets and $1.5M in ARR.', href: '/project-1-seven-post-client-portal', img: imgMobile, project: 'Seven Post client portal' },
-  { skill: 'AI product design', body: 'Designed an AI note taker that records, transcribes and suggests action items, with advisors approving or dismissing every one.', href: '/project-4-ai-notetaker', img: imgAi, project: 'AI note taking' },
-  { skill: 'Data-dense UI', body: 'Turned global markets data into a research experience 3M CommSec customers can read at a glance.', href: '/project-2-commsec', img: imgData, project: 'CommSec markets research' },
-  { skill: 'Design systems', body: 'Built a new MUI-based system for Australia’s largest online broker, with modules that work on any platform or theme.', href: '/project-2-commsec', img: imgSystem, project: 'CommSec markets research' },
-  { skill: 'Research & testing', body: 'Ran dozens of test rounds with Schwab clients and advisors, then used affinity mapping to turn findings into layout changes.', href: '/project-6-schwab-reports', img: imgResearch, project: 'Schwab managed account reports' },
-  { skill: 'Responsive design', body: 'Wrote the responsive rules for 30+ data-heavy trading modules and took Schwab’s research section from beta to production.', href: '/project-5-schwab-trading', img: imgResponsive, project: 'Schwab trading platform' },
-  { skill: 'Counseling & communication', body: 'Trained to a master’s level as a counselor, with hands-on experience in communication styles, empathy and conflict resolution. I bring that to every design team as a steady, collaborative teammate who helps people feel heard.', project: 'Master’s-level training' },
+  { skill: 'AI workflow automation', icon: 'menu_book', body: 'Automated our design documentation with Claude, turning annotated Figma designs into a 62-page build book and making documentation about 10x faster.', href: '/project-7-ai-design-documentation' },
+  { skill: 'AI product design · AI note taking', icon: 'auto_awesome', body: 'Designed an AI note taker that records, transcribes and suggests action items, with advisors approving or dismissing every one.', href: '/project-4-ai-notetaker' },
+  { skill: 'Counseling & communication · Master’s-level training', icon: 'psychology', body: 'Trained to a master’s level as a counselor, with hands-on experience in communication styles, empathy and conflict resolution. I bring that to every design team as a steady, collaborative teammate who helps people feel heard.' },
+  { skill: '0→1 product design', icon: 'rocket_launch', body: 'Took a wealth client portal from zero digital footprint to launch in under 9 months. It now carries $10B in assets and $1.5M in ARR.', href: '/project-1-seven-post-client-portal' },
+  { skill: 'Data-dense UI', icon: 'monitoring', body: 'Turned global markets data into a research experience 3M CommSec customers can read at a glance.', href: '/project-2-commsec' },
+  { skill: 'Design systems', icon: 'widgets', body: 'Built a new MUI-based system for Australia’s largest online broker, with modules that work on any platform or theme.', href: '/project-2-commsec' },
+  { skill: 'Research & testing', icon: 'person_search', body: 'Ran dozens of test rounds with Schwab clients and advisors, then used affinity mapping to turn findings into layout changes.', href: '/project-6-schwab-reports' },
+  { skill: 'Responsive design', icon: 'devices', body: 'Wrote the responsive rules for 30+ data-heavy trading modules and took Schwab’s research section from beta to production.', href: '/project-5-schwab-trading' },
 ];
 
-const telHref = contact.phone ? `tel:${contact.phone.replace(/[^+\d]/g, '')}` : '';
+const experience = [
+  { org: 'Communify (Fincentric Acquisition)', role: 'Senior Product Designer', dates: '2023 – Present', body: 'Lead product design for client and advisor platforms used by Fortune 500 financial institutions, and manage design systems and a small team of designers.' },
+  { org: 'S&P Global (IHS Markit Acquisition)', role: 'Product Designer', dates: '2020 – 2023', body: 'Designed bank onboarding flows and retail research platforms, turning complex compliance and market data into clear journeys.' },
+  { org: 'Rewally', role: 'UX/UI Designer', dates: '2020', body: 'Designed a credit card rewards app for a startup, from concept to developer-ready handoff.' },
+  { org: 'Aspen Counseling Group', role: 'Mental Health Counselor', dates: '2017 – 2019', body: 'Provided individual, couples and family counseling, and built a private practice.' },
+  { org: 'Hat Creek Burger Company', role: 'Marketing Director', dates: '2014', body: 'Led marketing for a regional restaurant chain, growing brand awareness and foot traffic.' },
+];
+const education = 'Nielsen Norman Group UI/UX Certification (2024) · Flatiron School UI/UX Certification (2020) · St. Edward’s University, Master’s of Counseling · University of Nebraska-Lincoln, Bachelor’s of Journalism';
+
+const work = homeOrder.map(getProject);
+const photos = [p1, p2, p3, p4];
+void projects;
 ---
 <Base title="Jeremy Hamann - Senior Product Designer" description="Senior Product Designer in fintech and AI. Watch the intro, browse case studies, and get in touch.">
   <div class="wrap watch">
@@ -33,10 +47,9 @@ const telHref = contact.phone ? `tel:${contact.phone.replace(/[^+\d]/g, '')}` : 
         <span class="play" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5.5v13l11-6.5z" fill="currentColor" /></svg>
         </span>
-        <span class="video-note">Intro video coming soon</span>
       </div>
 
-      <h1 class="video-title">Jeremy Hamann - Senior Product Designer</h1>
+      <h1 class="video-title">Hi, I’m Jeremy, your new Product Designer</h1>
 
       <div class="channel-row">
         <div class="channel">
@@ -45,52 +58,88 @@ const telHref = contact.phone ? `tel:${contact.phone.replace(/[^+\d]/g, '')}` : 
             <span class="channel-name">Jeremy Hamann</span>
             <span class="channel-sub">Senior Product Designer at Communify</span>
           </div>
-          <div class="contact-btns">
-            {telHref && <a class="pill-btn solid" href={telHref}>Call</a>}
-            <a class="pill-btn solid" href={`mailto:${contact.email}`}>Email</a>
-          </div>
         </div>
         <div class="actions">
-          <a class="pill-btn soft" href={url(contact.resumePdf)} target="_blank" rel="noopener">
+          <a class="pill-btn solid" href={`mailto:${contact.email}`}>
+            <svg viewBox="0 -960 960 960" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M172.31-180Q142-180 121-201q-21-21-21-51.31v-455.38Q100-738 121-759q21-21 51.31-21h615.38Q818-780 839-759q21 21 21 51.31v455.38Q860-222 839-201q-21 21-51.31 21H172.31ZM480-457.69 160-662.31v410q0 5.39 3.46 8.85t8.85 3.46h615.38q5.39 0 8.85-3.46t3.46-8.85v-410L480-457.69Zm0-62.31 313.85-200h-627.7L480-520Z"/></svg>
+            Email Me
+          </a>
+          <a class="pill-btn soft" href={url(contact.resumePdf)} download="Jeremy-Hamann-Resume.pdf">
             <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
             Resume
           </a>
-          <a class="pill-btn soft" href={contact.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+          <a class="pill-btn soft" href={contact.linkedin} target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.5h4V21H3V9.5Zm7 0h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.32-1.96 2.69V21h-4V9.5Z"/></svg>
+            LinkedIn
+          </a>
         </div>
       </div>
 
-      <section class="description" aria-label="About">
-        <p class="desc-meta">6+ years · Fintech & AI · Bank of America, Merrill, Charles Schwab, CommSec, Edward Jones</p>
+      <section class="description" aria-label="Summary">
+        <p class="desc-meta">6+ years · Fintech & AI · Bank of America, Merrill, Charles Schwab, CommSec, Edward Jones, S&P Global, Communify</p>
         <p>I design products that people and institutions trust with their most sensitive assets and data. I lead design from research to launch, and lately that includes AI. Before design, I was a mental health counselor, and I bring that same empathy to every team I work with.</p>
       </section>
 
-      <section class="comments" aria-labelledby="skills-heading">
-        <h2 id="skills-heading" class="comments-count">{skills.length} Skills</h2>
-        <ol class="comment-list">
-          {skills.map((s) => (
-            <li class="comment">
-              {s.img ? (
-                <Image src={s.img} alt="" width={40} height={40} densities={[1, 2]} fit="cover" class="comment-avatar" />
-              ) : (
-                <span class="comment-avatar icon-avatar" aria-hidden="true">
-                  <svg viewBox="0 -960 960 960" width="22" height="22"><path fill="currentColor" d="M260-100v-161q-57-52-88.5-119T140-520q0-142 99-241t241-99q117 0 208.5 69.5T808-610l46 185q5 17-6 31t-29 14h-79v128q0 30-21 51t-51 21h-88v80h-60v-140h148q5 0 8.5-3.5t3.5-8.5v-188h108l-38-155q-23-91-98.5-148T480-800q-116 0-198 81t-82 197q0 60 24.5 114T294-312l26 24v188h-60Z"/></svg>
+      <section class="info-tabs" aria-label="About Jeremy">
+        <div class="tab-bar" role="tablist" aria-label="Sections">
+          <button type="button" role="tab" id="tab-skills" aria-controls="panel-skills" aria-selected="true">My Skills</button>
+          <button type="button" role="tab" id="tab-work" aria-controls="panel-work" aria-selected="false" tabindex="-1">Work Experience</button>
+          <button type="button" role="tab" id="tab-about" aria-controls="panel-about" aria-selected="false" tabindex="-1">About Me</button>
+        </div>
+
+        <div class="panel" role="tabpanel" id="panel-skills" aria-labelledby="tab-skills">
+          <ul class="skills">
+            {skills.map((s) => (
+              <li class="skill">
+                <span class="skill-icon" aria-hidden="true">
+                  <svg viewBox="0 -960 960 960" width="20" height="20"><path fill="currentColor" d={skillIcons[s.icon]} /></svg>
                 </span>
-              )}
-              <div class="comment-body">
-                <p class="comment-head"><span class="handle">@{s.skill}</span> <span class="comment-meta">· {s.project}</span></p>
-                <p class="comment-text">{s.body}</p>
-                {s.href && <a class="comment-link" href={url(s.href)}>View case study</a>}
-              </div>
-            </li>
-          ))}
-        </ol>
+                <div class="skill-body">
+                  <h3>{s.skill}</h3>
+                  <p>{s.body}</p>
+                  {s.href && <a class="skill-link" href={url(s.href)}>View case study</a>}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="panel" role="tabpanel" id="panel-work" aria-labelledby="tab-work" hidden>
+          <ol class="experience">
+            {experience.map((e) => (
+              <li>
+                <div class="exp-top"><h3>{e.org} · {e.role}</h3><span class="dates">{e.dates}</span></div>
+                <p>{e.body}</p>
+              </li>
+            ))}
+          </ol>
+          <p class="education"><strong>Education:</strong> {education.replace(/^Education: /, '')}</p>
+          <a class="skill-link" href={url(contact.resumePdf)} download="Jeremy-Hamann-Resume.pdf">Download full resume (PDF)</a>
+        </div>
+
+        <div class="panel" role="tabpanel" id="panel-about" aria-labelledby="tab-about" hidden>
+          <h3 class="about-hi">Hi, I’m Jeremy</h3>
+          <div class="bio">
+            <p>I’m a Senior Product Designer at Communify. I design end-to-end experiences for financial advisors and their clients, work that’s helped close multi-million dollar client relationships and scaled design systems across a growing product line. I believe personal finance is pivotal to life success, and that’s the story behind everything you’ll see here.</p>
+            <p>Before design, I was a mental health counselor with master’s-level training in communication styles, empathy and conflict resolution. That’s what makes me a different kind of designer. I listen for what people actually need, I stay steady in hard conversations with stakeholders, and I help teams work through disagreement instead of around it.</p>
+            <p>Outside of work, I’m a dad to two little girls. I love being outside, running, working out, painting, doing yoga and reading science fiction.</p>
+          </div>
+          <ul class="contact-row">
+            <li><span class="mask-icon ci" style={`--icon:url(${iEmail.src})`} aria-hidden="true"></span><a href={`mailto:${contact.email}`}>{contact.email}</a></li>
+            <li><span class="mask-icon ci" style={`--icon:url(${iPhone.src})`} aria-hidden="true"></span><a href={`tel:${contact.phone}`}>{contact.phoneDisplay}</a></li>
+            <li><span class="mask-icon ci" style={`--icon:url(${iLocation.src})`} aria-hidden="true"></span><span>{contact.location}</span></li>
+          </ul>
+          <div class="photos">
+            {photos.map((p) => <Image src={p} alt="" widths={[300, 450]} sizes="(max-width: 799px) 45vw, 213px" format="webp" />)}
+          </div>
+        </div>
       </section>
     </div>
 
     <aside class="secondary" aria-labelledby="work-heading">
-      <h2 id="work-heading" class="visually-hidden">Work</h2>
+      <h2 id="work-heading" class="work-heading">My Work</h2>
       <ul class="up-next">
-        {projects.map((p) => (
+        {work.map((p) => (
           <li>
             <a class="next-item" href={url(`/${p.slug}`)}>
               <span class="thumb">
@@ -99,9 +148,7 @@ const telHref = contact.phone ? `tel:${contact.phone.replace(/[^+\d]/g, '')}` : 
               </span>
               <span class="next-text">
                 <span class="next-title">{p.title}</span>
-                <span class="pills">
-                  {[...p.outcome.split(' · '), ...p.tags].map((t) => <span class="tag">{t}</span>)}
-                </span>
+                <span class="next-blurb">{p.blurb}</span>
               </span>
             </a>
           </li>
@@ -111,6 +158,29 @@ const telHref = contact.phone ? `tel:${contact.phone.replace(/[^+\d]/g, '')}` : 
   </div>
 </Base>
 
+<script>
+  // Accessible tabs: click or arrow keys switch panels.
+  const tabs = [...document.querySelectorAll<HTMLButtonElement>('.info-tabs [role="tab"]')];
+  function select(t: HTMLButtonElement, focus = false) {
+    tabs.forEach((x) => {
+      const on = x === t;
+      x.setAttribute('aria-selected', String(on));
+      x.tabIndex = on ? 0 : -1;
+      const panel = document.getElementById(x.getAttribute('aria-controls')!);
+      if (panel) panel.hidden = !on;
+    });
+    if (focus) t.focus();
+  }
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => select(t));
+    t.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+        e.preventDefault();
+        select(tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length], true);
+      }
+    });
+  });
+</script>
 
 <style>
   .watch { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 24px; padding-block: 0 48px; align-items: start; }
@@ -118,42 +188,56 @@ const telHref = contact.phone ? `tel:${contact.phone.replace(/[^+\d]/g, '')}` : 
 
   .video { position: relative; aspect-ratio: 16 / 9; background: var(--panel-glass); display: grid; place-items: center; overflow: hidden; }
   .play { width: 72px; height: 72px; border-radius: 50%; border: 2px solid var(--ink); display: grid; place-items: center; padding-left: 4px; color: var(--ink); background: var(--panel); }
-  .video-note { position: absolute; bottom: 12px; left: 16px; font-size: 12px; font-weight: 400; opacity: 0.7; }
 
   .video-title { font-size: 20px; font-weight: 700; line-height: 1.3; margin-top: 4px; }
 
   .channel-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; }
-  .channel { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .channel { display: flex; align-items: center; gap: 12px; }
   .avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
-  .channel-text { display: grid; line-height: 1.25; margin-right: 12px; }
+  .channel-text { display: grid; line-height: 1.25; }
   .channel-name { font-size: 16px; font-weight: 600; }
-  .channel-sub { font-size: 12px; font-weight: 300; }
-  .contact-btns, .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .channel-sub { font-size: 12px; font-weight: 300; text-decoration: underline; text-underline-offset: 2px; }
+  .actions { display: flex; gap: 8px; flex-wrap: wrap; }
   .pill-btn { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 16px; font-size: 14px; font-weight: 500; text-decoration: none; white-space: nowrap; }
-  .pill-btn.solid { background: var(--ink); color: var(--on-ink); }
-  .pill-btn.soft { background: var(--panel); color: var(--ink); }
+  .pill-btn.solid { background: var(--panel); color: var(--ink); }
+  .pill-btn.soft { background: var(--ink); color: var(--on-ink); }
   .pill-btn:hover { text-decoration: none; filter: brightness(0.94); }
-  .pill-btn.solid:hover { filter: brightness(1.2); }
 
   .description { background: var(--panel-glass); padding: 12px 14px; display: grid; gap: 6px; font-size: 14px; }
   .desc-meta { font-weight: 600; }
 
-  .comments { margin-top: 16px; display: grid; gap: 20px; }
-  .comments-count { font-size: 20px; font-weight: 700; }
-  .comment-list { display: grid; gap: 20px; }
-  .comment { display: grid; grid-template-columns: 40px 1fr; gap: 14px; align-items: start; }
-  .icon-avatar { display: grid; place-items: center; background: var(--ink) !important; color: var(--on-ink); }
-  .comment-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; background: var(--panel); }
-  .comment-body { display: grid; gap: 4px; }
-  .comment-head { font-size: 13px; }
-  .handle { font-weight: 600; }
-  .comment-meta { font-weight: 300; }
-  .comment-text { font-size: 14px; font-weight: 300; max-width: 720px; }
-  .comment-link { font-size: 13px; font-weight: 600; justify-self: start; margin-top: 2px; }
+  .info-tabs { margin-top: 20px; display: grid; gap: 24px; }
+  .tab-bar { display: flex; gap: 32px; border-bottom: 1px solid var(--border-soft); }
+  .tab-bar button { font: inherit; font-size: 20px; font-weight: 400; color: var(--ink); background: none; border: 0; padding: 0 0 8px; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+  .tab-bar button[aria-selected='true'] { font-weight: 600; border-bottom-color: var(--ink); }
+  .panel { display: grid; gap: 20px; }
+  .panel[hidden] { display: none; }
+
+  .skills { display: grid; gap: 24px; }
+  .skill { display: grid; grid-template-columns: 40px 1fr; gap: 12px; align-items: start; }
+  .skill-icon { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--ink); color: var(--on-ink); }
+  .skill-body { display: grid; gap: 4px; }
+  .skill-body h3 { font-size: 14px; font-weight: 600; }
+  .skill-body p { font-size: 14px; font-weight: 300; max-width: 760px; }
+  .skill-link { font-size: 13px; font-weight: 600; justify-self: start; }
+
+  .experience { display: grid; gap: 20px; }
+  .exp-top { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .exp-top h3 { font-size: 16px; font-weight: 600; }
+  .dates { font-size: 14px; font-weight: 300; }
+  .experience p, .education { font-size: 14px; font-weight: 300; }
+
+  .about-hi { font-size: 24px; font-weight: 700; }
+  .bio { display: grid; gap: 12px; font-size: 16px; font-weight: 300; }
+  .contact-row { display: flex; flex-wrap: wrap; gap: 12px 32px; font-size: 16px; font-weight: 300; }
+  .contact-row li { display: inline-flex; align-items: center; gap: 8px; }
+  .ci { width: 20px; height: 20px; }
+  .photos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .photos :global(img) { width: 100%; aspect-ratio: 213 / 300; object-fit: cover; }
 
   .secondary { display: grid; gap: 12px; min-width: 0; }
-  .up-next { gap: 12px; }
-  .up-next { display: grid; }
+  .work-heading { font-size: 20px; font-weight: 600; }
+  .up-next { display: grid; gap: 12px; }
   .next-item { display: grid; grid-template-columns: 168px 1fr; gap: 10px; align-items: start; text-decoration: none; }
   .next-item:hover .next-title { text-decoration: underline; }
   .thumb { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: var(--panel); }
@@ -161,22 +245,23 @@ const telHref = contact.phone ? `tel:${contact.phone.replace(/[^+\d]/g, '')}` : 
   .next-item:hover .thumb :global(img) { transform: scale(1.04); }
   @media (prefers-reduced-motion: reduce) { .thumb :global(img) { transition: none; } }
   .badge { position: absolute; right: 4px; bottom: 4px; background: rgb(59 65 78 / 0.85); color: #ffffff; font-size: 12px; font-weight: 500; padding: 1px 4px; }
-  .next-text { display: grid; gap: 2px; align-content: start; min-width: 0; }
-  .next-title { font-size: 14px; font-weight: 600; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-  .pills { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
-  .pills .tag { font-size: 11px; line-height: 14px; padding: 2px 6px; }
+  .next-text { display: grid; gap: 4px; align-content: start; min-width: 0; }
+  .next-title { font-size: 14px; font-weight: 600; line-height: 1.3; }
+  .next-blurb { font-size: 12px; font-weight: 300; line-height: 1.35; }
 
-  /* Narrow screens: video, title and actions, then work, then skills. */
+  /* Narrow screens: video, title and actions, then work, then tabs. */
   @media (max-width: 999px) {
     .watch { grid-template-columns: 1fr; }
     .primary { display: contents; }
     .video, .video-title, .channel-row, .description { order: 0; }
     .secondary { order: 1; margin-top: 12px; }
-    .comments { order: 2; }
+    .info-tabs { order: 2; }
   }
   @media (max-width: 799px) {
-    .watch { padding-top: 0; }
     .next-item { grid-template-columns: 40% 1fr; }
     .play { width: 56px; height: 56px; }
+    .tab-bar { gap: 20px; overflow-x: auto; }
+    .tab-bar button { font-size: 16px; white-space: nowrap; }
+    .photos { grid-template-columns: repeat(2, 1fr); }
   }
 </style>

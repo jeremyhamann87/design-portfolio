@@ -1,0 +1,29 @@
+---
+// "Key Decisions" module from the Figma case studies: each decision with its constraint and trade-off.
+import Section from './Section.astro';
+interface Decision { title: string; constraint: string; tradeoff: string }
+interface Props { items: Decision[] }
+const { items } = Astro.props;
+---
+<Section label="Key Decisions" id="key-decisions" intro="The calls I made as a senior designer: the constraints we were working within and the trade-offs behind each choice.">
+  <ul class="decisions">
+    {items.map((d) => (
+      <li class="decision">
+        <h3>{d.title}</h3>
+        <dl>
+          <div><dt>Constraint</dt><dd>{d.constraint}</dd></div>
+          <div><dt>Trade-off</dt><dd>{d.tradeoff}</dd></div>
+        </dl>
+      </li>
+    ))}
+  </ul>
+</Section>
+<style>
+  .decisions { display: grid; gap: 16px; }
+  .decision { background: var(--panel); padding: 24px; display: grid; gap: 16px; }
+  h3 { font-size: 16px; font-weight: 700; }
+  dl { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 0; }
+  dt { font-weight: 500; margin-bottom: 4px; }
+  dd { margin: 0; font-weight: 300; }
+  @media (max-width: 799px) { dl { grid-template-columns: 1fr; gap: 16px; } }
+</style>

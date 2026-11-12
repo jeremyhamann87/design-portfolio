@@ -10,7 +10,7 @@ import Step from '../components/Step.astro';
 import Figure from '../components/Figure.astro';
 import Challenge from '../components/Challenge.astro';
 import MoreWork from '../components/MoreWork.astro';
-import Summary from '../components/Summary.astro';
+import KeyDecisions from '../components/KeyDecisions.astro';
 import ContactCTA from '../components/ContactCTA.astro';
 import { getProject } from '../data/projects';
 import hero from '../assets/seven-post/hero.png';
@@ -31,12 +31,6 @@ const p = getProject('project-1-seven-post-client-portal');
 <Base title={`${p.title} | Jeremy Hamann`} description={p.description}>
   <CaseHero project={p} image={hero} bg="var(--hero-seven-post)" alt="Seven Post client portal on two phones" />
 
-  <Summary
-    problem="Communify’s first mid-market wealth client needed a client portal on desktop and mobile, with no existing product, team or process to build on."
-    role="Lead product designer, end to end: product strategy, UX/UI, mobile design and client liaison."
-    result="Launched in under 9 months. $10B in assets now managed digitally and $1.5M in annual recurring revenue."
-    decisions={["I built on our existing markets design library instead of starting from scratch, so we could iterate dozens of times without losing consistency.", "I held a steady iteration rhythm with the client to keep an ever-expanding scope under control.", "I prioritized data across mobile breakpoints so clients get the full depth of their portfolio on their phones."]}
-  />
 
   <div class="light">
     <Section label="Goals">
@@ -67,6 +61,8 @@ const p = getProject('project-1-seven-post-client-portal');
       ]} />
     </Section>
   </div>
+
+  <KeyDecisions items={[{"title": "Build on our existing markets library instead of starting from scratch", "constraint": "Our first mid-market wealth product, with no precedent to draw from and a launch in under 9 months.", "tradeoff": "Less bespoke visual identity up front, in exchange for speed and consistency across dozens of iteration rounds. It also gave us a reusable mid-market library."}, {"title": "Hold a steady iteration rhythm with a client who had real leverage", "constraint": "As our beachhead client, Seven Post could keep expanding the scope.", "tradeoff": "Requests went into predictable review cycles instead of being absorbed ad hoc, which protected the launch date while keeping the client close to the work."}, {"title": "Give mobile the full depth of the data, not a lite version", "constraint": "A data-intensive platform on small screens, for clients who expect the whole picture.", "tradeoff": "More design effort prioritizing information across every breakpoint, rather than shipping a reduced mobile experience."}]} />
 
   <Section label="Key Features" tone="dark" intro="Create a personalized, modern experience that encourages clients to engage. The new client portal is designed to fit seamlessly with how Seven Post and its advisors work.">
     <Feature eyebrow="35,000ft View" title="Dashboard" image={fDashboard}>

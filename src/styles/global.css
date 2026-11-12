@@ -15,7 +15,7 @@
   --inverse: #3b414e;
   --on-inverse: #ffffff;
   --menu-veil: rgb(255 255 255 / 0.75);
-  --noise-opacity: 0.25;
+  --noise-opacity: 1;
   color-scheme: light;
 
   --hero-seven-post: #f4efdb;
@@ -24,6 +24,7 @@
   --hero-notetaker: #bcb0ff;
   --hero-schwab: #f8fcff;
   --hero-schwab-reports: #efd1c8;
+  --hero-ai-docs: #eec2ed;
 
   /* Type */
   --font: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
@@ -71,13 +72,14 @@
   --inverse: #262b36;
   --on-inverse: #f8fcff;
   --menu-veil: rgb(18 21 25 / 0.88);
-  --noise-opacity: 0.12;
+  --noise-opacity: 1;
   --hero-seven-post: #2a2719;
   --hero-commsec: #22252b;
   --hero-advisor: #17322b;
   --hero-notetaker: #25203f;
   --hero-schwab: #1a2a3a;
   --hero-schwab-reports: #3a231e;
+  --hero-ai-docs: #36203a;
   color-scheme: dark;
 }
 

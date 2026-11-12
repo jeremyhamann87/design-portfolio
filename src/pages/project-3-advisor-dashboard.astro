@@ -6,7 +6,7 @@ import Step from '../components/Step.astro';
 import Figure from '../components/Figure.astro';
 import Challenge from '../components/Challenge.astro';
 import MoreWork from '../components/MoreWork.astro';
-import Summary from '../components/Summary.astro';
+import KeyDecisions from '../components/KeyDecisions.astro';
 import ContactCTA from '../components/ContactCTA.astro';
 import { getProject } from '../data/projects';
 import hero from '../assets/advisor-portal/hero.png';
@@ -20,16 +20,12 @@ const p = getProject('project-3-advisor-dashboard');
 <Base title={`${p.title} | Jeremy Hamann`} description={p.description}>
   <CaseHero project={p} image={hero} bg="var(--hero-advisor)" alt="Advisor dashboard on a laptop" />
 
-  <Summary
-    problem="Communify’s advisor dashboard was built around wealth data, while modern advisors work as relationship managers first."
-    role="Lead product designer."
-    result="A relationship-first dashboard refresh, delivered in a couple of days."
-    decisions={["I reorganized the Relationships module around the client, adding personal context and AI-generated client podcasts.", "I connected curated news to the clients it affects, so advisors know exactly who to reach out to.", "I added sharing between advisor and client, which the old system couldn’t do at all."]}
-  />
 
   <Section label="Goals" tone="light">
     <p>This project focused on the refresh of an outdated financial advisor dashboard product. We wanted to bring in more client-centered, relationship driven actions and metrics. Being a financial advisor in the twenty-first century means being a relationship manager first and a wealth manager second.</p>
   </Section>
+
+  <KeyDecisions items={[{"title": "Refresh the highest-value modules instead of redesigning everything", "constraint": "A couple of days from requirements to completion.", "tradeoff": "Some legacy areas stayed as they were, so the time went where relationships are built: Relationships, Curated Content and Sharing."}, {"title": "Connect news to the clients it affects", "constraint": "No precedent for relationship metrics or sharing in our product.", "tradeoff": "More complex data rules than a generic news feed, but advisors know exactly who to reach out to."}, {"title": "Design for value, even with an uncertain path to production", "constraint": "No guarantee the concepts would be built as designed.", "tradeoff": "The work still serves as a reference for future releases, even if parts are never fully developed."}]} />
 
   <Section label="The whole thing, right here" id="whole-thing" tone="dark" intro="This is the updated Advisor Dashboard in all its long-scrolling glory. Continue below to see some comparisons between old and new Dashboard Elements.">
     <Figure src={full} alt="The full updated Advisor Dashboard" class="full-scroll" sizes="(max-width: 799px) 100vw, 900px" />

@@ -4,7 +4,8 @@ import { getImage } from 'astro:assets';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import Lightbox from '../components/Lightbox.astro';
-import noise from '../assets/shared/noise-gradient.png';
+import bgLight from '../assets/shared/bg-light.png';
+import bgDark from '../assets/shared/bg-dark.png';
 import { url } from '../lib/url';
 
 interface Props { title?: string; description?: string }
@@ -12,7 +13,8 @@ const {
   title = 'Jeremy Hamann Portfolio Home',
   description = "This is the place you can find Jeremy's latest product design work",
 } = Astro.props;
-const bg = await getImage({ src: noise, width: 1600, format: 'webp', quality: 70 });
+const bg = await getImage({ src: bgLight, width: 1600, format: 'webp', quality: 72 });
+const bgD = await getImage({ src: bgDark, width: 1600, format: 'webp', quality: 72 });
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 <!doctype html>
@@ -39,7 +41,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet" />
-    <style is:inline set:html={`:root{--bg-image:url(${bg.src})}`}></style>
+    <style is:inline set:html={`:root{--bg-image:url(${bg.src})}:root[data-theme='dark']{--bg-image:url(${bgD.src})}`}></style>
   </head>
   <body>
     <a class="skip visually-hidden" href="#main">Skip to content</a>

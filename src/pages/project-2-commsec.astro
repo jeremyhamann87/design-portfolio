@@ -10,7 +10,7 @@ import Step from '../components/Step.astro';
 import Figure from '../components/Figure.astro';
 import Challenge from '../components/Challenge.astro';
 import MoreWork from '../components/MoreWork.astro';
-import Summary from '../components/Summary.astro';
+import KeyDecisions from '../components/KeyDecisions.astro';
 import ContactCTA from '../components/ContactCTA.astro';
 import { getProject } from '../data/projects';
 import { url } from '../lib/url';
@@ -27,12 +27,6 @@ const p = getProject('project-2-commsec');
 <Base title={`${p.title} | Jeremy Hamann`} description={p.description}>
   <CaseHero project={p} image={hero} bg="var(--hero-commsec)" alt="CommSec markets research on an iPad" />
 
-  <Summary
-    problem="Australia’s largest online broker needed a markets research experience for many sites and apps, with undefined scope and no design system."
-    role="Product designer on a two-person team: UX/UI, product strategy, mobile design and client liaison."
-    result="$750K in annual recurring revenue, a brand-new design system, and research tools for 3M customers."
-    decisions={["I pushed for a creative brief before designing, which turned an undefined scope into clear goals.", "I aligned our components with CommSec’s MUI foundation so every module would fit their upcoming standards.", "We designed flexible modules instead of pages, so they could live on any CommSec platform or theme."]}
-  />
 
   <div class="light">
     <Section label="Goals">
@@ -63,6 +57,8 @@ const p = getProject('project-2-commsec');
       ]} />
     </Section>
   </div>
+
+  <KeyDecisions items={[{"title": "Define scope with a creative brief before designing", "constraint": "Many CommSec and CBA sites and apps, and no agreed scope.", "tradeoff": "A slower start, in exchange for clear goals and far less rework later."}, {"title": "Align with CommSec’s MUI foundation rather than our own system", "constraint": "Their new UI system was still being built, with no visual standards yet.", "tradeoff": "Less freedom to define our own look, but modules that fit their upcoming standards on day one."}, {"title": "Design flexible modules, not fixed pages", "constraint": "Modules had to live on any CommSec platform, screen size or color theme.", "tradeoff": "More upfront work on rules and states, so each module could be reused anywhere."}]} />
 
   <Section label="Key Features" tone="dark" intro="From global indices to Australia-specific insights, each feature was designed to visualize, compare, and connect market data, bridging global trends with local perspectives through a unified research experience.">
     <Feature eyebrow="World indices" title="Track Global Markets At A Glance" image={url('/media/commsec-world-indices.webp')} alt="Animated world indices module">

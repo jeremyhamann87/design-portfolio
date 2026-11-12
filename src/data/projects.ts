@@ -6,6 +6,7 @@ import notetakerCard from '../assets/cards/ai-notetaker.png';
 import advisorCard from '../assets/cards/advisor-portal.png';
 import schwabTradingCard from '../assets/cards/schwab-trading.png';
 import schwabReportsCard from '../assets/cards/schwab-reports.png';
+import aiDocsCard from '../assets/cards/ai-docs.png';
 
 export type CompanyKey = 'seven-post' | 'commsec' | 'communify' | 'schwab';
 
@@ -33,10 +34,28 @@ export interface Project {
   outcome: string;
   /** Featured projects get large cards on home; the rest go in the compact list. */
   featured: boolean;
+  /** One-line summary shown in the home "My Work" list (from the Figma design). */
+  blurb: string;
 }
 
-/** Order matches the home page grid. */
+/** Source order; the home list uses homeOrder below. */
 export const projects: Project[] = [
+  {
+    slug: 'project-7-ai-design-documentation',
+    title: 'AI-Powered Design Documentation',
+    description:
+      'Built a repeatable Claude + Figma workflow that turns annotated designs into a complete build book, making documentation about 10x faster.',
+    company: 'communify',
+    role: 'Lead Product Design',
+    tags: ['Lead Product Design', 'AI Automation', 'Design Ops', 'Claude Code + Figma'],
+    field: 'AI, Design Ops',
+    date: 'Fall 2026',
+    card: aiDocsCard,
+    byline: 'Communify',
+    outcome: 'Documentation 10x faster · 62-page build book',
+    featured: true,
+    blurb: 'Documentation 10x faster with Claude & Figma. 62-page build book, kept current daily. Lead Product Design & DevOps.',
+  },
   {
     slug: 'project-1-seven-post-client-portal',
     title: 'Client Portal for Mid-market Financial Advisory',
@@ -51,6 +70,7 @@ export const projects: Project[] = [
     byline: 'Communify, for Seven Post',
     outcome: '$10B AUM managed digitally · $1.5M ARR · launched in under 9 months',
     featured: true,
+    blurb: '$10B AUM managed digitally, $1.5M ARR. From zero to launch in under 9 months. Lead Product Design.',
   },
   {
     slug: 'project-2-commsec',
@@ -66,6 +86,7 @@ export const projects: Project[] = [
     byline: 'Communify, for CommSec',
     outcome: '$750K ARR · 3M customers · brand-new design system',
     featured: true,
+    blurb: '$750K ARR, 3M customers. Brand-new design system. Product Design.',
   },
   {
     slug: 'project-4-ai-notetaker',
@@ -81,6 +102,7 @@ export const projects: Project[] = [
     byline: 'Communify',
     outcome: 'New AI product line, configurable for any advisory client',
     featured: true,
+    blurb: 'New AI product line, configurable for any advisory client. Lead Product Design.',
   },
   {
     slug: 'project-3-advisor-dashboard',
@@ -96,6 +118,7 @@ export const projects: Project[] = [
     byline: 'Communify',
     outcome: 'Relationship-first dashboard refresh, delivered in days',
     featured: false,
+    blurb: 'Relationship-first dashboard refresh, delivered in days. Lead Product Design.',
   },
   {
     slug: 'project-5-schwab-trading',
@@ -111,6 +134,7 @@ export const projects: Project[] = [
     byline: 'For Charles Schwab',
     outcome: 'Responsive rules for 30+ modules, beta to production',
     featured: false,
+    blurb: 'Responsive rules for 30+ modules, beta to production. Product Design.',
   },
   {
     slug: 'project-6-schwab-reports',
@@ -125,8 +149,12 @@ export const projects: Project[] = [
     byline: 'For Charles Schwab',
     outcome: 'Phase 1 shipped in 10 weeks · web rollout in Phase 2',
     featured: true,
+    blurb: 'Phase 1 shipped in 10 weeks, web rollout in Phase 2. Product Design, UX Research.',
   },
 ];
+
+/** Order of the home "My Work" list, matching the Figma design. */
+export const homeOrder = ['project-7-ai-design-documentation','project-4-ai-notetaker','project-1-seven-post-client-portal','project-2-commsec','project-3-advisor-dashboard','project-5-schwab-trading','project-6-schwab-reports'];
 
 export function getProject(slug: string): Project {
   const p = projects.find((x) => x.slug === slug);
