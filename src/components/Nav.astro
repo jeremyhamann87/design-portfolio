@@ -1,6 +1,6 @@
 ---
 import smiley from '../assets/icons/smiley.svg';
-import external from '../assets/icons/external.svg';
+import arrowOutward from '../assets/icons/arrow-outward.svg';
 import menu from '../assets/icons/menu.svg';
 import { url } from '../lib/url';
 import { contact } from '../data/projects';
@@ -28,7 +28,7 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
         </li>
         <li>
           <a href={contact.art} target="_blank" rel="noopener" class="ext">
-            Fine Arts <span class="mask-icon" style={`--icon:url(${external.src})`} aria-hidden="true"></span>
+            Fine Arts <span class="mask-icon" style={`--icon:url(${arrowOutward.src})`} aria-hidden="true"></span>
             <span class="visually-hidden">(opens in a new tab)</span>
           </a>
         </li>
@@ -65,7 +65,7 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
         <li><a href={resumeHref} download="Jeremy-Hamann-Resume.pdf" class="ext">Resume <svg viewBox="0 0 24 24" width="36" height="36" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
         <li>
           <a href={contact.art} target="_blank" rel="noopener" class="ext">
-            Fine Arts <span class="mask-icon big" style={`--icon:url(${external.src})`} aria-hidden="true"></span>
+            Fine Arts <span class="mask-icon big" style={`--icon:url(${arrowOutward.src})`} aria-hidden="true"></span>
             <span class="visually-hidden">(opens in a new tab)</span>
           </a>
         </li>
@@ -119,11 +119,11 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
   .theme-toggle button { width: 24px; height: 24px; border-radius: 50%; border: 0; padding: 0; display: grid; place-items: center; background: transparent; color: var(--ink); cursor: pointer; }
   .theme-toggle button[aria-pressed='true'] { background: var(--ink); color: var(--on-ink); }
   .mobile-toggle { padding-top: 8px; }
-  .mask-icon.big { width: 32px; height: 34px; }
+  .mask-icon.big { width: 32px; height: 32px; }
   .links a, .mobile-links a { text-decoration: none; }
-  .links a:hover, .mobile-links a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .links a:hover, .mobile-links a:hover { text-decoration: underline dotted; text-decoration-thickness: 0.13em; text-underline-offset: 3px; }
   .ext { display: inline-flex; align-items: center; gap: 4px; }
-  .ext .mask-icon { width: 16px; height: 17px; }
+  .ext .mask-icon { width: 18px; height: 18px; }
   .menu-btn, .close-btn { display: none; background: none; border: 0; padding: 4px; cursor: pointer; color: var(--ink); }
   .mobile-menu { position: fixed; inset: 0; background: linear-gradient(var(--menu-veil), var(--menu-veil)), var(--bg-image) center / cover, var(--surface); overflow: auto; }
   .mobile-menu .close-btn { display: block; }

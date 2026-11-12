@@ -18,7 +18,7 @@ import iLocation from '../assets/icons/contact-location.svg';
 const skills = [
   { skill: 'AI workflow automation', icon: 'menu_book', body: 'Automated our design documentation with Claude, turning annotated Figma designs into a 62-page build book and making documentation about 10x faster.', href: '/project-7-ai-design-documentation' },
   { skill: 'Interactive prototyping · Figma', icon: 'touch_app', body: 'Built a 100+ screen Figma prototype with 2,300+ interactions for MAI Capital Management’s advisor portal. Product, data and sales teams presented from it throughout one of Communify’s largest deals.', href: '/project-3-mai-advisor-portal' },
-  { skill: 'AI product design · AI note taking', icon: 'auto_awesome', body: 'Designed an AI note taker that records, transcribes and suggests action items, with advisors approving or dismissing every one.', href: '/project-4-ai-notetaker' },
+  { skill: 'AI product design', icon: 'auto_awesome', body: 'Designed an AI note taker that records, transcribes and suggests action items, with advisors approving or dismissing every one.', href: '/project-4-ai-notetaker' },
   { skill: 'Counseling & communication · Master’s-level training', icon: 'psychology', body: 'Trained to a master’s level as a counselor, with hands-on experience in communication styles, empathy and conflict resolution. I bring that to every design team as a steady, collaborative teammate who helps people feel heard.' },
   { skill: '0→1 product design', icon: 'rocket_launch', body: 'Took a wealth client portal from zero digital footprint to launch in under 9 months. It now carries $10B in assets and $1.5M in ARR.', href: '/project-1-seven-post-client-portal' },
   { skill: 'Data-dense UI', icon: 'monitoring', body: 'Turned global markets data into a research experience 3M CommSec customers can read at a glance.', href: '/project-2-commsec' },
@@ -77,7 +77,7 @@ void projects;
       </div>
 
       <section class="description" aria-label="Summary">
-        <p class="desc-meta">6+ years · Fintech & AI · Bank of America, Merrill, Charles Schwab, CommSec, Edward Jones, S&P Global, Communify</p>
+        <p class="desc-meta">7 years · Fintech & AI · Bank of America, Merrill, Charles Schwab, CommSec, Edward Jones, S&P Global, Communify</p>
         <p>I design products that people and institutions trust with their most sensitive assets and data. I lead design from research to launch, and lately that includes AI. Before design, I was a mental health counselor, and I bring that same empathy to every team I work with.</p>
       </section>
 
@@ -148,7 +148,7 @@ void projects;
                 <span class="badge">{p.date.match(/\d{4}/g)?.at(-1)}</span>
               </span>
               <span class="next-text">
-                <span class="next-title">{p.title}</span>
+                <span class="next-title">{p.shortTitle ?? p.title}</span>
                 <span class="next-blurb">{p.blurb}</span>
               </span>
             </a>
@@ -188,7 +188,7 @@ void projects;
   @media (min-width: 1352px) { .watch { padding-inline: 0; } }
   .primary { display: grid; gap: 12px; min-width: 0; }
 
-  .video { position: relative; aspect-ratio: 16 / 9; background: var(--panel-glass); display: grid; place-items: center; overflow: hidden; }
+  .video { position: relative; aspect-ratio: 16 / 9; background: var(--panel-glass); border-radius: var(--r-module); display: grid; place-items: center; overflow: hidden; }
   .play { width: 72px; height: 72px; border-radius: 50%; border: 2px solid var(--ink); display: grid; place-items: center; padding-left: 4px; color: var(--ink); background: var(--panel); }
 
   .video-title { font-size: 20px; font-weight: 700; line-height: 1.3; margin-top: 4px; }
@@ -206,7 +206,7 @@ void projects;
   .pill-btn.soft { background: var(--panel); color: var(--ink); }
   .pill-btn:hover { text-decoration: none; filter: brightness(0.94); }
 
-  .description { background: var(--panel-glass); padding: 12px 14px; display: grid; gap: 6px; font-size: 14px; }
+  .description { background: var(--panel-glass); border-radius: var(--r-module); padding: 12px 14px; display: grid; gap: 6px; font-size: 14px; }
   .desc-meta { font-weight: 600; }
 
   .info-tabs { margin-top: 20px; display: grid; gap: 24px; }
@@ -236,14 +236,14 @@ void projects;
   .contact-row li { display: inline-flex; align-items: center; gap: 8px; }
   .ci { width: 20px; height: 20px; }
   .photos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-  .photos :global(img) { width: 100%; aspect-ratio: 213 / 300; object-fit: cover; }
+  .photos :global(img) { width: 100%; aspect-ratio: 213 / 300; object-fit: cover; border-radius: var(--r-module); }
 
   .secondary { display: grid; gap: 12px; min-width: 0; }
   .work-heading { font-size: 20px; font-weight: 600; }
   .up-next { display: grid; gap: 24px; }
   .next-item { display: grid; grid-template-columns: 168px 1fr; gap: 10px; align-items: start; text-decoration: none; }
   .next-item:hover .next-title { text-decoration: underline; }
-  .thumb { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: var(--panel); }
+  .thumb { position: relative; aspect-ratio: 16 / 9; overflow: hidden; border-radius: var(--r-module); background: var(--panel); }
   .thumb :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
   .next-item:hover .thumb :global(img) { transform: scale(1.04); }
   @media (prefers-reduced-motion: reduce) { .thumb :global(img) { transition: none; } }

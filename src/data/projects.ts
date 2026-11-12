@@ -36,6 +36,8 @@ export interface Project {
   featured: boolean;
   /** One-line summary shown in the home "My Work" list (from the Figma design). */
   blurb: string;
+  /** Shorter title for the home work list, when it differs. */
+  shortTitle?: string;
 }
 
 /** Source order; the home list uses homeOrder below. */
@@ -118,6 +120,7 @@ export const projects: Project[] = [
     byline: 'Communify',
     outcome: '$80.4B wealth manager · 100+ screen prototype · 2,300+ interactions',
     featured: true,
+    shortTitle: 'AI-Driven Advisor Portal',
     blurb: 'One of Communify’s largest deals. A 100+ screen prototype with 2,300+ interactions. Lead Product Design & Prototyping.',
   },
   {
@@ -154,7 +157,7 @@ export const projects: Project[] = [
 ];
 
 /** Order of the home "My Work" list, matching the Figma design. */
-export const homeOrder = ['project-7-ai-design-documentation','project-4-ai-notetaker','project-1-seven-post-client-portal','project-2-commsec','project-3-mai-advisor-portal','project-5-schwab-trading','project-6-schwab-reports'];
+export const homeOrder = ['project-7-ai-design-documentation','project-4-ai-notetaker','project-3-mai-advisor-portal','project-1-seven-post-client-portal','project-2-commsec','project-5-schwab-trading','project-6-schwab-reports'];
 
 export function getProject(slug: string): Project {
   const p = projects.find((x) => x.slug === slug);

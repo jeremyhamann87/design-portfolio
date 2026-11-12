@@ -23,7 +23,7 @@ const pills = size === 'large' ? [...kpis, ...p.tags] : kpis;
 
 <style>
   .card { display: grid; gap: 16px; align-content: start; position: relative; }
-  .media { display: block; overflow: hidden; }
+  .media { display: block; overflow: hidden; border-radius: var(--r-module); }
   .media :global(img) { width: 100%; aspect-ratio: 568 / 394; object-fit: cover; transition: transform 0.3s ease; }
   .card:hover .media :global(img) { transform: scale(1.02); }
   @media (prefers-reduced-motion: reduce) { .card:hover .media :global(img) { transform: none; } }

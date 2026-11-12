@@ -54,8 +54,8 @@
 
   /* Radius */
   /* Square corners everywhere (circles like the portrait and logo marks stay round). */
-  --r-sm: 0;
-  --r-md: 0;
+  --r-sm: 4px;
+  --r-md: 8px;
   --r-pill: 0;
 }
 
@@ -130,8 +130,9 @@ main { flex: 1; }
 
 img { max-width: 100%; height: auto; display: block; }
 
-a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
-a:hover { text-decoration-thickness: 2px; }
+/* Links use the dotted underline from the Figma file; solid on hover. */
+a { color: inherit; text-decoration: underline dotted; text-decoration-thickness: 0.13em; text-underline-offset: 3px; }
+a:hover { text-decoration-style: solid; }
 
 :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 2px; }
 
@@ -176,7 +177,7 @@ ul, ol { padding: 0; list-style: none; }
   transition: font-weight 0.15s;
   white-space: nowrap;
 }
-.btn:hover { font-weight: 400; border-radius: var(--r-md); text-decoration: none; }
+.btn:hover { font-weight: 400; text-decoration: none; }
 .btn img { width: 16px; height: 16px; }
 
 /* Single-color icons recolored through a mask so they follow currentColor. */
@@ -190,3 +191,6 @@ ul, ol { padding: 0; list-style: none; }
 
 /* Single-colour ink icons loaded as <img> (brand smiley, menu) follow the theme. */
 :root[data-theme='dark'] .ink-img { filter: invert(0.92); }
+
+/* Rounded modules, matching the Figma file (8px cards, panels and images). */
+:root { --r-module: 8px; }
