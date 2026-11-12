@@ -56,7 +56,7 @@ export const projects: Project[] = [
     byline: 'Communify',
     outcome: 'Documentation 10x faster · 62-page build book',
     featured: true,
-    blurb: 'Documentation 10x faster with Claude & Figma. 62-page build book, kept current daily. Lead Product Design & DevOps.',
+    blurb: 'Documentation 10x faster with Claude & Figma.',
   },
   {
     slug: 'project-1-seven-post-client-portal',
@@ -72,7 +72,7 @@ export const projects: Project[] = [
     byline: 'Seven Post',
     outcome: '$10B AUM managed digitally · $1.5M ARR · launched in under 9 months',
     featured: true,
-    blurb: '$10B AUM managed digitally, $1.5M ARR. From zero to launch in under 9 months. Lead Product Design.',
+    blurb: '$10B AUM managed digitally, $1.5M ARR.',
   },
   {
     slug: 'project-2-commsec',
@@ -88,7 +88,7 @@ export const projects: Project[] = [
     byline: 'CommSec',
     outcome: '$750K ARR · 3M customers · brand-new design system',
     featured: true,
-    blurb: '$750K ARR, 3M customers. Brand-new design system. Product Design.',
+    blurb: '$750K ARR, 3M customers. Brand-new design system.',
   },
   {
     slug: 'project-4-ai-notetaker',
@@ -104,7 +104,7 @@ export const projects: Project[] = [
     byline: 'Communify',
     outcome: 'New AI product line, configurable for any advisory client',
     featured: true,
-    blurb: 'New AI product line, configurable for any advisory client. Lead Product Design.',
+    blurb: 'New AI product line, configurable for any advisory client.',
   },
   {
     slug: 'project-3-mai-advisor-portal',
@@ -121,7 +121,7 @@ export const projects: Project[] = [
     outcome: '$80.4B wealth manager · 100+ screen prototype · 2,300+ interactions',
     featured: true,
     shortTitle: 'AI-Driven Advisor Portal',
-    blurb: 'One of Communify’s largest deals. A 100+ screen prototype with 2,300+ interactions. Lead Product Design & Prototyping.',
+    blurb: 'One of Communify’s largest deals. A 100+ screen prototype with 2,300+ interactions.',
   },
   {
     slug: 'project-5-schwab-trading',
@@ -137,7 +137,7 @@ export const projects: Project[] = [
     byline: 'Charles Schwab',
     outcome: 'Responsive rules for 30+ modules, beta to production',
     featured: false,
-    blurb: 'Responsive rules for 30+ modules, beta to production. Product Design.',
+    blurb: 'Responsive rules for 30+ modules, beta to production.',
   },
   {
     slug: 'project-6-schwab-reports',
@@ -152,7 +152,7 @@ export const projects: Project[] = [
     byline: 'Charles Schwab',
     outcome: 'Phase 1 shipped in 10 weeks · web rollout in Phase 2',
     featured: true,
-    blurb: 'Phase 1 shipped in 10 weeks, web rollout in Phase 2. Product Design, UX Research.',
+    blurb: 'Phase 1 shipped in 10 weeks, web rollout in Phase 2.',
   },
 ];
 
