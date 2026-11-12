@@ -132,7 +132,6 @@ img { max-width: 100%; height: auto; display: block; }
 
 /* Links use the dotted underline from the Figma file; solid on hover. */
 a { color: inherit; text-decoration: underline dotted; text-decoration-thickness: 0.13em; text-underline-offset: 3px; }
-a:hover { text-decoration-style: solid; }
 
 :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 2px; }
 

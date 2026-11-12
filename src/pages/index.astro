@@ -66,11 +66,11 @@ void projects;
             Email Me
           </a>
           <a class="pill-btn soft" href={url(contact.resumePdf)} download="Jeremy-Hamann-Resume.pdf">
-            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 18 18" width="18" height="18" aria-hidden="true"><path d="M9 3V11.25M12.375 7.875L9 11.25L5.625 7.875M3.75 14.25H14.25" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             Resume
           </a>
           <a class="pill-btn soft" href={contact.linkedin} target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.5h4V21H3V9.5Zm7 0h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.32-1.96 2.69V21h-4V9.5Z"/></svg>
+            <svg viewBox="0 0 18 18" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M13.9274 13.9303H11.8542V10.6818C11.8542 9.90708 11.8385 8.91017 10.7739 8.91017C9.693 8.91017 9.52792 9.75308 9.52792 10.6246V13.9303H7.45475V7.25H9.44625V8.16058H9.47308C9.75133 7.63558 10.428 7.08142 11.4389 7.08142C13.5395 7.08142 13.928 8.46392 13.928 10.2635L13.9274 13.9303ZM5.11325 6.33592C4.44592 6.33592 3.90983 5.79575 3.90983 5.13133C3.90983 4.4675 4.4465 3.92792 5.11325 3.92792C5.77825 3.92792 6.31725 4.4675 6.31725 5.13133C6.31725 5.79575 5.77767 6.33592 5.11325 6.33592ZM6.15275 13.9303H4.07375V7.25H6.15275V13.9303ZM14.9646 2H3.03308C2.462 2 2 2.4515 2 3.00858V14.9914C2 15.5491 2.462 16 3.03308 16H14.9628C15.5333 16 16 15.5491 16 14.9914V3.00858C16 2.4515 15.5333 2 14.9628 2H14.9646Z"/></svg>
             LinkedIn
           </a>
         </div>
@@ -203,7 +203,7 @@ void projects;
   .pill-btn { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 16px; border-radius: 8px; font-size: 14px; font-weight: 500; line-height: 19.6px; text-decoration: none; white-space: nowrap; }
   /* Email Me is the primary (ink) button; Resume and LinkedIn are light panels, as in Figma. */
   .pill-btn.solid { background: var(--ink); color: var(--on-ink); }
-  .pill-btn.soft { background: var(--panel); color: var(--ink); }
+  .pill-btn.soft { background: var(--panel); color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
   .pill-btn:hover { text-decoration: none; filter: brightness(0.94); }
 
   .description { background: var(--panel-glass); border-radius: var(--r-module); padding: 12px 14px; display: grid; gap: 6px; font-size: 14px; }
@@ -242,7 +242,7 @@ void projects;
   .work-heading { font-size: 20px; font-weight: 600; }
   .up-next { display: grid; gap: 24px; }
   .next-item { display: grid; grid-template-columns: 168px 1fr; gap: 10px; align-items: start; text-decoration: none; }
-  .next-item:hover .next-title { text-decoration: underline; }
+  .next-item:hover .next-title { text-decoration: underline dotted; text-decoration-thickness: 0.13em; text-underline-offset: 3px; }
   .thumb { position: relative; aspect-ratio: 16 / 9; overflow: hidden; border-radius: var(--r-module); background: var(--panel); }
   .thumb :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
   .next-item:hover .thumb :global(img) { transform: scale(1.04); }
