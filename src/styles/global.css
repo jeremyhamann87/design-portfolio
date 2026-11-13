@@ -25,6 +25,8 @@
   --hero-schwab: #f8fcff;
   --hero-schwab-reports: #efd1c8;
   --hero-ai-docs: #eec2ed;
+  --hero-ai-docs-mint: #c2eedf;
+  --hero-glenmede: #cfdbe3;
 
   /* Type */
   --font: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
@@ -80,6 +82,8 @@
   --hero-schwab: #1a2a3a;
   --hero-schwab-reports: #3a231e;
   --hero-ai-docs: #36203a;
+  --hero-ai-docs-mint: #17322a;
+  --hero-glenmede: #142a38;
   color-scheme: dark;
 }
 

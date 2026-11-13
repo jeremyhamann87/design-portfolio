@@ -10,7 +10,7 @@ const kpis = p.outcome.split(' · ');
 const pills = size === 'large' ? [...kpis, ...p.tags] : kpis;
 ---
 <article class:list={['card', size]}>
-  <a class="media" href={url(`/${p.slug}`)} tabindex="-1" aria-hidden="true">
+  <a class:list={['media', size === 'small' && p.cardFit && 'fit']} style={p.cardBg ? `background:${p.cardBg}` : undefined} href={url(`/${p.slug}`)} tabindex="-1" aria-hidden="true">
     <Image src={p.card} alt="" widths={[400, 600, 900, 1200]} sizes="(max-width: 799px) 100vw, 568px" format="webp" />
   </a>
   <div class="body">
@@ -25,6 +25,7 @@ const pills = size === 'large' ? [...kpis, ...p.tags] : kpis;
   .card { display: grid; gap: 16px; align-content: start; position: relative; }
   .media { display: block; overflow: hidden; border-radius: var(--r-module); }
   .media :global(img) { width: 100%; aspect-ratio: 568 / 394; object-fit: cover; transition: transform 0.3s ease; }
+  .media.fit :global(img) { object-fit: contain; }
   .card:hover .media :global(img) { transform: scale(1.02); }
   @media (prefers-reduced-motion: reduce) { .card:hover .media :global(img) { transform: none; } }
   .body { display: grid; gap: 12px; }
