@@ -102,6 +102,12 @@ const steps = [
     { title: 'Export variables in code format', constraint: 'Developers build in CSS, not Figma.', tradeoff: 'Another artifact to keep in sync, but handoff is a copy and paste, and a dated update log shows exactly what changed.' },
   ]} />
 
+  <Section label="How I Maintain It" intro="A design system is a product of its own. These are the habits that keep this one reliable.">
+    <div class="steps">
+      {steps.map(([t, d], i) => <Step n={String(i + 1).padStart(2, '0')} title={t}><p>{d}</p></Step>)}
+    </div>
+  </Section>
+
   <Section label="What’s In The Library" tone="dark" intro="23 categories of components cover everything a wealth management app needs, from buttons and inputs to tables, cards, charts and data visualization.">
     <Feature eyebrow="Basic elements" title="The building blocks of every screen" image={fBasics} alt="Dropdowns, text fields, buttons and segmented controls from the library in every state">
       Dropdowns, text fields, buttons and segmented controls come in every size and state: default, hover, focus, error and disabled. Labels, tooltips and help text are built in, so every form behaves the same way.
@@ -118,12 +124,6 @@ const steps = [
     <Feature eyebrow="Heatmaps" title="Markets at a glance" image={fHeatmap} alt="Sector heatmap with drill down into health care sub-industries">
       Heatmap cells, labels and groups let teams build sector and correlation views that drill down from sectors into sub-industries.
     </Feature>
-  </Section>
-
-  <Section label="How I Maintain It" intro="A design system is a product of its own. These are the habits that keep this one reliable.">
-    <div class="steps">
-      {steps.map(([t, d], i) => <Step n={String(i + 1).padStart(2, '0')} title={t}><p>{d}</p></Step>)}
-    </div>
   </Section>
 
   <Section label="My Role" tone="light">
