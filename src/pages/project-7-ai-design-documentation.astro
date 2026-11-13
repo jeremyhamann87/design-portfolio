@@ -29,7 +29,17 @@ import prompt from '../assets/ai-docs/prompt.png';
 import promptDark from '../assets/ai-docs/prompt-dark.png';
 
 const p = getProject('project-7-ai-design-documentation');
-const pages = [b1, b2, b3, b4, b5, b6, b7, b8, b9];
+const pages = [
+  [b1, 'Page 01 · Cover'],
+  [b7, 'Page 02 · Table of Contents'],
+  [b3, 'Page 03 · Site Map'],
+  [b8, 'Page 06 · Dashboard · Variants 1 & 2'],
+  [b6, 'Page 21 · Financials · Section Break'],
+  [b5, 'Page 22 · Financials · Financial Engagement'],
+  [b4, 'Page 37 · Reminders · Banners, Edit & Create'],
+  [b9, 'Page 38 · Markets · Section Break'],
+  [b2, 'Page 39 · Markets · Overview & Calendar'],
+] as const;
 const steps = [
   ['Build the foundation', 'I start by designing the building blocks: callout dots, note cards, a notes bar, page headers and section breaks. Then I bring in finished examples from earlier projects, like past site maps and build books, so Claude has a clear picture of what good looks like.'],
   ['Teach by example', 'I ask Claude to study those components and examples, and I write the rules down as a reusable prompt: where the facts come from, how pages are laid out, where callouts go and how quality is checked.'],
@@ -62,13 +72,17 @@ const steps = [
   ]} />
 
   <Section label="Key Features" tone="dark" intro="I built a repeatable AI workflow in Figma that turns finished designs into a complete, annotated build book, so the documentation stays as current as the designs themselves.">
-    <div class="book" role="region" aria-label="Build book pages" tabindex="0">
-      {pages.map((img, i) => (
-        <figure>
-          <Image src={img} alt={`Build book page ${i + 1}`} widths={[400, 800]} sizes="320px" format="webp" />
-          <figcaption>Page {String(i + 1).padStart(2, '0')}</figcaption>
-        </figure>
-      ))}
+    <div class="carousel" role="region" aria-roledescription="carousel" aria-label="Build book pages" data-carousel>
+      <div class="slides">
+        {pages.map(([img, caption], i) => (
+          <figure class="slide" data-slide hidden={i !== 0} aria-label={`${i + 1} of ${pages.length}`}>
+            <div class="page"><Image src={img} alt={`Build book, ${caption}`} widths={[480, 780, 1200]} sizes="(max-width: 799px) 78vw, 780px" format="webp" loading={i === 0 ? 'eager' : 'lazy'} /></div>
+            <figcaption><span class="cap">{caption}</span><span class="count">{i + 1} / {pages.length}</span></figcaption>
+          </figure>
+        ))}
+      </div>
+      <button class="nav prev" type="button" aria-label="Previous page" data-prev><svg viewBox="0 0 24 24" width="32" height="32" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button class="nav next" type="button" aria-label="Next page" data-next><svg viewBox="0 0 24 24" width="32" height="32" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     </div>
     <Feature eyebrow="From annotations to pages" title="Every screen explained" image={f1}>
       Claude reads the native Figma annotations and prototype arrows on each screen, then lays out annotated pages with numbered callouts and notes tagged Interaction or Content. Nothing is invented: every note traces back to my annotations.
@@ -111,10 +125,27 @@ const steps = [
 
 <style>
   .light { background: var(--panel-glass); padding-block: 12px; }
-  .book { display: grid; grid-auto-flow: column; grid-auto-columns: 300px; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; }
-  .book figure { scroll-snap-align: start; display: grid; gap: 8px; }
-  .book :global(img) { width: 300px; height: 300px; object-fit: cover; object-position: top; background: #fff; border-radius: var(--r-module); }
-  .book figcaption { font-size: 13px; font-weight: 400; }
+  .carousel { position: relative; background: var(--hero-ai-docs); border-radius: var(--r-module); padding: 48px 11% 40px; max-width: 1000px; margin-inline: auto; width: 100%; }
+  .slide { display: grid; gap: 40px; margin: 0; }
+  .slide[hidden] { display: none; }
+  .page { aspect-ratio: 1; overflow: hidden; box-shadow: 0 10px 30px rgb(0 0 0 / 0.16); background: #fff; }
+  .page :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+  .slide figcaption { display: flex; justify-content: space-between; gap: 16px; font-size: 22px; line-height: 1.2; color: var(--ink); }
+  .cap { font-weight: 600; }
+  .count { font-weight: 400; white-space: nowrap; }
+  .nav { position: absolute; top: calc(48px + (100% - 88px - 66px) / 2); transform: translateY(-50%); width: 56px; height: 56px; border-radius: 50%; border: 0; display: grid; place-items: center; background: var(--ink); color: var(--on-ink); cursor: pointer; }
+  .nav:hover { filter: brightness(1.15); }
+  .prev { left: 2.4%; }
+  .next { right: 2.4%; }
+  @media (max-width: 799px) {
+    .carousel { padding: 24px 16px 24px; }
+    .slide { gap: 16px; }
+    .slide figcaption { font-size: 15px; }
+    .nav { width: 40px; height: 40px; top: calc(24px + (100vw - 64px) / 2); }
+    .nav svg { width: 24px; height: 24px; }
+    .prev { left: 4px; }
+    .next { right: 4px; }
+  }
   .steps { display: grid; gap: 8px; }
   .prompt-label { font-weight: 500; }
   .prompt :global(img) { width: 100%; height: auto; }
@@ -122,3 +153,22 @@ const steps = [
   :global(:root[data-theme='dark']) .prompt :global(.theme-light) { display: none; }
   :global(:root[data-theme='dark']) .prompt :global(.theme-dark) { display: block; }
 </style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((root) => {
+    const slides = [...root.querySelectorAll<HTMLElement>('[data-slide]')];
+    let i = 0;
+    const show = (n: number) => {
+      slides[i].hidden = true;
+      i = (n + slides.length) % slides.length;
+      slides[i].hidden = false;
+    };
+    root.querySelector('[data-prev]')?.addEventListener('click', () => show(i - 1));
+    root.querySelector('[data-next]')?.addEventListener('click', () => show(i + 1));
+    root.tabIndex = 0;
+    root.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') show(i - 1);
+      if (e.key === 'ArrowRight') show(i + 1);
+    });
+  });
+</script>
