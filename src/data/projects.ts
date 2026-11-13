@@ -39,6 +39,8 @@ export interface Project {
   blurb: string;
   /** Shorter title for the home work list, when it differs. */
   shortTitle?: string;
+  /** When set, small cards show the whole image (contain) on this background. */
+  cardBg?: string;
 }
 
 /** Source order; the home list uses homeOrder below. */
@@ -71,6 +73,7 @@ export const projects: Project[] = [
     field: 'AI, Design Ops',
     date: 'Fall 2026',
     card: aiDocsCard,
+    cardBg: 'var(--hero-ai-docs-mint)',
     byline: 'Communify',
     outcome: 'Documentation 10x faster · 62-page build book',
     featured: true,
