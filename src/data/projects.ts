@@ -39,8 +39,10 @@ export interface Project {
   blurb: string;
   /** Shorter title for the home work list, when it differs. */
   shortTitle?: string;
-  /** When set, small cards show the whole image (contain) on this background. */
+  /** Background shown behind the card image (for transparent or fitted images). */
   cardBg?: string;
+  /** Small cards show the whole image (contain) instead of cropping. */
+  cardFit?: boolean;
 }
 
 /** Source order; the home list uses homeOrder below. */
@@ -56,6 +58,7 @@ export const projects: Project[] = [
     field: 'Design Systems, Fintech',
     date: '2025 - 2026',
     card: glenmedeCard,
+    cardBg: '#cfdbe3',
     byline: 'Communify',
     outcome: '250+ components · 2,200+ variants · light and dark mode',
     featured: true,
@@ -74,6 +77,7 @@ export const projects: Project[] = [
     date: 'Fall 2026',
     card: aiDocsCard,
     cardBg: 'var(--hero-ai-docs-mint)',
+    cardFit: true,
     byline: 'Communify',
     outcome: 'Documentation 10x faster · 62-page build book',
     featured: true,

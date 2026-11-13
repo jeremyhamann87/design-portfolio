@@ -10,7 +10,7 @@ const kpis = p.outcome.split(' · ');
 const pills = size === 'large' ? [...kpis, ...p.tags] : kpis;
 ---
 <article class:list={['card', size]}>
-  <a class:list={['media', size === 'small' && p.cardBg && 'fit']} style={size === 'small' && p.cardBg ? `background:${p.cardBg}` : undefined} href={url(`/${p.slug}`)} tabindex="-1" aria-hidden="true">
+  <a class:list={['media', size === 'small' && p.cardFit && 'fit']} style={p.cardBg ? `background:${p.cardBg}` : undefined} href={url(`/${p.slug}`)} tabindex="-1" aria-hidden="true">
     <Image src={p.card} alt="" widths={[400, 600, 900, 1200]} sizes="(max-width: 799px) 100vw, 568px" format="webp" />
   </a>
   <div class="body">

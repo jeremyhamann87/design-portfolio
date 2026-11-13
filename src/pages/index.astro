@@ -143,7 +143,7 @@ void projects;
         {work.map((p) => (
           <li>
             <a class="next-item" href={url(`/${p.slug}`)}>
-              <span class="thumb">
+              <span class="thumb" style={p.cardBg ? `background:${p.cardBg}` : undefined}>
                 <Image src={p.card} alt="" widths={[200, 400]} sizes="(max-width: 999px) 40vw, 168px" format="webp" />
                 <span class="badge">{p.date.match(/\d{4}/g)?.at(-1)}</span>
               </span>
