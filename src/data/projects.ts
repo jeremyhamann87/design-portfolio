@@ -7,6 +7,7 @@ import maiCard from '../assets/cards/mai-advisor-portal.png';
 import schwabTradingCard from '../assets/cards/schwab-trading.png';
 import schwabReportsCard from '../assets/cards/schwab-reports.png';
 import aiDocsCard from '../assets/cards/ai-docs.png';
+import glenmedeCard from '../assets/cards/glenmede.png';
 
 export type CompanyKey = 'seven-post' | 'commsec' | 'communify' | 'schwab';
 
@@ -42,6 +43,23 @@ export interface Project {
 
 /** Source order; the home list uses homeOrder below. */
 export const projects: Project[] = [
+  {
+    slug: 'project-8-glenmede-design-system',
+    title: 'Design System for Glenmede Wealth Apps',
+    description:
+      'Created, maintained and used a comprehensive Figma design system for Glenmede, with 250+ components, light and dark mode variables and built-in documentation for developers and product managers.',
+    company: 'communify',
+    role: 'Product Design',
+    tags: ['Design Systems', 'Fintech', 'Documentation', 'Figma'],
+    field: 'Design Systems, Fintech',
+    date: '2025 - 2026',
+    card: glenmedeCard,
+    byline: 'Communify',
+    outcome: '250+ components · 2,200+ variants · light and dark mode',
+    featured: true,
+    shortTitle: 'Glenmede Design System',
+    blurb: '250+ components and 189 variables, documented for devs and PMs.',
+  },
   {
     slug: 'project-7-ai-design-documentation',
     title: 'AI-Powered Design Documentation',
@@ -157,7 +175,7 @@ export const projects: Project[] = [
 ];
 
 /** Order of the home "My Work" list, matching the Figma design. */
-export const homeOrder = ['project-7-ai-design-documentation','project-4-ai-notetaker','project-3-mai-advisor-portal','project-1-seven-post-client-portal','project-2-commsec','project-5-schwab-trading','project-6-schwab-reports'];
+export const homeOrder = ['project-7-ai-design-documentation','project-8-glenmede-design-system','project-4-ai-notetaker','project-3-mai-advisor-portal','project-1-seven-post-client-portal','project-2-commsec','project-5-schwab-trading','project-6-schwab-reports'];
 
 export function getProject(slug: string): Project {
   const p = projects.find((x) => x.slug === slug);

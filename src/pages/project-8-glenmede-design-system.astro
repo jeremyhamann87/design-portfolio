@@ -1,0 +1,195 @@
+---
+import Base from '../layouts/Base.astro';
+import CaseHero from '../components/CaseHero.astro';
+import Section from '../components/Section.astro';
+import KPIs from '../components/KPIs.astro';
+import Feature from '../components/Feature.astro';
+import Step from '../components/Step.astro';
+import Figure from '../components/Figure.astro';
+import RoleLists from '../components/RoleLists.astro';
+import KeyDecisions from '../components/KeyDecisions.astro';
+import MoreWork from '../components/MoreWork.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+import { getProject } from '../data/projects';
+import hero from '../assets/glenmede/hero.png';
+import d1 from '../assets/glenmede/doc-1-getting-started.png';
+import d2 from '../assets/glenmede/doc-2-guidelines.png';
+import d3 from '../assets/glenmede/doc-3-colors.png';
+import d4 from '../assets/glenmede/doc-4-code.png';
+import d5 from '../assets/glenmede/doc-5-typography.png';
+import fContainers from '../assets/glenmede/feature-containers.png';
+import fAlerts from '../assets/glenmede/feature-alerts.png';
+import fCharts from '../assets/glenmede/feature-charts.png';
+import fHeatmap from '../assets/glenmede/feature-heatmap.png';
+
+const p = getProject('project-8-glenmede-design-system');
+
+const client = [
+  { term: 'Assets under management', value: '$52.6B', note: 'As of September 30, 2026' },
+  { term: 'Founded', value: '1956', note: 'As The Glenmede Trust Company' },
+  { term: 'Ownership', value: 'Independent', note: 'Privately owned, with nine offices' },
+];
+
+const docPages = [
+  [d1, 'Getting started', 'How the library connects to every app file, three ways to theme it for a client, and step by step setup.'],
+  [d2, 'Guidelines & naming', 'How to change typography, colors, breakpoints, radius and dark mode, plus the naming rules that keep 250+ components searchable.'],
+  [d3, 'Colors & effects', 'The full palette hierarchy, with a light and a dark value for every color variable.'],
+  [d4, 'Variables in code', 'Every token exported in CSS format for light and dark mode, plus a dated update history for developers.'],
+  [d5, 'Typography', 'Font, weight, size and line height variables, and the heading and body styles built from them.'],
+] as const;
+
+const steps = [
+  ['Start from variables', 'Every color, font, weight, radius and breakpoint is a variable first. Components only reference variables, so one change flows through the whole system.'],
+  ['Build components for every screen size', 'Each component ships with variants for its states and sizes, and app containers resize across four breakpoints from mobile to large desktop.'],
+  ['Design light and dark together', 'All 158 color variables have a light value and a dark value, so every component switches modes without a second set of designs.'],
+  ['Document as I go', 'Each page opens with a title block that explains what its components are for, and the Documentation page covers setup, theming, naming and code.'],
+  ['Keep it current', 'I log variable updates with dates and keep the code export in step with the design file, so developers always know what changed and when.'],
+];
+---
+<Base title={`${p.title} | Jeremy Hamann`} description={p.description}>
+  <CaseHero project={p} image={hero} bg="var(--hero-glenmede)" alt="The Glenmede Style Library cover with alert cards, buttons and a sector heatmap from the library" />
+
+  <div class="light">
+    <Section label="Goals">
+      <p>Every designer today needs to know how to create, maintain and use a design system. It is what lets a team move fast without losing quality. The Glenmede Style Library is one of dozens of design systems I help create, maintain and use on a regular basis.</p>
+      <p>It holds every component needed to design Glenmede’s wealth management apps on desktop and mobile, along with all of the typography and color variables for light and dark mode. Developers and product managers use it as a storehouse they can build from easily, with documentation on use cases and quick access to CSS and HTML.</p>
+    </Section>
+    <Section label="Results">
+      <KPIs items={[
+        { value: '250+', label: 'Component Sets', note: '2,200+ variants across 23 categories' },
+        { value: '189', label: 'Design Variables', note: '158 colors, each with light and dark values' },
+        { value: '4', label: 'Responsive Breakpoints', note: 'From mobile up to large desktop' },
+      ]} />
+    </Section>
+  </div>
+
+  <Section label="About The Client" id="about-client">
+    <dl class="client">
+      {client.map((c) => (
+        <div>
+          <dt>{c.term}</dt>
+          <dd class="value">{c.value}</dd>
+          <dd class="note">{c.note}</dd>
+        </div>
+      ))}
+    </dl>
+    <p class="source">Source: <a href="https://www.glenmede.com/" target="_blank" rel="noopener">glenmede.com</a></p>
+  </Section>
+
+  <Section label="The Documentation" id="documentation" tone="dark" intro="A design system is only as good as its documentation. The library’s Documentation page answers the questions designers, developers and product managers ask most, right inside the Figma file.">
+    <div class="carousel" role="region" aria-roledescription="carousel" aria-label="Documentation pages" data-carousel>
+      <div class="slides">
+        {docPages.map(([img, title, note], i) => (
+          <div class="slide" data-slide hidden={i !== 0} aria-label={`${i + 1} of ${docPages.length}`}>
+            <div class="page"><Figure src={img} alt={`Documentation, ${title}`} sizes="(max-width: 799px) 90vw, 820px" loading={i === 0 ? 'eager' : 'lazy'} /></div>
+            <div class="slide-text">
+              <p class="cap"><span>{title}</span><span class="count">{i + 1} / {docPages.length}</span></p>
+              <p class="note">{note}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <button class="nav prev" type="button" aria-label="Previous page" data-prev><svg viewBox="0 0 24 24" width="32" height="32" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button class="nav next" type="button" aria-label="Next page" data-next><svg viewBox="0 0 24 24" width="32" height="32" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+    <p class="hint">Click any page to see it full size.</p>
+  </Section>
+
+  <KeyDecisions items={[
+    { title: 'Make variables the single source of truth', constraint: 'The same components have to serve Glenmede’s brand, light and dark mode and every screen size.', tradeoff: 'More setup up front, but a font or color change is made once and flows to every component and app file.' },
+    { title: 'Keep documentation inside the library', constraint: 'Designers, developers and product managers all need answers without waiting on a designer.', tradeoff: 'Docs have to be updated alongside the components, but they are always one click away from the thing they describe.' },
+    { title: 'Export variables in code format', constraint: 'Developers build in CSS, not Figma.', tradeoff: 'Another artifact to keep in sync, but handoff is a copy and paste, and a dated update log shows exactly what changed.' },
+  ]} />
+
+  <Section label="What’s In The Library" tone="dark" intro="23 categories of components cover everything a wealth management app needs, from buttons and inputs to tables, cards, charts and data visualization.">
+    <Feature eyebrow="App containers" title="Responsive, in light and dark" image={fContainers} alt="Common and story app containers at five widths in light and dark mode">
+      Common and story app containers set the frame for every module. Each one resizes across breakpoints and switches between light and dark mode from the same variables.
+    </Feature>
+    <Feature eyebrow="Cards & lists" title="36 card and list sets" image={fAlerts} side="right" alt="A grid of alert card variants for price, volume, ratings, splits, dividends and earnings">
+      Alert cards alone come in 38 variants for price moves, volume, ratings, splits, spin offs, earnings and dividends, each with its own mini chart.
+    </Feature>
+    <Feature eyebrow="Charts & data viz" title="88 sets for data-dense screens" image={fCharts} alt="Growth of $10K line chart with highlighted periods and value labels">
+      Line, bar, donut, treemap, event and yield curve charts share one set of chart colors, so data reads the same everywhere in the app.
+    </Feature>
+    <Feature eyebrow="Heatmaps" title="Markets at a glance" image={fHeatmap} side="right" alt="Sector heatmap with drill down into health care sub-industries">
+      Heatmap cells, labels and groups let teams build sector and correlation views that drill down from sectors into sub-industries.
+    </Feature>
+  </Section>
+
+  <Section label="How I Maintain It" intro="A design system is a product of its own. These are the habits that keep this one reliable.">
+    <div class="steps">
+      {steps.map(([t, d], i) => <Step n={String(i + 1).padStart(2, '0')} title={t}><p>{d}</p></Step>)}
+    </div>
+  </Section>
+
+  <Section label="My Role" tone="light">
+    <RoleLists
+      role={['Create components and variants', 'Maintain light and dark mode variables', 'Write and update the documentation', 'Use the library to design Glenmede’s apps', 'Internal contact for the library']}
+      collaborators={['Developers', 'Product managers', 'Designers', 'Glenmede stakeholders']}
+    />
+  </Section>
+
+  <Section label="Outcomes" tone="none">
+    <p>The Glenmede Style Library gives everyone on the project one place to start. Designers build screens from tested components, developers copy tokens straight into code, and product managers can see what exists before they ask for something new. It is one of dozens of systems I work in every week, and it shows what I believe about design systems: the best ones are as easy to use as they are complete.</p>
+  </Section>
+
+  <ContactCTA />
+
+  <MoreWork slugs={['project-7-ai-design-documentation', 'project-3-mai-advisor-portal']} />
+</Base>
+
+<style>
+  .light { background: var(--panel-glass); padding-block: 12px; }
+  .client { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; margin: 0; }
+  .client > div { display: flex; flex-direction: column; padding-top: 12px; border-top: 2px solid var(--ink); }
+  .client dt { font-weight: 500; margin-top: 4px; }
+  .client .value { order: -1; font-size: var(--fs-display); font-weight: 700; line-height: 1.1; margin: 0; }
+  .client .note { font-size: 14px; font-weight: 300; margin: 4px 0 0; }
+  .source { font-size: 12px; font-weight: 300; }
+  .carousel { position: relative; background: var(--hero-glenmede); border-radius: var(--r-module); padding: 48px 11% 40px; max-width: 1000px; margin-inline: auto; width: 100%; }
+  .slide { display: grid; gap: 32px; }
+  .slide[hidden] { display: none; }
+  .page { aspect-ratio: 4 / 3; background: #fff; box-shadow: 0 10px 30px rgb(0 0 0 / 0.16); position: relative; overflow: hidden; border-radius: var(--r-module); }
+  .page :global(.fig) { position: absolute; inset: 12px; display: block; }
+  .page :global(.zoom) { width: 100%; height: 100%; }
+  .page :global(img) { width: 100%; height: 100%; object-fit: contain; border-radius: 0; }
+  .slide-text { display: grid; gap: 6px; color: var(--ink); }
+  .cap { display: flex; justify-content: space-between; gap: 16px; font-size: 22px; line-height: 1.2; font-weight: 600; margin: 0; }
+  .count { font-weight: 400; white-space: nowrap; }
+  .slide-text .note { font-weight: 300; margin: 0; }
+  .nav { position: absolute; top: calc(48px + (100% - 88px) * 0.36); transform: translateY(-50%); width: 56px; height: 56px; border-radius: 50%; border: 0; display: grid; place-items: center; background: var(--ink); color: var(--on-ink); cursor: pointer; }
+  .nav:hover { filter: brightness(1.15); }
+  .prev { left: 2.4%; }
+  .next { right: 2.4%; }
+  .hint { font-size: 14px; font-weight: 300; text-align: center; }
+  .steps { display: grid; gap: 8px; }
+  @media (max-width: 799px) {
+    .client { grid-template-columns: 1fr; gap: 24px; }
+    .carousel { padding: 24px 16px; }
+    .slide { gap: 16px; }
+    .cap { font-size: 16px; }
+    .nav { width: 40px; height: 40px; top: calc(24px + (100vw - 64px) * 0.375); }
+    .nav svg { width: 24px; height: 24px; }
+    .prev { left: 4px; }
+    .next { right: 4px; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((root) => {
+    const slides = [...root.querySelectorAll<HTMLElement>('[data-slide]')];
+    let i = 0;
+    const show = (n: number) => {
+      slides[i].hidden = true;
+      i = (n + slides.length) % slides.length;
+      slides[i].hidden = false;
+    };
+    root.querySelector('[data-prev]')?.addEventListener('click', () => show(i - 1));
+    root.querySelector('[data-next]')?.addEventListener('click', () => show(i + 1));
+    root.tabIndex = 0;
+    root.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') show(i - 1);
+      if (e.key === 'ArrowRight') show(i + 1);
+    });
+  });
+</script>
