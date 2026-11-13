@@ -32,6 +32,7 @@ const client = [
 ];
 
 const docPages = [
+  [d1, 'Getting started', 'How the library connects to every app file, three ways to theme it for a client, and step by step setup.'],
   [d2, 'Guidelines & naming', 'How to change typography, colors, breakpoints, radius and dark mode, plus the naming rules that keep 250+ components searchable.'],
   [d3, 'Colors & effects', 'The full palette hierarchy, with a light and a dark value for every color variable.'],
   [d4, 'Variables in code', 'Every token exported in CSS format for light and dark mode, plus a dated update history for developers.'],
@@ -77,15 +78,11 @@ const steps = [
   </Section>
 
   <Section label="The Documentation" id="documentation" tone="dark" intro="A design system is only as good as its documentation. The library’s Documentation page answers the questions designers, developers and product managers ask most, right inside the Figma file.">
-    <div class="lead">
-      <Figure src={d1} alt="Documentation, Getting started page" sizes="(max-width: 1280px) 100vw, 1080px" loading="eager" />
-      <p class="lead-cap"><strong>Getting started.</strong> How the library connects to every app file, three ways to theme it for a client, and step by step setup.</p>
-    </div>
     <div class="carousel" role="region" aria-roledescription="carousel" aria-label="Documentation pages" data-carousel>
       <div class="slides">
         {docPages.map(([img, title, note], i) => (
           <div class="slide" data-slide hidden={i !== 0} aria-label={`${i + 1} of ${docPages.length}`}>
-            <div class="page"><Figure src={img} alt={`Documentation, ${title}`} sizes="(max-width: 799px) 90vw, 820px" /></div>
+            <div class="page"><Figure src={img} alt={`Documentation, ${title}`} sizes="(max-width: 799px) 90vw, 820px" loading={i === 0 ? 'eager' : 'lazy'} /></div>
             <div class="slide-text">
               <p class="cap"><span>{title}</span><span class="count">{i + 1} / {docPages.length}</span></p>
               <p class="note">{note}</p>
@@ -153,9 +150,6 @@ const steps = [
   .client .value { order: -1; font-size: var(--fs-display); font-weight: 700; line-height: 1.1; margin: 0; }
   .client .note { font-size: 14px; font-weight: 300; margin: 4px 0 0; }
   .source { font-size: 12px; font-weight: 300; }
-  .lead { display: grid; gap: 16px; max-width: 1000px; margin: 0 auto 48px; width: 100%; }
-  .lead :global(img) { background: #fff; }
-  .lead-cap { font-weight: 300; margin: 0; }
   .carousel { position: relative; background: var(--hero-glenmede); border-radius: var(--r-module); padding: 48px 11% 40px; max-width: 1000px; margin-inline: auto; width: 100%; }
   .slide { display: grid; gap: 32px; }
   .slide[hidden] { display: none; }
