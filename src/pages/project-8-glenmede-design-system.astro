@@ -21,6 +21,7 @@ import fContainers from '../assets/glenmede/feature-containers.png';
 import fAlerts from '../assets/glenmede/feature-alerts.png';
 import fCharts from '../assets/glenmede/feature-charts.png';
 import fHeatmap from '../assets/glenmede/feature-heatmap.png';
+import fBasics from '../assets/glenmede/feature-basics.png';
 
 const p = getProject('project-8-glenmede-design-system');
 
@@ -31,7 +32,6 @@ const client = [
 ];
 
 const docPages = [
-  [d1, 'Getting started', 'How the library connects to every app file, three ways to theme it for a client, and step by step setup.'],
   [d2, 'Guidelines & naming', 'How to change typography, colors, breakpoints, radius and dark mode, plus the naming rules that keep 250+ components searchable.'],
   [d3, 'Colors & effects', 'The full palette hierarchy, with a light and a dark value for every color variable.'],
   [d4, 'Variables in code', 'Every token exported in CSS format for light and dark mode, plus a dated update history for developers.'],
@@ -77,11 +77,15 @@ const steps = [
   </Section>
 
   <Section label="The Documentation" id="documentation" tone="dark" intro="A design system is only as good as its documentation. The library’s Documentation page answers the questions designers, developers and product managers ask most, right inside the Figma file.">
+    <div class="lead">
+      <Figure src={d1} alt="Documentation, Getting started page" sizes="(max-width: 1280px) 100vw, 1080px" loading="eager" />
+      <p class="lead-cap"><strong>Getting started.</strong> How the library connects to every app file, three ways to theme it for a client, and step by step setup.</p>
+    </div>
     <div class="carousel" role="region" aria-roledescription="carousel" aria-label="Documentation pages" data-carousel>
       <div class="slides">
         {docPages.map(([img, title, note], i) => (
           <div class="slide" data-slide hidden={i !== 0} aria-label={`${i + 1} of ${docPages.length}`}>
-            <div class="page"><Figure src={img} alt={`Documentation, ${title}`} sizes="(max-width: 799px) 90vw, 820px" loading={i === 0 ? 'eager' : 'lazy'} /></div>
+            <div class="page"><Figure src={img} alt={`Documentation, ${title}`} sizes="(max-width: 799px) 90vw, 820px" /></div>
             <div class="slide-text">
               <p class="cap"><span>{title}</span><span class="count">{i + 1} / {docPages.length}</span></p>
               <p class="note">{note}</p>
@@ -102,16 +106,19 @@ const steps = [
   ]} />
 
   <Section label="What’s In The Library" tone="dark" intro="23 categories of components cover everything a wealth management app needs, from buttons and inputs to tables, cards, charts and data visualization.">
-    <Feature eyebrow="App containers" title="Responsive, in light and dark" image={fContainers} alt="Common and story app containers at five widths in light and dark mode">
+    <Feature eyebrow="Basic elements" title="The building blocks of every screen" image={fBasics} alt="Dropdowns, text fields, buttons and segmented controls from the library in every state">
+      Dropdowns, text fields, buttons and segmented controls come in every size and state: default, hover, focus, error and disabled. Labels, tooltips and help text are built in, so every form behaves the same way.
+    </Feature>
+    <Feature eyebrow="App containers" title="Responsive, in light and dark" side="right" image={fContainers} alt="Common and story app containers at five widths in light and dark mode">
       Common and story app containers set the frame for every module. Each one resizes across breakpoints and switches between light and dark mode from the same variables.
     </Feature>
-    <Feature eyebrow="Cards & lists" title="36 card and list sets" image={fAlerts} side="right" alt="A grid of alert card variants for price, volume, ratings, splits, dividends and earnings">
+    <Feature eyebrow="Cards & lists" title="36 card and list sets" image={fAlerts} alt="A grid of alert card variants for price, volume, ratings, splits, dividends and earnings">
       Alert cards alone come in 38 variants for price moves, volume, ratings, splits, spin offs, earnings and dividends, each with its own mini chart.
     </Feature>
-    <Feature eyebrow="Charts & data viz" title="88 sets for data-dense screens" image={fCharts} alt="Growth of $10K line chart with highlighted periods and value labels">
+    <Feature eyebrow="Charts & data viz" title="88 sets for data-dense screens" image={fCharts} side="right" alt="Growth of $10K line chart with highlighted periods and value labels">
       Line, bar, donut, treemap, event and yield curve charts share one set of chart colors, so data reads the same everywhere in the app.
     </Feature>
-    <Feature eyebrow="Heatmaps" title="Markets at a glance" image={fHeatmap} side="right" alt="Sector heatmap with drill down into health care sub-industries">
+    <Feature eyebrow="Heatmaps" title="Markets at a glance" image={fHeatmap} alt="Sector heatmap with drill down into health care sub-industries">
       Heatmap cells, labels and groups let teams build sector and correlation views that drill down from sectors into sub-industries.
     </Feature>
   </Section>
@@ -146,6 +153,9 @@ const steps = [
   .client .value { order: -1; font-size: var(--fs-display); font-weight: 700; line-height: 1.1; margin: 0; }
   .client .note { font-size: 14px; font-weight: 300; margin: 4px 0 0; }
   .source { font-size: 12px; font-weight: 300; }
+  .lead { display: grid; gap: 16px; max-width: 1000px; margin: 0 auto 48px; width: 100%; }
+  .lead :global(img) { background: #fff; }
+  .lead-cap { font-weight: 300; margin: 0; }
   .carousel { position: relative; background: var(--hero-glenmede); border-radius: var(--r-module); padding: 48px 11% 40px; max-width: 1000px; margin-inline: auto; width: 100%; }
   .slide { display: grid; gap: 32px; }
   .slide[hidden] { display: none; }
