@@ -154,11 +154,10 @@ ul, ol { padding: 0; list-style: none; }
 .tag {
   display: inline-block;
   font-size: var(--fs-small);
-  font-weight: 400;
+  font-weight: 300;
   line-height: 17px;
   padding: 4px 8px;
   border-radius: 999px;
-  border: 1px solid var(--ink);
   background: var(--panel);
 }
 .tags { display: flex; flex-wrap: wrap; gap: var(--s-2); }
