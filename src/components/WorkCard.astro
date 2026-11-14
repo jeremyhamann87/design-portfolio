@@ -4,8 +4,8 @@ import type { Project } from '../data/projects';
 import CompanyLogo from './CompanyLogo.astro';
 import { url } from '../lib/url';
 
-interface Props { project: Project; size?: 'large' | 'small'; headingLevel?: 'h2' | 'h3' }
-const { project: p, size = 'large', headingLevel: H = 'h3' } = Astro.props;
+interface Props { project: Project; size?: 'large' | 'small'; headingLevel?: 'h2' | 'h3'; pills?: boolean }
+const { project: p, size = 'large', headingLevel: H = 'h3', pills: showPills = true } = Astro.props;
 const kpis = p.outcome.split(' · ');
 const pills = size === 'large' ? [...kpis, ...p.tags] : kpis;
 ---
@@ -17,7 +17,7 @@ const pills = size === 'large' ? [...kpis, ...p.tags] : kpis;
     <H class="title"><a href={url(`/${p.slug}`)}>{p.title}</a></H>
     <p class="desc">{p.description}</p>
     <CompanyLogo company={p.company} link={false} label={p.byline} />
-    <ul class="tags">{pills.map((t) => <li class="tag">{t}</li>)}</ul>
+    {showPills && <ul class="tags">{pills.map((t) => <li class="tag">{t}</li>)}</ul>}
   </div>
 </article>
 

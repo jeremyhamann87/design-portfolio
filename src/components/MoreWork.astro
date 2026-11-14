@@ -3,7 +3,8 @@ import { getProject } from '../data/projects';
 import WorkCard from './WorkCard.astro';
 import loopDown from '../assets/icons/loop-arrow-down.svg';
 import { url } from '../lib/url';
-interface Props { slugs: [string, string] }
+interface Props { slugs: [string, string]; pills?: boolean }
+const { pills = true } = Astro.props;
 const items = Astro.props.slugs.map(getProject);
 ---
 <section class="more" aria-labelledby="more-work">
@@ -13,7 +14,7 @@ const items = Astro.props.slugs.map(getProject);
       <h2 id="more-work">More work</h2>
       <a href={url('/')}>See All</a>
     </div>
-    <div class="grid">{items.map((p) => <WorkCard project={p} size="small" />)}</div>
+    <div class="grid">{items.map((p) => <WorkCard project={p} size="small" pills={pills} />)}</div>
   </div>
 </section>
 <style>

@@ -6,10 +6,8 @@ import KPIs from '../components/KPIs.astro';
 import Feature from '../components/Feature.astro';
 import Step from '../components/Step.astro';
 import Figure from '../components/Figure.astro';
-import RoleLists from '../components/RoleLists.astro';
 import KeyDecisions from '../components/KeyDecisions.astro';
 import MoreWork from '../components/MoreWork.astro';
-import ContactCTA from '../components/ContactCTA.astro';
 import { getProject } from '../data/projects';
 import hero from '../assets/glenmede/hero.png';
 import d1 from '../assets/glenmede/doc-1-getting-started.png';
@@ -77,15 +75,14 @@ const steps = [
     <p class="source">Source: <a href="https://www.glenmede.com/" target="_blank" rel="noopener">glenmede.com</a></p>
   </Section>
 
-  <Section label="The Documentation" id="documentation" tone="dark" intro="A design system is only as good as its documentation. The library’s Documentation page answers the questions designers, developers and product managers ask most, right inside the Figma file.">
+  <Section label="The Documentation" id="documentation" tone="dark" intro="A design system is only as good as its documentation. The library’s Documentation page answers the questions designers, developers and product managers ask most, right inside the Figma file. It starts with Getting started: how the library connects to every app file, three ways to theme it for a client, and step by step setup.">
     <div class="carousel" role="region" aria-roledescription="carousel" aria-label="Documentation pages" data-carousel>
       <div class="slides">
-        {docPages.map(([img, title, note], i) => (
+        {docPages.map(([img, title], i) => (
           <div class="slide" data-slide hidden={i !== 0} aria-label={`${i + 1} of ${docPages.length}`}>
             <div class="page"><Figure src={img} alt={`Documentation, ${title}`} sizes="(max-width: 799px) 90vw, 820px" loading={i === 0 ? 'eager' : 'lazy'} /></div>
             <div class="slide-text">
-              <p class="cap"><span>{title}</span><span class="count">{i + 1} / {docPages.length}</span></p>
-              <p class="note">{note}</p>
+              <p class="cap"><span>Page {String(i + 1).padStart(2, '0')} · {title}</span><span class="count">{i + 1} / {docPages.length}</span></p>
             </div>
           </div>
         ))}
@@ -93,7 +90,6 @@ const steps = [
       <button class="nav prev" type="button" aria-label="Previous page" data-prev><svg viewBox="0 0 24 24" width="32" height="32" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       <button class="nav next" type="button" aria-label="Next page" data-next><svg viewBox="0 0 24 24" width="32" height="32" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     </div>
-    <p class="hint">Click any page to see it full size.</p>
   </Section>
 
   <KeyDecisions items={[
@@ -102,44 +98,35 @@ const steps = [
     { title: 'Export variables in code format', constraint: 'Developers build in CSS, not Figma.', tradeoff: 'Another artifact to keep in sync, but handoff is a copy and paste, and a dated update log shows exactly what changed.' },
   ]} />
 
-  <Section label="What’s In The Library" tone="dark" intro="23 categories of components cover everything a wealth management app needs, from buttons and inputs to tables, cards, charts and data visualization.">
-    <Feature eyebrow="Basic elements" title="The building blocks of every screen" image={fBasics} alt="Dropdowns, text fields, buttons and segmented controls from the library in every state">
-      Dropdowns, text fields, buttons and segmented controls come in every size and state: default, hover, focus, error and disabled. Labels, tooltips and help text are built in, so every form behaves the same way.
-    </Feature>
-    <Feature eyebrow="App containers" title="Responsive, in light and dark" side="right" image={fContainers} alt="Common and story app containers at five widths in light and dark mode">
-      Common and story app containers set the frame for every module. Each one resizes across breakpoints and switches between light and dark mode from the same variables.
-    </Feature>
-    <Feature eyebrow="Cards & lists" title="36 card and list sets" image={fAlerts} alt="A grid of alert card variants for price, volume, ratings, splits, dividends and earnings">
-      Alert cards alone come in 38 variants for price moves, volume, ratings, splits, spin offs, earnings and dividends, each with its own mini chart.
-    </Feature>
-    <Feature eyebrow="Charts & data viz" title="88 sets for data-dense screens" image={fCharts} side="right" alt="Growth of $10K line chart with highlighted periods and value labels">
-      Line, bar, donut, treemap, event and yield curve charts share one set of chart colors, so data reads the same everywhere in the app.
-    </Feature>
-    <Feature eyebrow="Heatmaps" title="Markets at a glance" image={fHeatmap} alt="Sector heatmap with drill down into health care sub-industries">
-      Heatmap cells, labels and groups let teams build sector and correlation views that drill down from sectors into sub-industries.
-    </Feature>
-  </Section>
-
-  <Section label="How I Maintain It" intro="A design system is a product of its own. These are the habits that keep this one reliable.">
+  <Section label="How I Maintain It">
     <div class="steps">
       {steps.map(([t, d], i) => <Step n={String(i + 1).padStart(2, '0')} title={t}><p>{d}</p></Step>)}
     </div>
   </Section>
 
-  <Section label="My Role" tone="light">
-    <RoleLists
-      role={['Create components and variants', 'Maintain light and dark mode variables', 'Write and update the documentation', 'Use the library to design Glenmede’s apps', 'Internal contact for the library']}
-      collaborators={['Developers', 'Product managers', 'Designers', 'Glenmede stakeholders']}
-    />
+  <Section label="What’s In The Library" tone="dark" intro="23 categories of components cover everything a wealth management app needs, from buttons and inputs to tables, cards, charts and data visualization.">
+    <Feature eyebrow="01" title="Basic elements: the building blocks of every screen" image={fBasics} alt="Dropdowns, text fields, buttons and segmented controls from the library in every state">
+      Dropdowns, text fields, buttons and segmented controls come in every size and state: default, hover, focus, error and disabled. Labels, tooltips and help text are built in, so every form behaves the same way.
+    </Feature>
+    <Feature eyebrow="02" title="App containers, responsive in light and dark" side="right" image={fContainers} alt="Common and story app containers at five widths in light and dark mode">
+      Common and story app containers set the frame for every module. Each one resizes across breakpoints and switches between light and dark mode from the same variables.
+    </Feature>
+    <Feature eyebrow="03" title="36 card and list sets" image={fAlerts} alt="A grid of alert card variants for price, volume, ratings, splits, dividends and earnings">
+      Alert cards alone come in 38 variants for price moves, volume, ratings, splits, spin offs, earnings and dividends, each with its own mini chart.
+    </Feature>
+    <Feature eyebrow="04" title="88 sets for data-dense screens" image={fCharts} side="right" alt="Growth of $10K line chart with highlighted periods and value labels">
+      Line, bar, donut, treemap, event and yield curve charts share one set of chart colors, so data reads the same everywhere in the app.
+    </Feature>
+    <Feature eyebrow="05" title="Heatmaps: markets at a glance" image={fHeatmap} alt="Sector heatmap with drill down into health care sub-industries">
+      Heatmap cells, labels and groups let teams build sector and correlation views that drill down from sectors into sub-industries.
+    </Feature>
   </Section>
 
   <Section label="Outcomes" tone="none">
     <p>The Glenmede Style Library gives everyone on the project one place to start. Designers build screens from tested components, developers copy tokens straight into code, and product managers can see what exists before they ask for something new. It is one of dozens of systems I work in every week, and it shows what I believe about design systems: the best ones are as easy to use as they are complete.</p>
   </Section>
 
-  <ContactCTA />
-
-  <MoreWork slugs={['project-7-ai-design-documentation', 'project-3-mai-advisor-portal']} />
+  <MoreWork slugs={['project-7-ai-design-documentation', 'project-3-mai-advisor-portal']} pills={false} />
 </Base>
 
 <style>
