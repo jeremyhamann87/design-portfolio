@@ -22,8 +22,8 @@
   --hero-commsec: #f3f3f3;
   --hero-mai: #c7ddf0;
   --hero-notetaker: #bcb0ff;
-  --hero-schwab: #f8fcff;
-  --hero-schwab-reports: #efd1c8;
+  --hero-schwab: #b0cde9;
+  --hero-schwab-reports: #e9bbb0;
   --hero-ai-docs: #eec2ed;
   --hero-ai-docs-mint: #c2eedf;
   --hero-glenmede: #cfdbe3;
@@ -79,11 +79,11 @@
   --hero-commsec: #22252b;
   --hero-mai: #14263a;
   --hero-notetaker: #25203f;
-  --hero-schwab: #1a2a3a;
-  --hero-schwab-reports: #3a231e;
-  --hero-ai-docs: #36203a;
+  --hero-schwab: #25203f;
+  --hero-schwab-reports: #25203f;
+  --hero-ai-docs: #25203f;
   --hero-ai-docs-mint: #17322a;
-  --hero-glenmede: #142a38;
+  --hero-glenmede: #14263a;
   color-scheme: dark;
 }
 
@@ -197,3 +197,32 @@ ul, ol { padding: 0; list-style: none; }
 
 /* Rounded modules, matching the Figma file (8px cards, panels and images). */
 :root { --r-module: 8px; }
+
+/* Case study layout (Figma "Desktop - new" standard, Nov 16 2026):
+   a single column with 24px gaps, 1000px modules on desktop, full-width square modules on tablet and mobile. */
+:root {
+  --case-w: min(1000px, calc(100% - 2 * var(--gutter)));
+  --module-pad: 24px;
+  --band-pad: 100px;
+  --module-shadow: 0 4px 4px -1px rgb(12 12 13 / 0.05), 0 4px 4px -1px rgb(12 12 13 / 0.1);
+}
+@media (max-width: 1040px) {
+  :root { --case-w: 100%; --module-pad: 36px; --band-pad: 36px; }
+}
+@media (max-width: 767px) {
+  :root { --module-pad: 24px; --band-pad: 24px; }
+}
+.case { display: flex; flex-direction: column; gap: 24px; }
+.case .top { display: flex; flex-direction: column; gap: 24px; }
+@media (max-width: 767px) { .case .top { gap: 16px; } }
+.case .bands { display: flex; flex-direction: column; }
+
+/* Rich text inside modules: blank-line paragraphs and bullet lists, as set in the Figma text layers. */
+.prose { display: grid; gap: 19px; }
+.prose.tight { gap: 0; }
+.prose ul, .prose ol { display: grid; gap: inherit; padding-left: 24px; }
+.prose ul { list-style: disc; }
+.prose ol { list-style: decimal; }
+.prose ul.tight, .prose ol.tight { gap: 0; }
+.prose strong { font-weight: 700; }
+.prose a { text-decoration: underline; text-underline-offset: 2px; }

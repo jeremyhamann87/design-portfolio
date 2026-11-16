@@ -1,8 +1,9 @@
 ---
-interface Props { items: { value: string; label: string; note: string }[] }
-const { items } = Astro.props;
+// "KPI set" from Figma: value (24 Medium), label (16 Light), note (12 ExtraLight).
+interface Props { items: { value: string; label: string; note: string }[]; inset?: boolean }
+const { items, inset = false } = Astro.props;
 ---
-<dl class="kpis">
+<dl class:list={['kpis', { inset }]}>
   {items.map((k) => (
     <div class="kpi">
       <dt>{k.label}</dt>
@@ -12,10 +13,11 @@ const { items } = Astro.props;
   ))}
 </dl>
 <style>
-  .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; margin: 0; }
+  .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; margin: 0; align-items: center; }
+  .kpis.inset { padding-left: 32px; }
   .kpi { display: flex; flex-direction: column; }
-  .value { order: -1; font-size: var(--fs-display); font-weight: 700; line-height: 1.1; margin: 0; }
-  dt { font-weight: 500; margin-top: 4px; }
-  .note { font-size: 12px; font-weight: 200; margin: 2px 0 0; }
-  @media (max-width: 799px) { .kpis { grid-template-columns: 1fr; gap: 24px; } }
+  .value { order: -1; font-size: 24px; font-weight: 500; line-height: 29px; margin: 0; }
+  dt { font-weight: 300; line-height: 19px; }
+  .note { font-size: 12px; font-weight: 200; line-height: 14px; margin: 0; }
+  @media (max-width: 767px) { .kpis { grid-template-columns: 1fr; gap: 24px; } .kpis.inset { padding-left: 0; } }
 </style>

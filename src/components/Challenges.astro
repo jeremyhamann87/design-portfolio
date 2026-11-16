@@ -1,0 +1,16 @@
+---
+// Row of Challenge cards inside the Challenges dark band: 3 columns on desktop, stacked below.
+interface Props { gap?: number; narrow?: boolean }
+const { gap = 24, narrow = false } = Astro.props;
+---
+<div class:list={['challenges', { narrow }]} style={`--cg:${gap}px`}><slot /></div>
+<style>
+  .challenges { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--cg); padding: 0 var(--band-pad) 36px; max-width: 1280px; margin-inline: auto; width: 100%; }
+  .narrow { max-width: 1080px; padding-bottom: 0; }
+  @media (max-width: 1040px) {
+    .challenges { grid-template-columns: 1fr; gap: 36px; max-width: 800px; padding: 0 100px; }
+  }
+  @media (max-width: 767px) {
+    .challenges { gap: 24px; padding: 0 var(--band-pad); }
+  }
+</style>

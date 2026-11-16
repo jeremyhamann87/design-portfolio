@@ -1,7 +1,6 @@
 ---
 import smiley from '../assets/icons/smiley.svg';
 import arrowOutward from '../assets/icons/arrow-outward.svg';
-import menu from '../assets/icons/menu.svg';
 import { url } from '../lib/url';
 import { contact } from '../data/projects';
 
@@ -43,7 +42,7 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
       </ul>
     </nav>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
-      <img class="ink-img" src={menu.src} alt="" width="24" height="24" />
+      <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.5v15M4.5 12h15" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
     </button>
   </div>
 
@@ -54,7 +53,7 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
         <span>Jeremy Hamann</span>
       </a>
       <button class="close-btn" type="button" aria-label="Close menu">
-        <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
       </button>
     </div>
     <nav class="wrap" aria-label="Mobile">
@@ -118,7 +117,6 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
   .theme-toggle { display: inline-flex; gap: 4px; }
   .theme-toggle button { width: 24px; height: 24px; border-radius: 50%; border: 0; padding: 0; display: grid; place-items: center; background: transparent; color: var(--ink); cursor: pointer; }
   .theme-toggle button[aria-pressed='true'] { background: var(--ink); color: var(--on-ink); }
-  .mobile-toggle { padding-top: 8px; }
   .mask-icon.big { width: 32px; height: 32px; }
   .links a, .mobile-links a { text-decoration: none; }
   .links a:hover, .mobile-links a:hover { text-decoration: underline dotted; text-decoration-thickness: 0.13em; text-underline-offset: 3px; }
@@ -127,13 +125,17 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
   .menu-btn, .close-btn { display: none; background: none; border: 0; padding: 4px; cursor: pointer; color: var(--ink); }
   .mobile-menu { position: fixed; inset: 0; background: linear-gradient(var(--menu-veil), var(--menu-veil)), var(--bg-image) center / cover, var(--surface); overflow: auto; }
   .mobile-menu .close-btn { display: block; }
-  .mobile-links { display: flex; flex-direction: column; gap: 24px; padding-top: 24px; }
-  .mobile-links a { font-size: 48px; font-weight: 200; }
+  .mobile-links { display: flex; flex-direction: column; align-items: center; gap: 80px; padding-top: 24px; text-align: center; }
+  .mobile-links a { font-size: 48px; font-weight: 200; line-height: 58px; gap: 8px; }
+  .mobile-links .ext svg, .mobile-links .mask-icon.big { width: 34px; height: 34px; }
+  .mobile-toggle .theme-toggle { gap: 3px; }
+  .mobile-toggle .theme-toggle button { width: 40px; height: 40px; }
 
   @media (max-width: 799px) {
     .bar { padding: 24px var(--gutter); }
-    .brand { font-size: 20px; }
     nav[aria-label='Main'] { display: none; }
     .menu-btn { display: block; }
+    .menu-btn, .close-btn { width: 34px; height: 34px; padding: 5px; }
+    .mobile-menu .bar { padding-bottom: 24px; }
   }
 </style>

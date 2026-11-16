@@ -1,27 +1,59 @@
 ---
+// "More Work" component from Figma: a light band with a looping arrow heading and two project cards.
+import { Image } from 'astro:assets';
 import { getProject } from '../data/projects';
-import WorkCard from './WorkCard.astro';
-import loopDown from '../assets/icons/loop-arrow-down.svg';
+import CompanyLogo from './CompanyLogo.astro';
+import loop from '../assets/icons/loop-arrow-1.svg';
 import { url } from '../lib/url';
 interface Props { slugs: [string, string] }
 const items = Astro.props.slugs.map(getProject);
 ---
 <section class="more" aria-labelledby="more-work">
-  <div class="wrap-case">
-    <img class="loop" src={loopDown.src} alt="" width="40" height="40" />
+  <div class="inner">
     <div class="head">
-      <h2 id="more-work">More work</h2>
+      <h2 id="more-work"><span class="loop mask-icon" style={`--icon:url(${loop.src})`} aria-hidden="true"></span>More work</h2>
       <a href={url('/')}>See All</a>
     </div>
-    <div class="grid">{items.map((p) => <WorkCard project={p} size="small" />)}</div>
+    <div class="grid">
+      {items.map((p) => (
+        <article class="card">
+          <a class:list={['media', p.cardFit && 'fit']} style={p.cardBg ? `background:${p.cardBg}` : undefined} href={url(`/${p.slug}`)} tabindex="-1" aria-hidden="true">
+            <Image src={p.card} alt="" widths={[400, 600, 900]} sizes="(max-width: 767px) 100vw, 466px" format="webp" />
+          </a>
+          <div class="body">
+            <h3><a href={url(`/${p.slug}`)}>{p.title}</a></h3>
+            <p class="desc">{p.description}</p>
+            <CompanyLogo company={p.company} link={false} label={p.byline} />
+          </div>
+        </article>
+      ))}
+    </div>
   </div>
 </section>
 <style>
-  .more { padding-block: 48px 24px; }
-  .loop { width: 40px; height: auto; margin-bottom: 16px; }
-  .head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; }
-  h2 { font-size: 24px; font-weight: 400; }
+  .more { background: var(--panel-glass); border-top: 1px solid var(--border); }
+  .inner { max-width: 1280px; margin-inline: auto; padding: 36px 156px; display: grid; gap: 24px; }
+  .head { display: flex; justify-content: space-between; align-items: center; }
+  h2 { display: flex; align-items: center; gap: 8px; font-size: 24px; font-weight: 700; line-height: 29px; }
+  .loop { width: 45px; height: 12px; }
   .head a { font-weight: 400; }
-  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; }
-  @media (max-width: 799px) { .grid { grid-template-columns: 1fr; } }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; align-items: start; }
+  .card { display: grid; gap: 16px; position: relative; }
+  .media { display: block; overflow: hidden; }
+  .media :global(img) { width: 100%; aspect-ratio: 466 / 363; object-fit: cover; transition: transform 0.3s ease; }
+  .media.fit :global(img) { object-fit: contain; }
+  .card:hover .media :global(img) { transform: scale(1.02); }
+  @media (prefers-reduced-motion: reduce) { .card:hover .media :global(img) { transform: none; } }
+  .body { display: grid; gap: 4px; }
+  h3 { font-size: 20px; font-weight: 500; line-height: 24px; }
+  h3 a::after { content: ''; position: absolute; inset: 0; }
+  .desc { font-size: 16px; font-weight: 300; line-height: 19px; margin-bottom: 8px; }
+  @media (max-width: 1040px) {
+    .inner { padding: 36px 36px 0; }
+    .grid { gap: 24px; }
+  }
+  @media (max-width: 767px) {
+    .inner { padding: 36px 24px 0; }
+    .grid { grid-template-columns: 1fr; }
+  }
 </style>
