@@ -2,11 +2,13 @@
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import CaseHero from '../components/CaseHero.astro';
-import Section from '../components/Section.astro';
+import Module from '../components/Module.astro';
+import DarkBand from '../components/DarkBand.astro';
 import KPIs from '../components/KPIs.astro';
 import Feature from '../components/Feature.astro';
-import Step from '../components/Step.astro';
-import KeyDecisions from '../components/KeyDecisions.astro';
+import BookCarousel from '../components/BookCarousel.astro';
+import Decisions from '../components/Decisions.astro';
+import { moduleIcon } from '../data/module-icons';
 import MoreWork from '../components/MoreWork.astro';
 import ContactCTA from '../components/ContactCTA.astro';
 import { getProject } from '../data/projects';
@@ -29,6 +31,7 @@ import prompt from '../assets/ai-docs/prompt.png';
 import promptDark from '../assets/ai-docs/prompt-dark.png';
 
 const p = getProject('project-7-ai-design-documentation');
+const claude = moduleIcon('claude');
 const pages = [
   [b1, 'Page 01 · Cover'],
   [b7, 'Page 02 · Table of Contents'],
@@ -50,125 +53,82 @@ const steps = [
 ];
 ---
 <Base title={`${p.title} | Jeremy Hamann`} description={p.description}>
-  <CaseHero project={p} image={hero} bg="var(--hero-ai-docs)" alt="Pages from the Intelligent CRM build book" />
+  <div class="case">
+    <div class="top">
+      <CaseHero project={p} image={hero} bg="var(--hero-ai-docs)" artWidth={322} textWidth={414} gap={64} alt="Pages from the Intelligent CRM build book" />
 
-  <div class="light">
-    <Section label="Goals">
-      <p>Communify was building Intelligent CRM, a mobile-first client relationship management app for wealth advisors. I was brought in to help design the experience and to document the build for product managers, designers, engineers and stakeholders. Documentation usually trails design by weeks, and our deadlines left no room for that. We also wanted to cut out the painstaking pixel pushing of design documentation, which was costing designers hours of work that did nothing to move the product forward. So I set out to automate it with Claude.</p>
-    </Section>
-    <Section label="Results">
-      <KPIs items={[
-        { value: '10x', label: 'Faster Documentation', note: 'Polished build books, in a fraction of the time' },
-        { value: 'Every Deadline', label: 'Met On Time', note: 'With design integrity intact' },
-        { value: 'New AI Curriculum', label: 'For Other Design Teams', note: 'Automating docs with Claude Code in Figma' },
+      <Module title="Goals" icon="target_check">
+        <p>Communify was building Intelligent CRM, a mobile-first client relationship management app for wealth advisors. I was brought in to help design the experience and to document the build for product managers, designers, engineers and stakeholders. Documentation usually trails design by weeks, and our deadlines left no room for that. We also wanted to cut out the painstaking pixel pushing of design documentation, which was costing designers hours of work that did nothing to move the product forward. So I set out to automate it with Claude.</p>
+      </Module>
+
+      <Module title="Results" icon="claude">
+        <KPIs inset items={[
+          { value: '10x', label: 'Faster Documentation', note: 'Polished build books, in a fraction of the time' },
+          { value: 'Every Deadline', label: 'Met On Time', note: 'With design integrity intact' },
+          { value: 'New AI Curriculum', label: 'For Other Design Teams', note: 'Automating docs with Claude Code in Figma' },
+        ]} />
+      </Module>
+
+      <Decisions items={[
+        { title: 'Make native annotations the single source of truth', constraint: 'Documentation has to match the designs exactly, with no guesswork.', tradeoff: 'Designers annotate every screen in Figma, but Claude never invents behavior, so the book is always accurate.' },
+        { title: 'Flatten screens into images inside the book', constraint: 'A 62-page book has to stay fast to work in and small enough to share as a PDF.', tradeoff: 'Screens aren’t editable inside the book, but pages stay consistent and light, and the live designs stay in the source files.' },
+        { title: 'Refresh only what changed', constraint: 'Designs changed daily while the book had to stay current.', tradeoff: 'A little setup to compare exports against the book, so updates take minutes instead of a full rebuild.' },
       ]} />
-    </Section>
-  </div>
+    </div>
 
-  <KeyDecisions items={[
-    { title: 'Make native annotations the single source of truth', constraint: 'Documentation has to match the designs exactly, with no guesswork.', tradeoff: 'Designers annotate every screen in Figma, but Claude never invents behavior, so the book is always accurate.' },
-    { title: 'Flatten screens into images inside the book', constraint: 'A 62-page book has to stay fast to work in and small enough to share as a PDF.', tradeoff: 'Screens aren’t editable inside the book, but pages stay consistent and light, and the live designs stay in the source files.' },
-    { title: 'Refresh only what changed', constraint: 'Designs changed daily while the book had to stay current.', tradeoff: 'A little setup to compare exports against the book, so updates take minutes instead of a full rebuild.' },
-  ]} />
+    <DarkBand label="Key Features" icon="apps" flushBottom>
+      <p slot="intro">I built a repeatable AI workflow in Figma that turns finished designs into a complete, annotated build book, so the documentation stays as current as the designs themselves.</p>
+      <BookCarousel label="Build book pages" bg="#eec2ed" pb={64} pages={pages.map(([img, caption]) => ({ img, caption, alt: `Build book, ${caption}` }))} />
+      <Feature eyebrow="From annotations to pages" title="Every screen explained" image={f1} pb>
+        Claude reads the native Figma annotations and prototype arrows on each screen, then lays out annotated pages with numbered callouts and notes tagged Interaction or Content. Nothing is invented: every note traces back to my annotations.
+      </Feature>
+      <Feature eyebrow="Quality checks built in" title="Sharp, verified screens" image={f2} side="right" pb>
+        Screens are exported at 4x with our house drop shadow, then pixel-checked against the source so a blank avatar or a stale state never reaches a reader.
+      </Feature>
+      <Feature eyebrow="Navigation that builds itself" title="Contents, site map and page numbers" image={f3} pb>
+        The table of contents, site map and page numbers regenerate as sections are added, and every “See page” reference stays in sync across all 62 pages.
+      </Feature>
+      <Feature eyebrow="Section breaks" title="A device mockup for every section" image={f4} side="right" pb>
+        Each of the 15 sections opens with a break page and an iPhone mockup generated from that section’s own lead screen.
+      </Feature>
+      <Feature eyebrow="Change detection" title="Update only what changed" image={f5} pb>
+        When designs change, Claude compares fresh exports against the book, refreshes only the screens that moved, and collates the whole book into a PDF for stakeholders.
+      </Feature>
+    </DarkBand>
 
-  <Section label="Key Features" tone="dark" intro="I built a repeatable AI workflow in Figma that turns finished designs into a complete, annotated build book, so the documentation stays as current as the designs themselves.">
-    <div class="carousel" role="region" aria-roledescription="carousel" aria-label="Build book pages" data-carousel>
-      <div class="slides">
-        {pages.map(([img, caption], i) => (
-          <figure class="slide" data-slide hidden={i !== 0} aria-label={`${i + 1} of ${pages.length}`}>
-            <div class="page"><Image src={img} alt={`Build book, ${caption}`} widths={[480, 780, 1200]} sizes="(max-width: 799px) 78vw, 780px" format="webp" loading={i === 0 ? 'eager' : 'lazy'} /></div>
-            <figcaption><span class="cap">{caption}</span><span class="count">{i + 1} / {pages.length}</span></figcaption>
-          </figure>
-        ))}
+    <Module title="How I Train Claude" icon="claude">
+      <p>Training Claude works like onboarding a new designer: show it the system, let it practice, then hand it real work and keep it current.</p>
+    </Module>
+    {steps.map(([t, d], i) => (
+      <Module title={t} step={String(i + 1).padStart(2, '0')}>
+        <p>{d}</p>
+      </Module>
+    ))}
+
+    <Module title="The Prompt" icon="claude">
+      <p>This is the actual prompt I wrote to teach Claude the documentation process. The bracketed items at the end are slots I fill in for each section of the book.</p>
+      <p class="prompt-label"><img src={claude.src} alt="" width="20" height="20" />Claude Code prompt · reusable for every section</p>
+      <div class="prompt">
+        <Image class="theme-light" src={prompt} alt="The reusable Claude Code prompt for building each section of the book" widths={[800, 1200, 2000]} sizes="(max-width: 1040px) 100vw, 952px" format="webp" />
+        <Image class="theme-dark" src={promptDark} alt="" widths={[800, 1200, 2000]} sizes="(max-width: 1040px) 100vw, 952px" format="webp" />
       </div>
-      <button class="nav prev" type="button" aria-label="Previous page" data-prev><svg viewBox="0 0 24 24" width="32" height="32" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-      <button class="nav next" type="button" aria-label="Next page" data-next><svg viewBox="0 0 24 24" width="32" height="32" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-    </div>
-    <Feature eyebrow="From annotations to pages" title="Every screen explained" image={f1}>
-      Claude reads the native Figma annotations and prototype arrows on each screen, then lays out annotated pages with numbered callouts and notes tagged Interaction or Content. Nothing is invented: every note traces back to my annotations.
-    </Feature>
-    <Feature eyebrow="Quality checks built in" title="Sharp, verified screens" image={f2} side="right">
-      Screens are exported at 4x with our house drop shadow, then pixel-checked against the source so a blank avatar or a stale state never reaches a reader.
-    </Feature>
-    <Feature eyebrow="Navigation that builds itself" title="Contents, site map and page numbers" image={f3}>
-      The table of contents, site map and page numbers regenerate as sections are added, and every “See page” reference stays in sync across all 62 pages.
-    </Feature>
-    <Feature eyebrow="Section breaks" title="A device mockup for every section" image={f4} side="right">
-      Each of the 15 sections opens with a break page and an iPhone mockup generated from that section’s own lead screen.
-    </Feature>
-    <Feature eyebrow="Change detection" title="Update only what changed" image={f5}>
-      When designs change, Claude compares fresh exports against the book, refreshes only the screens that moved, and collates the whole book into a PDF for stakeholders.
-    </Feature>
-  </Section>
+    </Module>
 
-  <Section label="How I Train Claude" intro="Training Claude works like onboarding a new designer: show it the system, let it practice, then hand it real work and keep it current.">
-    <div class="steps">
-      {steps.map(([t, d], i) => <Step n={String(i + 1).padStart(2, '0')} title={t}><p>{d}</p></Step>)}
-    </div>
-  </Section>
+    <DarkBand label="Outcomes" icon="sports_score" id="outcomes">
+      <p slot="intro">Documentation got about 10x faster, and we met consistently tight deadlines while designing and documenting side by side. The workflow frees our team to focus on the details of the design itself. I also created an easy-to-use curriculum so other design teams across Communify can get started with Claude and Figma in no time, and I continue to champion AI automation for designers.</p>
+    </DarkBand>
 
-  <Section label="The Prompt" intro="This is the actual prompt I wrote to teach Claude the documentation process. The bracketed items at the end are slots I fill in for each section of the book.">
-    <p class="prompt-label">Claude Code prompt · reusable for every section</p>
-    <div class="prompt">
-      <Image class="theme-light" src={prompt} alt="The reusable Claude Code prompt for building each section of the book" widths={[800, 1200, 2000]} sizes="(max-width: 1280px) 100vw, 1080px" format="webp" />
-      <Image class="theme-dark" src={promptDark} alt="" widths={[800, 1200, 2000]} sizes="(max-width: 1280px) 100vw, 1080px" format="webp" />
-    </div>
-  </Section>
+    <ContactCTA variant="dark" />
 
-  <Section label="Outcomes" tone="dark">
-    <p>Documentation got about 10x faster, and we met consistently tight deadlines while designing and documenting side by side. The workflow frees our team to focus on the details of the design itself. I also created an easy-to-use curriculum so other design teams across Communify can get started with Claude and Figma in no time, and I continue to champion AI automation for designers.</p>
-  </Section>
-
-  <MoreWork slugs={['project-2-commsec', 'project-1-seven-post-client-portal']} />
-  <ContactCTA />
+    <MoreWork slugs={['project-2-commsec', 'project-1-seven-post-client-portal']} />
+  </div>
 </Base>
 
 <style>
-  .light { background: var(--panel-glass); padding-block: 12px; }
-  .carousel { position: relative; background: var(--hero-ai-docs); border-radius: var(--r-module); padding: 48px 11% 40px; max-width: 1000px; margin-inline: auto; width: 100%; }
-  .slide { display: grid; gap: 40px; margin: 0; }
-  .slide[hidden] { display: none; }
-  .page { aspect-ratio: 1; overflow: hidden; box-shadow: 0 10px 30px rgb(0 0 0 / 0.16); background: #fff; }
-  .page :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
-  .slide figcaption { display: flex; justify-content: space-between; gap: 16px; font-size: 22px; line-height: 1.2; color: var(--ink); }
-  .cap { font-weight: 600; }
-  .count { font-weight: 400; white-space: nowrap; }
-  .nav { position: absolute; top: calc(48px + (100% - 88px - 66px) / 2); transform: translateY(-50%); width: 56px; height: 56px; border-radius: 50%; border: 0; display: grid; place-items: center; background: var(--ink); color: var(--on-ink); cursor: pointer; }
-  .nav:hover { filter: brightness(1.15); }
-  .prev { left: 2.4%; }
-  .next { right: 2.4%; }
-  @media (max-width: 799px) {
-    .carousel { padding: 24px 16px 24px; }
-    .slide { gap: 16px; }
-    .slide figcaption { font-size: 15px; }
-    .nav { width: 40px; height: 40px; top: calc(24px + (100vw - 64px) / 2); }
-    .nav svg { width: 24px; height: 24px; }
-    .prev { left: 4px; }
-    .next { right: 4px; }
-  }
-  .steps { display: grid; gap: 8px; }
-  .prompt-label { font-weight: 500; }
-  .prompt :global(img) { width: 100%; height: auto; }
+  .prompt-label { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+  .prompt :global(img) { width: 100%; height: auto; display: block; border: 1px solid #e4e7ec; border-radius: 8px; }
   .prompt :global(.theme-dark) { display: none; }
+  :global(:root[data-theme='dark']) .prompt :global(img) { border-color: var(--border); }
   :global(:root[data-theme='dark']) .prompt :global(.theme-light) { display: none; }
   :global(:root[data-theme='dark']) .prompt :global(.theme-dark) { display: block; }
 </style>
-
-<script>
-  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((root) => {
-    const slides = [...root.querySelectorAll<HTMLElement>('[data-slide]')];
-    let i = 0;
-    const show = (n: number) => {
-      slides[i].hidden = true;
-      i = (n + slides.length) % slides.length;
-      slides[i].hidden = false;
-    };
-    root.querySelector('[data-prev]')?.addEventListener('click', () => show(i - 1));
-    root.querySelector('[data-next]')?.addEventListener('click', () => show(i + 1));
-    root.tabIndex = 0;
-    root.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') show(i - 1);
-      if (e.key === 'ArrowRight') show(i + 1);
-    });
-  });
-</script>

@@ -1,0 +1,44 @@
+---
+// "Case Study / Module" from the Figma file: a card with an Icon or Step header and a content slot.
+// Desktop: 1000px wide, 8px radius, drop shadow. Tablet and mobile: full width, square corners.
+import { moduleIcon } from '../data/module-icons';
+interface Props { title: string; icon?: string; step?: string; flush?: boolean; id?: string }
+const { title, icon, step, flush = false, id } = Astro.props;
+const slug = id ?? title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const ico = icon ? moduleIcon(icon) : undefined;
+---
+<section class:list={['module', step ? 'is-step' : 'is-icon']} aria-labelledby={slug}>
+  <header class="mhead">
+    {step && <span class="n">{step}</span>}
+    {ico && (ico.color
+      ? <img class="ico" src={ico.src} alt="" width="24" height="24" />
+      : <span class="ico mask-icon" style={`--icon:url(${ico.src})`} aria-hidden="true"></span>)}
+    <h2 id={slug}>{title}</h2>
+  </header>
+  <div class:list={['mbody', { flush }]}><slot /></div>
+</section>
+
+<style>
+  .module {
+    width: var(--case-w);
+    margin-inline: auto;
+    background: var(--panel);
+    border-radius: var(--r-module);
+    box-shadow: var(--module-shadow);
+    font-weight: 200;
+    line-height: 1.2;
+  }
+  .mhead { display: flex; align-items: center; gap: 8px; padding: 8px var(--module-pad); border-bottom: 1px solid var(--border); }
+  .is-icon .mhead { min-height: 41px; }
+  .mhead h2, .n { font-size: 16px; font-weight: 500; line-height: 19px; }
+  .ico { width: 24px; height: 24px; flex: none; }
+  .mbody { display: grid; gap: 16px; padding: 24px var(--module-pad); }
+  .mbody.flush { padding: 0; gap: 0; }
+  @media (max-width: 1040px) {
+    .module { border-radius: 0; }
+    .mbody.flush { padding-inline: var(--module-pad); }
+  }
+  @media (max-width: 767px) {
+    .mbody.flush { padding-inline: 0; }
+  }
+</style>

@@ -1,0 +1,29 @@
+---
+// Full-width dark band ("Case Study / Common text" header + content), e.g. Key Features, Challenges, Outcomes.
+// Stays dark in both themes (--inverse).
+import { moduleIcon } from '../data/module-icons';
+interface Props { label: string; icon: string; id?: string; flushBottom?: boolean }
+const { label, icon, id, flushBottom = false } = Astro.props;
+const slug = id ?? label.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const ico = moduleIcon(icon);
+const hasIntro = Astro.slots.has('intro');
+---
+<section class:list={['band', { flushBottom }]} aria-labelledby={slug}>
+  <div class="head">
+    <h2 id={slug}><span class="ico mask-icon" style={`--icon:url(${ico.src})`} aria-hidden="true"></span>{label}</h2>
+    {hasIntro && <div class="intro"><slot name="intro" /></div>}
+  </div>
+  <slot />
+</section>
+<style>
+  .band { background: var(--inverse); color: var(--on-inverse); font-weight: 200; line-height: 1.2; }
+  .head { display: grid; gap: 8px; padding: 48px var(--band-pad); }
+  .flushBottom .head { padding-bottom: 0; }
+  h2 { display: flex; align-items: center; gap: 8px; min-height: 39px; font-size: 16px; font-weight: 700; color: #f8fcff; }
+  .ico { width: 24px; height: 24px; }
+  .intro { padding-left: 33px; color: #f8fcff; display: grid; gap: 19px; }
+  .intro :global(a) { text-decoration: underline; text-underline-offset: 2px; }
+  @media (max-width: 767px) {
+    .head { padding: 36px var(--band-pad); }
+  }
+</style>

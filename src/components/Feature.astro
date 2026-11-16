@@ -1,11 +1,13 @@
 ---
+// "Case Study Features" row inside a dark band: 600px image + 448px copy (desktop),
+// two equal columns (tablet), stacked (mobile). Right-side variant right-aligns the copy.
 import type { ImageMetadata } from 'astro';
 import Figure from './Figure.astro';
-interface Props { eyebrow: string; title: string; image: ImageMetadata | string; alt?: string; side?: 'left' | 'right'; accent?: 'lime' | 'peach' }
-const { eyebrow, title, image, alt = '', side = 'left', accent = 'lime' } = Astro.props;
+interface Props { eyebrow: string; title: string; image: ImageMetadata | string; alt?: string; side?: 'left' | 'right'; accent?: 'lime' | 'peach'; pb?: boolean }
+const { eyebrow, title, image, alt = '', side = 'left', accent = 'lime', pb = false } = Astro.props;
 ---
-<div class:list={['feature', side]}>
-  <Figure src={image} alt={alt || title} sizes="(max-width: 799px) 100vw, 600px" />
+<div class:list={['feature', side, { pb }]}>
+  <Figure src={image} alt={alt || title} sizes="(max-width: 767px) 100vw, 600px" />
   <div class="text">
     <p class:list={['eyebrow', accent]}>{eyebrow}</p>
     <h3>{title}</h3>
@@ -13,17 +15,26 @@ const { eyebrow, title, image, alt = '', side = 'left', accent = 'lime' } = Astr
   </div>
 </div>
 <style>
-  .feature { display: grid; grid-template-columns: 1.3fr 1fr; gap: 48px; align-items: center; padding-block: 36px; }
-  .feature.right { grid-template-columns: 1fr 1.3fr; }
+  .feature { display: grid; grid-template-columns: minmax(0, 600fr) minmax(0, 448fr); column-gap: 32px; align-items: center; padding: 0 var(--band-pad); min-height: 620px; }
+  .feature.pb { padding-bottom: 64px; }
+  .feature :global(.fig img) { border-radius: 0; max-height: 620px; object-fit: contain; }
+  .feature.right { grid-template-columns: minmax(0, 448fr) minmax(0, 600fr); }
   .feature.right .text { order: -1; text-align: right; justify-items: end; }
-  .text { display: grid; gap: 12px; }
-  .eyebrow { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; }
+  .text { display: grid; gap: 16px; }
+  .eyebrow { font-size: 16px; font-weight: 700; text-transform: uppercase; line-height: 19px; }
   .eyebrow.lime { color: var(--eyebrow-lime); }
   .eyebrow.peach { color: var(--eyebrow-peach); }
-  h3 { font-size: var(--fs-display); font-weight: 700; line-height: 1.15; }
-  .body { font-weight: 300; max-width: 420px; }
-  @media (max-width: 799px) {
-    .feature, .feature.right { grid-template-columns: 1fr; gap: 24px; padding-block: 24px; }
+  h3 { font-size: 36px; font-weight: 700; line-height: 43px; color: #f8fcff; }
+  .body { font-weight: 200; color: #f8fcff; }
+  @media (max-width: 1040px) {
+    .feature, .feature.right { grid-template-columns: 1fr 1fr; min-height: 360px; }
+    .feature :global(.fig img) { max-height: 360px; }
+    .feature.pb { padding-bottom: 0; }
+  }
+  @media (max-width: 767px) {
+    .feature, .feature.right { grid-template-columns: 1fr; gap: 16px; min-height: 0; padding-bottom: 36px; }
+    .feature :global(.fig img) { max-height: none; aspect-ratio: 1; object-fit: contain; }
     .feature.right .text { order: 0; text-align: left; justify-items: start; }
+    .text { gap: 8px; }
   }
 </style>
