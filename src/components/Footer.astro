@@ -6,7 +6,7 @@ import { contact } from '../data/projects';
 const year = 2026;
 ---
 <footer class="footer">
-  <div class="wrap row">
+  <div class="row">
     <div class="meta">
       <p>For all inquiries: <a href={`mailto:${contact.email}`}>{contact.email}</a></p>
       <p>Copyright © Jeremy Hamann {year}</p>
@@ -20,7 +20,7 @@ const year = 2026;
 </footer>
 
 <style>
-  .footer { padding-block: 48px 36px; font-size: 14px; font-weight: 400; }
+  .footer { padding: 48px var(--gutter) 36px; font-size: 14px; font-weight: 400; }
   .row { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
   .meta { display: grid; gap: 16px; }
   .social { display: flex; gap: 12px; }

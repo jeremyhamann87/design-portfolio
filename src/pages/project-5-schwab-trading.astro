@@ -9,11 +9,17 @@ import ContactCTA from '../components/ContactCTA.astro';
 import { getProject } from '../data/projects';
 import hero from '../assets/schwab-trading/hero.png';
 import responsive from '../assets/schwab-trading/responsive-behavior.png';
+import responsiveDark from '../assets/schwab-trading/responsive-behavior-dark.png';
 import modules from '../assets/schwab-trading/panel-modules.png';
+import modulesDark from '../assets/schwab-trading/panel-modules-dark.png';
 import whiteboard from '../assets/schwab-trading/panel-whiteboard.png';
+import whiteboardDark from '../assets/schwab-trading/panel-whiteboard-dark.png';
 import desktop from '../assets/schwab-trading/panel-desktop.png';
+import desktopDark from '../assets/schwab-trading/panel-desktop-dark.png';
 import tablet from '../assets/schwab-trading/panel-tablet.png';
+import tabletDark from '../assets/schwab-trading/panel-tablet-dark.png';
 import mobile from '../assets/schwab-trading/panel-mobile.png';
+import mobileDark from '../assets/schwab-trading/panel-mobile-dark.png';
 
 const p = getProject('project-5-schwab-trading');
 ---
@@ -46,7 +52,7 @@ const p = getProject('project-5-schwab-trading');
       </Module>
     </div>
 
-    <Panel src={responsive} alt="A research module at desktop, tablet and mobile widths" caption="Responsive behavior of Schwab’s trading research platform" />
+    <Panel src={responsive} srcDark={responsiveDark} alt="A research module at desktop, tablet and mobile widths" caption="Responsive behavior of Schwab’s trading research platform" />
 
     <Module title="The challenge" icon="swords" id="challenge">
       <p>Our task was to help the Schwab team establish a coherent responsivity ruleset for a wide variety of informational modules. We needed to get stakeholder buy-in on each module's viability so that development could create these modules in the allotted timeframe before launch.</p>
@@ -58,13 +64,13 @@ const p = getProject('project-5-schwab-trading');
       <p>As a part of our initial design approach we conducted a competitive analysis of other banks' and brokerages' responsive designs to determine a best-practice approach.</p>
     </Module>
 
-    <Panel src={modules} alt="A collage of research modules" caption="A small selection of the 30+ responsive modules needed for the platform" />
+    <Panel src={modules} srcDark={modulesDark} alt="A collage of research modules" caption="A small selection of the 30+ responsive modules needed for the platform" />
 
     <Module title="Creatively Working Together" icon="groups" id="working-together">
       <p>As our team encountered each new responsive challenge we began to compile a working list of our rulesets. We used InVision whiteboard to collect, categorize and consistently bounce each of these responsive rulesets off of Schwab stakeholders and their own internal design team. Our stakeholders were wowed and loved the flexibility and clarity a tool like a digital whiteboard gave to the process.</p>
     </Module>
 
-    <Panel src={whiteboard} alt="Whiteboard of responsive rulesets" caption="Whiteboard workshops with stakeholders helped us to develop guidelines depending on the module/data type." />
+    <Panel src={whiteboard} srcDark={whiteboardDark} alt="Whiteboard of responsive rulesets" caption="Whiteboard workshops with stakeholders helped us to develop guidelines depending on the module/data type." />
 
     <Module title="Coherence & Complexity" icon="grid_goldenratio" id="coherence">
       <div class="prose">
@@ -74,9 +80,9 @@ const p = getProject('project-5-schwab-trading');
     </Module>
 
     <div class="bands">
-      <Panel src={desktop} alt="A module at desktop width" caption="Desktop" gap={8} />
-      <Panel src={tablet} alt="A module at tablet width" caption="Tablet" gap={8} />
-      <Panel src={mobile} alt="A module at mobile width" caption="Mobile" gap={8} />
+      <Panel src={desktop} srcDark={desktopDark} alt="A module at desktop width" caption="Desktop" gap={8} />
+      <Panel src={tablet} srcDark={tabletDark} alt="A module at tablet width" caption="Tablet" gap={8} />
+      <Panel src={mobile} srcDark={mobileDark} alt="A module at mobile width" caption="Mobile" gap={8} />
     </div>
 
     <Module title="Results" icon="sports_score">

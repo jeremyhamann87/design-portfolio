@@ -79,11 +79,11 @@
   --hero-commsec: #22252b;
   --hero-mai: #14263a;
   --hero-notetaker: #25203f;
-  --hero-schwab: #1a2a3a;
-  --hero-schwab-reports: #3a231e;
-  --hero-ai-docs: #36203a;
+  --hero-schwab: #25203f;
+  --hero-schwab-reports: #25203f;
+  --hero-ai-docs: #25203f;
   --hero-ai-docs-mint: #17322a;
-  --hero-glenmede: #142a38;
+  --hero-glenmede: #14263a;
   color-scheme: dark;
 }
 

@@ -62,7 +62,7 @@ export const projects: Project[] = [
     byline: 'Communify',
     outcome: '250+ components · 2,200+ variants · light and dark mode',
     featured: true,
-    shortTitle: 'Glenmede Design System',
+    shortTitle: 'Wealth Advisory Design System Management',
     blurb: '250+ components and 189 variables, documented for devs and PMs.',
   },
   {

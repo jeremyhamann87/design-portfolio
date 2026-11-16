@@ -10,12 +10,18 @@ import { Image } from 'astro:assets';
 import { getProject } from '../data/projects';
 import hero from '../assets/schwab-reports/hero.png';
 import successes from '../assets/schwab-reports/successes.png';
+import successesDark from '../assets/schwab-reports/successes-dark.png';
 import audiences from '../assets/schwab-reports/two-audiences.png';
+import audiencesDark from '../assets/schwab-reports/two-audiences-dark.png';
 import competitive from '../assets/schwab-reports/competitive-analysis.png';
+import competitiveDark from '../assets/schwab-reports/competitive-analysis-dark.png';
 import highFive from '../assets/schwab-reports/figjam-1.png';
 import figjam from '../assets/schwab-reports/figjam-2.png';
+import figjamDark from '../assets/schwab-reports/figjam-2-dark.png';
 import redesigned from '../assets/schwab-reports/redesigned-statements.png';
+import redesignedDark from '../assets/schwab-reports/redesigned-statements-dark.png';
 import affinity from '../assets/schwab-reports/affinity-map.png';
+import affinityDark from '../assets/schwab-reports/affinity-map-dark.png';
 import resultsArt from '../assets/schwab-reports/results-illustration.svg';
 
 const p = getProject('project-6-schwab-reports');
@@ -59,7 +65,7 @@ const approach = [
       </Module>
     </div>
 
-    <Panel src={successes} alt="Redesigned statement pages" />
+    <Panel src={successes} srcDark={successesDark} alt="Redesigned statement pages" />
 
     <Module title="The Challenge" icon="swords" id="challenge">
       <div class="prose">
@@ -74,7 +80,7 @@ const approach = [
       </div>
     </Module>
 
-    <Panel src={audiences} alt="The two audiences: customers and advisors" caption="We needed to design for both Schwab customers and Schwab Advisors" gap={16} />
+    <Panel src={audiences} srcDark={audiencesDark} alt="The two audiences: customers and advisors" caption="We needed to design for both Schwab customers and Schwab Advisors" gap={16} />
 
     <Module title="Approach" icon="switch_access_2">
       <div class="prose"><ol class="tight">
@@ -82,7 +88,7 @@ const approach = [
       </ol></div>
     </Module>
 
-    <Panel src={competitive} alt="Competitive analysis of statements" caption="Competitive analysis" gap={16} />
+    <Panel src={competitive} srcDark={competitiveDark} alt="Competitive analysis of statements" caption="Competitive analysis" gap={16} />
 
     <Module title="Virtual Collaboration" icon="video_chat" id="collaboration">
       <div class="row">
@@ -94,13 +100,13 @@ const approach = [
       </div>
     </Module>
 
-    <Panel src={figjam} alt="FigJam module layout board" caption="We used FigJam and Figma to work through multiple discovery phases like information architecture" gap={16} />
+    <Panel src={figjam} srcDark={figjamDark} alt="FigJam module layout board" caption="We used FigJam and Figma to work through multiple discovery phases like information architecture" gap={16} />
 
     <Module title="Revamped UI" icon="palette" id="revamped-ui">
       <p>Each data-visualization from old to new needed a full UI revamp. Even if the module was a seemingly cut-and-dry table, there were opportunities to bring visual upgrades. At this point we hadn’t reached user testing so we leaned heavily on previously established styles.</p>
     </Module>
 
-    <Panel src={redesigned} alt="Redesigned statements" caption="Redesigned statements" gap={16} />
+    <Panel src={redesigned} srcDark={redesignedDark} alt="Redesigned statements" caption="Redesigned statements" gap={16} />
 
     <Module title="User Testing" icon="person_search" id="user-testing">
       <div class="prose">
@@ -121,7 +127,7 @@ const approach = [
       </div>
     </Module>
 
-    <Panel src={affinity} alt="Affinity map of user testing findings" caption="We put our designs through dozens of rounds of testing and then collated the results with affinity mapping" gap={16} />
+    <Panel src={affinity} srcDark={affinityDark} alt="Affinity map of user testing findings" caption="We put our designs through dozens of rounds of testing and then collated the results with affinity mapping" gap={16} />
 
     <Module title="Results" icon="sports_score">
       <div class="row results">

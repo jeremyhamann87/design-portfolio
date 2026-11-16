@@ -78,7 +78,7 @@ const steps = [
 
     <DarkBand label="Key Features" icon="apps">
       <p slot="intro">I built a repeatable AI workflow in Figma that turns finished designs into a complete, annotated build book, so the documentation stays as current as the designs themselves.</p>
-      <BookCarousel label="Build book pages" bg="#eec2ed" pb={64} pages={pages.map(([img, caption]) => ({ img, caption, alt: `Build book, ${caption}` }))} />
+      <BookCarousel bgDark="#36203a" label="Build book pages" bg="#eec2ed" pb={64} pages={pages.map(([img, caption]) => ({ img, caption, alt: `Build book, ${caption}` }))} />
       <Feature eyebrow="From annotations to pages" title="Every screen explained" image={f1} pb>
         Claude reads the native Figma annotations and prototype arrows on each screen, then lays out annotated pages with numbered callouts and notes tagged Interaction or Content. Nothing is invented: every note traces back to my annotations.
       </Feature>
