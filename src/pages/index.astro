@@ -93,7 +93,7 @@ void projects;
             {skills.map((s) => (
               <li class="skill">
                 <span class="skill-icon" aria-hidden="true">
-                  <svg viewBox="0 -960 960 960" width="20" height="20"><path fill="currentColor" d={skillIcons[s.icon]} /></svg>
+                  <svg viewBox="0 -960 960 960" width="24" height="24"><path fill="currentColor" d={skillIcons[s.icon]} /></svg>
                 </span>
                 <div class="skill-body">
                   <h3>{s.skill}</h3>
@@ -196,9 +196,9 @@ void projects;
   .channel-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; }
   .channel { display: flex; align-items: center; gap: 12px; }
   .avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
-  .channel-text { display: grid; line-height: 1.25; }
-  .channel-name { font-size: 16px; font-weight: 600; }
-  .channel-sub { font-size: 12px; font-weight: 300; text-decoration: underline; text-underline-offset: 2px; }
+  .channel-text { display: grid; }
+  .channel-name { font-size: 16px; font-weight: 600; line-height: 20px; }
+  .channel-sub { font-size: 14px; font-weight: 300; line-height: 15px; }
   .actions { display: flex; gap: 8px; flex-wrap: wrap; }
   .pill-btn { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 16px; border-radius: 8px; font-size: 14px; font-weight: 500; line-height: 19.6px; text-decoration: none; white-space: nowrap; }
   /* Email Me is the primary (ink) button; Resume and LinkedIn are light panels, as in Figma. */
@@ -208,13 +208,13 @@ void projects;
 
   .description { background: var(--panel-glass); border-radius: var(--r-module); padding: 12px 14px; display: grid; gap: 6px; font-size: 14px; }
   .desc-meta { font-weight: 600; }
-  .description p { max-width: 776px; line-height: 20px; }
+  .description p { max-width: 776px; line-height: 19.6px; }
   .description p:not(.desc-meta) { font-weight: 300; }
 
   .info-tabs { margin-top: 8px; display: grid; gap: 28px; }
   .tab-bar { display: flex; gap: 32px; border-bottom: 1px solid var(--border-soft); }
-  .tab-bar button { font: inherit; font-size: 20px; font-weight: 400; color: var(--ink); background: none; border: 0; padding: 0 0 8px; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; }
-  .tab-bar button[aria-selected='true'] { font-weight: 600; border-bottom-color: var(--ink); }
+  .tab-bar button { font: inherit; font-size: 14px; font-weight: 500; line-height: 17px; color: var(--ink); background: none; border: 0; padding: 0 0 10px; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+  .tab-bar button[aria-selected='true'] { font-weight: 700; border-bottom-color: var(--ink); }
   .panel { display: grid; gap: 20px; }
   .panel[hidden] { display: none; }
 
@@ -222,9 +222,9 @@ void projects;
   .skill { display: grid; grid-template-columns: 40px 1fr; gap: 12px; align-items: start; }
   .skill-icon { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--ink); color: var(--on-ink); }
   .skill-body { display: grid; gap: 2px; }
-  .skill-body h3 { font-size: 14px; font-weight: 600; }
-  .skill-body p { font-size: 14px; font-weight: 300; }
-  .skill-link { font-size: 13px; font-weight: 600; justify-self: start; }
+  .skill-body h3 { font-size: 13px; font-weight: 600; line-height: 18.2px; }
+  .skill-body p { font-size: 14px; font-weight: 300; line-height: 19.6px; }
+  .skill-link { font-size: 13px; font-weight: 600; line-height: 18.2px; margin-top: 2px; justify-self: start; }
 
   .experience { display: grid; gap: 20px; }
   .exp-top { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
@@ -266,7 +266,7 @@ void projects;
     .next-item { grid-template-columns: 40% 1fr; }
     .video-title { font-size: 22px; }
     .tab-bar { gap: 20px; overflow-x: auto; }
-    .tab-bar button { font-size: 16px; white-space: nowrap; }
+    .tab-bar button { white-space: nowrap; }
     .photos { grid-template-columns: repeat(2, 1fr); }
   }
 </style>
