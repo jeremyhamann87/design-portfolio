@@ -18,7 +18,7 @@ import iLocation from '../assets/icons/contact-location.svg';
 const skills = [
   { skill: 'AI workflow automation', icon: 'menu_book', body: 'Automated our design documentation with Claude, turning annotated Figma designs into a 62-page build book and making documentation about 10x faster.', href: '/project-7-ai-design-documentation' },
   { skill: 'Interactive prototyping · Figma', icon: 'touch_app', body: 'Built a 100+ screen Figma prototype with 2,300+ interactions for MAI Capital Management’s advisor portal. Product, data and sales teams presented from it throughout one of Communify’s largest deals.', href: '/project-3-mai-advisor-portal' },
-  { skill: 'AI product design', icon: 'auto_awesome', body: 'Designed an AI note taker that records, transcribes and suggests action items, with advisors approving or dismissing every one.', href: '/project-4-ai-notetaker' },
+  { skill: 'AI product design · AI note taking', icon: 'auto_awesome', body: 'Designed an AI note taker that records, transcribes and suggests action items, with advisors approving or dismissing every one.', href: '/project-4-ai-notetaker' },
   { skill: 'Design systems', icon: 'widgets', body: 'Create and maintain dozens of Figma systems, like Glenmede’s 250+ component library with light and dark variables and docs for devs and PMs.', href: '/project-8-glenmede-design-system' },
   { skill: 'Counseling & communication · Master’s-level training', icon: 'psychology', body: 'Trained to a master’s level as a counselor, with hands-on experience in communication styles, empathy and conflict resolution. I bring that to every design team as a steady, collaborative teammate who helps people feel heard.' },
   { skill: '0→1 product design', icon: 'rocket_launch', body: 'Took a wealth client portal from zero digital footprint to launch in under 9 months. It now carries $10B in assets and $1.5M in ARR.', href: '/project-1-seven-post-client-portal' },
@@ -118,7 +118,7 @@ void projects;
             ))}
           </ol>
           <p class="education"><strong>Education:</strong> {education.replace(/^Education: /, '')}</p>
-          <a class="skill-link" href={url(contact.resumePdf)} download="Jeremy-Hamann-Resume.pdf">Download full resume (PDF)</a>
+          <a class="skill-link resume-link" href={url(contact.resumePdf)} download="Jeremy-Hamann-Resume.pdf">Download full resume (PDF)</a>
         </div>
 
         <div class="panel" role="tabpanel" id="panel-about" aria-labelledby="tab-about" hidden>
@@ -258,18 +258,19 @@ void projects;
   .skill { display: grid; grid-template-columns: 40px 1fr; gap: 12px; align-items: start; }
   .skill-icon { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--ink); color: var(--on-ink); }
   .skill-body { display: grid; gap: 2px; }
-  .skill-body h3 { font-size: 13px; font-weight: 600; line-height: 18.2px; }
+  .skill-body h3 { font-size: 14px; font-weight: 600; line-height: 18.2px; }
   .skill-body p { font-size: 14px; font-weight: 300; line-height: 19.6px; }
   .skill-link { font-size: 13px; font-weight: 600; line-height: 18.2px; margin-top: 2px; justify-self: start; }
 
   .experience { display: grid; gap: 20px; }
   .exp-top { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-  .exp-top h3 { font-size: 16px; font-weight: 600; }
+  .exp-top h3 { font-size: 14px; font-weight: 600; }
   .dates { font-size: 14px; font-weight: 300; }
-  .experience p, .education { font-size: 14px; font-weight: 300; }
+  .experience p, .education { font-size: 14px; font-weight: 300; line-height: 1.5; }
+  .resume-link { font-size: 16px; line-height: 1.2; }
 
   .about-hi { font-size: 24px; font-weight: 700; }
-  .bio { display: grid; gap: 12px; font-size: 16px; font-weight: 300; }
+  .bio { display: grid; gap: 12px; font-size: 14px; font-weight: 300; line-height: 1.5; }
   .contact-row { display: flex; flex-wrap: wrap; gap: 12px 32px; font-size: 16px; font-weight: 300; }
   .contact-row li { display: inline-flex; align-items: center; gap: 8px; }
   .ci { width: 20px; height: 20px; }
