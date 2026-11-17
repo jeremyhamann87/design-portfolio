@@ -34,4 +34,14 @@ All of the old Figma Sites URLs still work. `/home-table-view` redirects to `/?v
 
 The workflow in `.github/workflows/deploy.yml` builds and publishes to GitHub Pages. One-time setup: in the repo's Settings → Pages, set Source to "GitHub Actions".
 
-Until a custom domain is set, the site serves from `https://jeremyhamann87.github.io/design-portfolio/`. To move jeremyhamann.co over, add the domain under Settings → Pages → Custom domain and point DNS at GitHub Pages. The workflow picks up the new base path on its own.
+The site serves from `https://www.jeremyhamann.co` (the domain is also recorded in `public/CNAME`). The custom domain is set under Settings → Pages → Custom domain, with "Enforce HTTPS" on. DNS at Squarespace Domains:
+
+| Type | Host | Value |
+| --- | --- | --- |
+| A | @ | 185.199.108.153 |
+| A | @ | 185.199.109.153 |
+| A | @ | 185.199.110.153 |
+| A | @ | 185.199.111.153 |
+| CNAME | www | jeremyhamann87.github.io |
+
+GitHub redirects `jeremyhamann.co` and `jeremyhamann87.github.io/design-portfolio/` to `www.jeremyhamann.co`. The workflow reads the base path from the Pages settings, so if the custom domain is ever removed the build falls back to `/design-portfolio` on its own.

@@ -1,10 +1,11 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 
-// SITE_URL and BASE_PATH are set by the GitHub Pages workflow.
-// While the site lives at jeremyhamann87.github.io/design-portfolio the base is
-// "/design-portfolio". Once the custom domain is pointed here, the base becomes "/".
-const site = process.env.SITE_URL || 'https://jeremyhamann.co';
+// The site's home is https://www.jeremyhamann.co, served from "/".
+// The GitHub Pages workflow sets SITE_URL and BASE_PATH from the repo's Pages settings, so
+// once the custom domain is saved there the build uses it automatically. Until then it
+// keeps building for jeremyhamann87.github.io/design-portfolio, so nothing breaks in between.
+const site = process.env.SITE_URL || 'https://www.jeremyhamann.co';
 const base = process.env.BASE_PATH || '/';
 const withBase = (p) => `${base.replace(/\/$/, '')}${p}`;
 
