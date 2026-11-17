@@ -22,7 +22,7 @@ const hasIntro = Astro.slots.has('intro');
   h2 { display: flex; align-items: center; gap: 8px; min-height: 39px; font-size: 16px; font-weight: 700; color: #f8fcff; }
   .ico { width: 24px; height: 24px; }
   .intro { padding-left: 33px; color: #f8fcff; display: grid; gap: 19px; }
-  .intro :global(a) { text-decoration: underline; text-underline-offset: 2px; }
+  .intro :global(a) { text-decoration: underline dotted; text-decoration-thickness: 0.13em; text-underline-offset: 3px; }
   @media (max-width: 767px) {
     .head { padding: 36px var(--band-pad); }
   }
