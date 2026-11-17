@@ -235,4 +235,4 @@ ul, ol { padding: 0; list-style: none; }
 .prose ol { list-style: decimal; }
 .prose ul.tight, .prose ol.tight { gap: 0; }
 .prose strong { font-weight: 700; }
-.prose a { text-decoration: underline; text-underline-offset: 2px; }
+.prose a { text-decoration: underline dotted; text-decoration-thickness: 0.13em; text-underline-offset: 3px; }
