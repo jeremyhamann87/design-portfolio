@@ -212,6 +212,8 @@ ul, ol { padding: 0; list-style: none; }
   --case-w: min(1000px, calc(100% - 2 * var(--gutter)));
   --module-pad: 24px;
   --band-pad: 100px;
+  /* Content inside full-bleed dark bands is capped at 1000px (plus side padding), like the modules. */
+  --band-max: calc(1000px + 2 * var(--band-pad));
   --module-shadow: 0 4px 4px -1px rgb(12 12 13 / 0.05), 0 4px 4px -1px rgb(12 12 13 / 0.1);
 }
 @media (max-width: 1040px) {

@@ -20,7 +20,7 @@ const { pages, bg, bgDark = bg, fit = 'cover', label, pb = 48 } = Astro.props;
 </div>
 
 <style>
-  .wrap { padding: 0 var(--band-pad) var(--cpb); }
+  .wrap { padding: 0 var(--band-pad) var(--cpb); max-width: var(--band-max); margin-inline: auto; }
   .carousel { position: relative; background: var(--cbg); max-width: 996px; margin-inline: auto; padding: 4.82% 11.04% 0; aspect-ratio: 1; color: #3b414e; }
   :global(:root[data-theme='dark']) .carousel { background: var(--cbg-dark); color: #e6e9ef; }
   .slide { display: grid; gap: clamp(12px, 4vw, 40px); margin: 0; }

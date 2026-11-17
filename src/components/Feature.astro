@@ -15,7 +15,7 @@ const { eyebrow, title, image, alt = '', side = 'left', accent = 'lime', pb = fa
   </div>
 </div>
 <style>
-  .feature { display: grid; grid-template-columns: minmax(0, 600fr) minmax(0, 448fr); column-gap: 32px; align-items: center; padding: 0 var(--band-pad); min-height: 620px; }
+  .feature { display: grid; grid-template-columns: minmax(0, 600fr) minmax(0, 448fr); column-gap: 32px; align-items: center; padding: 0 var(--band-pad); min-height: 620px; max-width: var(--band-max); margin-inline: auto; }
   .feature.pb { padding-bottom: 64px; }
   .feature :global(.fig img) { border-radius: 0; max-height: 620px; object-fit: contain; }
   .feature.right { grid-template-columns: minmax(0, 448fr) minmax(0, 600fr); }
