@@ -237,7 +237,7 @@ export function getProject(slug: string): Project {
 }
 
 export const contact = {
-  email: 'jeremyhamann87@gmail.com',
+  email: 'jeremy@jeremyhamann.co',
   linkedin: 'https://www.linkedin.com/in/jeremy-hamann1',
   art: 'https://www.jeremyhamann.com',
   instagram: 'https://www.instagram.com/jeremyhamann.art/',
