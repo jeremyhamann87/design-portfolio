@@ -16,7 +16,7 @@ const { src, srcDark, alt, caption, gap = 12 } = Astro.props;
   .panel :global(.only-dark) { display: none; }
   :global(:root[data-theme='dark']) .panel :global(.only-light) { display: none; }
   :global(:root[data-theme='dark']) .panel :global(.only-dark) { display: grid; }
-  .panel :global(figcaption) { color: #fff; font-size: 16px; font-weight: 200; line-height: 1.2; }
+  .panel :global(figcaption) { color: #fff; font-size: 16px; font-weight: 300; line-height: 1.2; }
   @media (max-width: 1040px) { .panel { padding-inline: 0; } .panel :global(img) { border-radius: 0; } .panel :global(figcaption) { padding-inline: 24px; } }
   @media (max-width: 767px) { .panel { padding-inline: 24px; } .panel :global(img) { border-radius: 5px; } .panel :global(figcaption) { padding-inline: 0; } }
 </style>
