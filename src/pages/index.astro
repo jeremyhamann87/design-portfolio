@@ -46,14 +46,23 @@ void projects;
       <div class="video">
         <video controls playsinline preload="metadata" poster={url('/media/intro-video-poster.webp')} aria-label="Intro video">
           <source src={url('/media/intro-video.mp4')} type="video/mp4" />
-          <track kind="subtitles" src={url('/media/intro-video.en.vtt')} srclang="en" label="English" />
+          <track kind="subtitles" src={url('/media/intro-video.en.vtt')} srclang="en" label="English" default />
         </video>
         <button type="button" class="play-btn" aria-label="Play intro video" hidden>
           <svg viewBox="0 0 24 24" width="32" height="32" aria-hidden="true"><path fill="currentColor" d="M8 5.6v12.8c0 .8.9 1.3 1.6.8l10-6.4c.6-.4.6-1.2 0-1.6l-10-6.4C8.9 4.3 8 4.8 8 5.6Z"/></svg>
         </button>
-        <button type="button" class="cc-btn" aria-pressed="false" aria-label="Subtitles" title="Subtitles (c)">
-          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10.5 10.2a2 2 0 1 0 0 3.6M16.5 10.2a2 2 0 1 0 0 3.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <button type="button" class="mute-btn" aria-label="Unmute" title="Mute / unmute (m)" hidden>
+          <span class="when-muted"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="currentColor" d="M4 9.5v5c0 .6.4 1 1 1h3l4.3 3.6c.7.5 1.7.1 1.7-.8V5.7c0-.9-1-1.3-1.7-.8L8 8.5H5c-.6 0-1 .4-1 1Z"/><path d="m17 9.5 5 5m0-5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><span class="when-sound"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="currentColor" d="M4 9.5v5c0 .6.4 1 1 1h3l4.3 3.6c.7.5 1.7.1 1.7-.8V5.7c0-.9-1-1.3-1.7-.8L8 8.5H5c-.6 0-1 .4-1 1Z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M18.8 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
         </button>
+        <div class="vbar" hidden>
+          <button type="button" class="vbar-btn vbar-play" aria-label="Pause" title="Play / pause (k)">
+            <span class="when-paused"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="currentColor" d="M8 5.6v12.8c0 .8.9 1.3 1.6.8l10-6.4c.6-.4.6-1.2 0-1.6l-10-6.4C8.9 4.3 8 4.8 8 5.6Z"/></svg></span><span class="when-playing"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="currentColor" d="M7 5h3.2v14H7zM13.8 5H17v14h-3.2z"/></svg></span>
+          </button>
+          <span class="vbar-time"><span class="vbar-cur">0:00</span> / <span class="vbar-dur">0:00</span></span>
+          <input class="vbar-seek" type="range" min="0" max="1000" step="1" value="0" aria-label="Seek" />
+          <button type="button" class="vbar-btn vbar-cc" aria-pressed="true" aria-label="Subtitles" title="Subtitles (c)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10.5 10.2a2 2 0 1 0 0 3.6M16.5 10.2a2 2 0 1 0 0 3.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+          <button type="button" class="vbar-btn vbar-fs" aria-label="Full screen" title="Full screen (f)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M4 9V5h4M20 9V5h-4M4 15v4h4M20 15v4h-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
       </div>
 
       <h1 class="video-title">Hi, I’m Jeremy, your new Product Designer</h1>
@@ -167,54 +176,105 @@ void projects;
 </Base>
 
 <script>
-  // Subtitles toggle: overlays the player and stays in sync with the browser's own captions menu.
+  // Intro video player. Before the first play: a big play button over the poster, a silent preview
+  // on hover (desktop only) and a mute toggle. After it: a custom control bar with play, seek,
+  // subtitles (on by default) and full screen. Without JS the native controls stay.
   const video = document.querySelector<HTMLVideoElement>('.video video');
-  const ccBtn = document.querySelector<HTMLButtonElement>('.video .cc-btn');
-  if (video && ccBtn) {
-    const wrap = video.parentElement!;
-    const track = () => video.textTracks[0];
-    const sync = () => {
-      const on = track()?.mode === 'showing';
-      ccBtn.setAttribute('aria-pressed', String(on));
-      wrap.classList.toggle('playing', !video.paused);
-    };
-    ccBtn.addEventListener('click', () => {
-      const t = track();
-      if (!t) return;
-      t.mode = t.mode === 'showing' ? 'hidden' : 'showing';
-      sync();
-    });
-    video.addEventListener('keydown', (e) => { if (e.key === 'c' || e.key === 'C') ccBtn.click(); });
-    video.textTracks.addEventListener('change', sync);
-    video.addEventListener('play', sync);
-    video.addEventListener('pause', sync);
-    sync();
-  }
-
-  // Big play button and a YouTube-style silent preview on hover. Until the visitor clicks play,
-  // the native controls stay hidden; clicking restarts from the beginning with sound.
-  const playBtn = document.querySelector<HTMLButtonElement>('.video .play-btn');
-  if (video && playBtn) {
-    const wrap = video.parentElement!;
+  const wrap = video?.parentElement;
+  if (video && wrap) {
+    const q = <T extends Element>(sel: string) => wrap.querySelector<T>(sel)!;
+    const playBtn = q<HTMLButtonElement>('.play-btn');
+    const muteBtn = q<HTMLButtonElement>('.mute-btn');
+    const bar = q<HTMLDivElement>('.vbar');
+    const barPlay = q<HTMLButtonElement>('.vbar-play');
+    const ccBtn = q<HTMLButtonElement>('.vbar-cc');
+    const fsBtn = q<HTMLButtonElement>('.vbar-fs');
+    const seek = q<HTMLInputElement>('.vbar-seek');
+    const cur = q<HTMLSpanElement>('.vbar-cur');
+    const dur = q<HTMLSpanElement>('.vbar-dur');
     const canPreview = matchMedia('(hover: hover) and (pointer: fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const track = () => video.textTracks[0];
+    const fmt = (t: number) => { t = Math.max(0, Math.floor(t || 0)); return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`; };
     let engaged = false;
     let previewing = false;
+    let hideTimer = 0;
+
     video.controls = false;
     playBtn.hidden = false;
+    muteBtn.hidden = false;
+    bar.hidden = false;
     wrap.classList.add('idle');
+    wrap.tabIndex = -1;
+    if (track()) track()!.mode = 'showing';
+    // Lift subtitles above the control bar.
+    const liftCues = () => { const cues = track()?.cues; if (cues) for (const c of Array.from(cues) as VTTCue[]) { c.snapToLines = false; c.line = 84; c.lineAlign = "end"; } };
+    wrap.querySelector('track')?.addEventListener('load', liftCues);
+    liftCues();
+
+    const sync = () => {
+      const muted = video.muted;
+      wrap.classList.toggle('muted', muted);
+      muteBtn.setAttribute('aria-label', muted ? 'Unmute' : 'Mute');
+      wrap.classList.toggle('playing', !video.paused);
+      barPlay.setAttribute('aria-label', video.paused ? 'Play' : 'Pause');
+      ccBtn.setAttribute('aria-pressed', String(track()?.mode === 'showing'));
+      cur.textContent = fmt(video.currentTime);
+      if (video.duration) {
+        dur.textContent = fmt(video.duration);
+        if (document.activeElement !== seek) seek.value = String(Math.round((video.currentTime / video.duration) * 1000));
+      }
+      seek.style.setProperty('--fill', `${Number(seek.value) / 10}%`);
+    };
+    // Keep the bar up while the pointer moves or the video is paused, like YouTube.
+    const wake = () => {
+      wrap.classList.add('active');
+      clearTimeout(hideTimer);
+      hideTimer = window.setTimeout(() => { if (!video.paused && !bar.contains(document.activeElement)) wrap.classList.remove('active'); }, 2500);
+    };
 
     const start = () => {
       engaged = true;
       previewing = false;
       wrap.classList.remove('idle', 'previewing');
-      video.controls = true;
+      wrap.classList.add('engaged');
       video.muted = false;
       video.currentTime = 0;
       video.play().catch(() => {});
-      video.focus({ preventScroll: true });
+      wrap.focus({ preventScroll: true });
+      wake();
     };
+    const togglePlay = () => { if (!engaged) return start(); video.paused ? video.play().catch(() => {}) : video.pause(); wake(); };
+    const toggleMute = () => { video.muted = !video.muted; sync(); };
+    const toggleCC = () => { const t = track(); if (t) { t.mode = t.mode === 'showing' ? 'hidden' : 'showing'; sync(); } };
+    const toggleFs = () => {
+      if (document.fullscreenElement) return void document.exitFullscreen();
+      if (wrap.requestFullscreen) return void wrap.requestFullscreen().catch(() => {});
+      (video as HTMLVideoElement & { webkitEnterFullscreen?: () => void }).webkitEnterFullscreen?.();
+    };
+
     playBtn.addEventListener('click', start);
-    video.addEventListener('click', () => { if (!engaged) start(); });
+    video.addEventListener('click', togglePlay);
+    barPlay.addEventListener('click', togglePlay);
+    muteBtn.addEventListener('click', toggleMute);
+    ccBtn.addEventListener('click', toggleCC);
+    fsBtn.addEventListener('click', toggleFs);
+    seek.addEventListener('input', () => {
+      if (video.duration) video.currentTime = (Number(seek.value) / 1000) * video.duration;
+      sync();
+    });
+    wrap.addEventListener('keydown', (e) => {
+      if (e.target instanceof HTMLInputElement && e.key.startsWith('Arrow')) return;
+      const k = e.key.toLowerCase();
+      if (k === 'k' || (k === ' ' && !(e.target instanceof HTMLButtonElement))) { e.preventDefault(); togglePlay(); }
+      else if (k === 'm') toggleMute();
+      else if (k === 'c') toggleCC();
+      else if (k === 'f' && engaged) toggleFs();
+    });
+    wrap.addEventListener('mousemove', () => { if (engaged) wake(); });
+    wrap.addEventListener('focusin', () => { if (engaged) wake(); });
+    ['play', 'pause', 'timeupdate', 'loadedmetadata', 'volumechange', 'durationchange'].forEach((ev) => video.addEventListener(ev, sync));
+    video.textTracks.addEventListener('change', sync);
+    video.addEventListener('pause', () => { if (engaged) wake(); });
 
     if (canPreview) {
       wrap.addEventListener('mouseenter', () => {
@@ -225,13 +285,15 @@ void projects;
         video.play().catch(() => {});
       });
       wrap.addEventListener('mouseleave', () => {
-        if (engaged || !previewing) return;
+        if (engaged) { wrap.classList.remove('active'); return; }
+        if (!previewing) return;
         previewing = false;
         wrap.classList.remove('previewing');
         video.pause();
         video.currentTime = 0;
       });
     }
+    sync();
   }
 
   // Accessible tabs: click or arrow keys switch panels.
@@ -264,19 +326,39 @@ void projects;
 
   .video { position: relative; aspect-ratio: 16 / 9; background: var(--panel-glass); border-radius: var(--r-module); display: grid; place-items: center; overflow: hidden; }
   .video video { width: 100%; height: 100%; object-fit: cover; display: block; background: #000; }
-  .cc-btn { position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 50%; background: rgba(0, 0, 0, 0.45); color: #fff; cursor: pointer; transition: opacity 0.2s ease, background-color 0.2s ease; }
-  .cc-btn:hover { background: rgba(0, 0, 0, 0.65); }
-  .cc-btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
-  .cc-btn[aria-pressed="true"] { background: #fff; color: #000; }
-  .video.playing .cc-btn { opacity: 0; }
-  .video.playing:hover .cc-btn, .video.playing .cc-btn:focus-visible { opacity: 1; }
-  @media (hover: none) { .video.playing .cc-btn { opacity: 1; } }
+  .mute-btn { position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 50%; background: rgba(0, 0, 0, 0.5); color: #fff; cursor: pointer; opacity: 0; transition: opacity 0.2s ease, background-color 0.2s ease; z-index: 2; }
+  .mute-btn[hidden], .vbar[hidden] { display: none; }
+  .mute-btn:hover { background: rgba(0, 0, 0, 0.7); }
+  .video.previewing .mute-btn, .video.engaged.active .mute-btn, .video.engaged:not(.playing) .mute-btn, .mute-btn:focus-visible { opacity: 1; }
+  .video .when-sound, .video.muted .when-muted { display: contents; }
+  .video .when-muted, .video.muted .when-sound { display: none; }
   .play-btn { position: absolute; top: 50%; left: 50%; width: 76px; height: 76px; margin: -38px 0 0 -38px; display: grid; place-items: center; padding: 0 0 0 4px; border: 0; border-radius: 50%; background: rgba(255, 255, 255, 0.94); color: #111; box-shadow: 0 4px 24px rgba(0, 0, 0, 0.28); cursor: pointer; transition: transform 0.2s ease, opacity 0.2s ease, background-color 0.2s ease; }
   .play-btn[hidden] { display: none; }
-  .play-btn:hover, .video.previewing .play-btn { transform: scale(1.08); background: #fff; }
+  .play-btn:hover { transform: scale(1.08); background: #fff; }
   .play-btn:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
-  .video:not(.idle) .play-btn { opacity: 0; pointer-events: none; }
+  .video:not(.idle) .play-btn, .video.previewing .play-btn { opacity: 0; pointer-events: none; }
   .video.idle, .video.idle video { cursor: pointer; }
+  .video:focus { outline: none; }
+  .vbar { position: absolute; left: 0; right: 0; bottom: 0; display: flex; align-items: center; gap: 4px; padding: 28px 12px 8px; background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent); color: #fff; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; z-index: 1; }
+  .video.engaged.active .vbar, .video.engaged:not(.playing) .vbar, .vbar:focus-within { opacity: 1; pointer-events: auto; }
+  .video.engaged:not(.active).playing { cursor: none; }
+  .vbar-btn { width: 40px; height: 40px; flex: none; display: grid; place-items: center; padding: 0; border: 0; border-radius: 50%; background: none; color: #fff; cursor: pointer; }
+  .vbar-btn:hover { background: rgba(255, 255, 255, 0.16); }
+  .vbar-btn:focus-visible { outline: 2px solid #fff; outline-offset: 0; }
+  .vbar-cc { position: relative; }
+  .vbar-cc[aria-pressed="true"]::after { content: ""; position: absolute; left: 11px; right: 11px; bottom: 6px; height: 2px; border-radius: 1px; background: #fff; }
+  .vbar-cc[aria-pressed="false"] { opacity: 0.7; }
+  .video .when-paused, .video.playing .when-playing { display: contents; }
+  .video .when-playing, .video.playing .when-paused { display: none; }
+  .vbar-time { font-size: 13px; font-variant-numeric: tabular-nums; white-space: nowrap; padding: 0 8px 0 2px; }
+  .vbar-seek { flex: 1; min-width: 40px; height: 16px; margin: 0 4px; background: transparent; appearance: none; -webkit-appearance: none; cursor: pointer; --fill: 0%; }
+  .vbar-seek::-webkit-slider-runnable-track { height: 4px; border-radius: 2px; background: linear-gradient(to right, #fff var(--fill), rgba(255, 255, 255, 0.35) var(--fill)); }
+  .vbar-seek::-moz-range-track { height: 4px; border-radius: 2px; background: linear-gradient(to right, #fff var(--fill), rgba(255, 255, 255, 0.35) var(--fill)); }
+  .vbar-seek::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; margin-top: -4px; border: 0; border-radius: 50%; background: #fff; }
+  .vbar-seek::-moz-range-thumb { width: 12px; height: 12px; border: 0; border-radius: 50%; background: #fff; }
+  .vbar-seek:focus-visible { outline: 2px solid #fff; outline-offset: 2px; border-radius: 4px; }
+  .video:fullscreen { border-radius: 0; }
+  .video:fullscreen video { object-fit: contain; }
   .video video::cue { font-family: inherit; font-size: 0.9em; line-height: 1.35; color: #fff; background: rgba(0, 0, 0, 0.72); }
 
   .video-title { font-size: 28px; font-weight: 700; line-height: 1.1; }
@@ -358,6 +440,7 @@ void projects;
     .next-item { grid-template-columns: 40% 1fr; }
     .video-title { font-size: 22px; }
     .play-btn { width: 60px; height: 60px; margin: -30px 0 0 -30px; }
+    .vbar-time { display: none; }
     .tab-bar { gap: 20px; overflow-x: auto; }
     .tab-bar button { white-space: nowrap; }
     .photos { grid-template-columns: repeat(2, 1fr); }
