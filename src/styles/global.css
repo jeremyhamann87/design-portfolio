@@ -33,7 +33,7 @@
   --enn-gut: #4c8f2a;
 
   /* Type */
-  --font: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+  --font: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
   --fs-display-xl: 48px;
   --fs-display: 36px;
   --fs-hero: 32px;
@@ -183,7 +183,7 @@ ul, ol { padding: 0; list-style: none; }
   border-radius: var(--r-sm);
   background: var(--ink);
   color: var(--on-ink);
-  font-weight: 200;
+  font-weight: 300;
   text-decoration: none;
   transition: font-weight 0.15s;
   white-space: nowrap;

@@ -3,11 +3,11 @@
 // Case Study / Decision rows (thin dividers between decisions, constraint | trade-off).
 import Module from './Module.astro';
 interface Decision { title: string; constraint: string; tradeoff: string }
-interface Props { items: Decision[]; title?: string; numbered?: boolean; weight?: 500 | 700 }
-const { items, title = 'Key Decisions', numbered = false, weight = 700 } = Astro.props;
+interface Props { items: Decision[]; title?: string; numbered?: boolean }
+const { items, title = 'Key Decisions', numbered = false } = Astro.props;
 ---
 <Module title={title} icon="balance" flush id="key-decisions">
-  <ol class="decisions" style={`--dw:${weight}`}>
+  <ol class="decisions">
     {items.map((d, i) => (
       <li class="decision">
         <h3>{numbered && <>{String(i + 1).padStart(2, '0')} </>}{d.title}</h3>
@@ -22,7 +22,9 @@ const { items, title = 'Key Decisions', numbered = false, weight = 700 } = Astro
 <style>
   .decision { display: grid; gap: 16px; padding: 24px; border-bottom: 1px solid var(--border); }
   .decision:last-child { border-bottom: 0; }
-  h3, h4 { font-size: 16px; font-weight: var(--dw); line-height: 19px; }
+  h3, h4 { font-size: 16px; line-height: 19px; }
+  h3 { font-weight: 700; }
+  h4 { font-weight: 500; }
   .details { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
   .col { display: grid; gap: 6px; align-content: start; }
   .constraint { padding-right: 16px; border-right: 1px solid var(--border); }
