@@ -183,7 +183,7 @@ ul, ol { padding: 0; list-style: none; }
   border-radius: var(--r-sm);
   background: var(--ink);
   color: var(--on-ink);
-  font-weight: 200;
+  font-weight: 300;
   text-decoration: none;
   transition: font-weight 0.15s;
   white-space: nowrap;
