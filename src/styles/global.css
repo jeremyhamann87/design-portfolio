@@ -27,6 +27,10 @@
   --hero-ai-docs: #eec2ed;
   --hero-ai-docs-mint: #c2eedf;
   --hero-glenmede: #cfdbe3;
+  --hero-respondology: #f9e4a0;
+  --enn-heart: #d9503b;
+  --enn-head: #2d7fc9;
+  --enn-gut: #4c8f2a;
 
   /* Type */
   --font: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
@@ -84,6 +88,10 @@
   --hero-ai-docs: #25203f;
   --hero-ai-docs-mint: #17322a;
   --hero-glenmede: #14263a;
+  --hero-respondology: #2e2814;
+  --enn-heart: #f08572;
+  --enn-head: #73b2ec;
+  --enn-gut: #8bc463;
   color-scheme: dark;
 }
 

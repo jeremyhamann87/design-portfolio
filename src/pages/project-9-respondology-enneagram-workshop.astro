@@ -1,0 +1,192 @@
+---
+import Base from '../layouts/Base.astro';
+import CaseHero from '../components/CaseHero.astro';
+import Module from '../components/Module.astro';
+import Decisions from '../components/Decisions.astro';
+import MoreWork from '../components/MoreWork.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+import EnneagramSymbol from '../components/EnneagramSymbol.astro';
+import { getProject } from '../data/projects';
+
+const p = getProject('project-9-respondology-enneagram-workshop');
+
+const centers = [
+  ['heart', 'Heart', 'feeling', '2  3  4'],
+  ['head', 'Head', 'thinking', '5  6  7'],
+  ['gut', 'Gut', 'moving, sensing', '8  9  1'],
+] as const;
+const centerOf: Record<number, 'heart' | 'head' | 'gut'> = { 1: 'gut', 2: 'heart', 3: 'heart', 4: 'heart', 5: 'head', 6: 'head', 7: 'head', 8: 'gut', 9: 'gut' };
+const types = ['The Reformer', 'The Helper', 'The Achiever', 'The Individualist', 'The Investigator', 'The Loyalist', 'The Enthusiast', 'The Protector', 'The Peacemaker'];
+const tips = [
+  ['Offer support', '2’s want to know you’re on their side.'],
+  ['Positivity', 'Be upbeat and positive. 2’s want their work to be fun and meaningful.'],
+  ['Affirmation', 'Affirm a 2’s efforts.'],
+  ['Sandwich style', 'Deliver feedback “sandwich style”: positive, critical, positive.'],
+];
+const breakouts = [
+  ['Breakout 1', 'In groups of three: have you related to your number so far? If your result wasn’t strong, which number feels closest?'],
+  ['Breakout 2', 'Find someone in your intelligence center. How have you used that center at work or in life this past month?'],
+  ['Breakout 3', 'Get together with your direct team. How could knowing each other’s numbers help you do the work in front of you?'],
+];
+const cap = (s: string) => s[0].toUpperCase() + s.slice(1);
+---
+<Base title={`${p.title} | Jeremy Hamann`} description={p.description}>
+  <div class="case">
+    <div class="top">
+      <CaseHero project={p} bg="var(--hero-respondology)" title="Enneagram Workshop for Team Collaboration" artWidth={364} textWidth={400} gap={36}>
+        <EnneagramSymbol slot="art" />
+      </CaseHero>
+
+      <Module title="Goals" icon="target_check">
+        <div class="prose">
+          <p>Help about 50 Respondology employees understand their own working styles and how those styles mesh, or don’t, with the people around them.</p>
+          <p>Give every team practical skills, tips and tricks to work together, communicate well and give each other the benefit of the doubt when conflict comes up.</p>
+        </div>
+      </Module>
+
+      <Module title="At A Glance" icon="groups">
+        <div class="prose tight">
+          <p>About 50 employees took the Enneagram inventory before the session.</p>
+          <p>One on-site workshop with the entire staff, about four hours long.</p>
+          <p>Led together with my wife, Jane, in 2024.</p>
+        </div>
+      </Module>
+
+      <Module title="About The Client" icon="apartment" id="about-client">
+        <p>Respondology is a social media and digital firm based in Boulder, Colorado. It helps companies moderate the comments and content on their platforms. Respondology invited Jane and me to bring an on-site workshop to their whole staff.</p>
+      </Module>
+    </div>
+
+    <Module title="A Counseling-Informed Designer" icon="psychology">
+      <div class="prose">
+        <p>I hold a master’s-level degree in counseling, and I used the Enneagram with clients in my counseling sessions. Today I bring that training to the design teams I work on.</p>
+        <p>I offer a truncated version of this workshop to every team I join. It has helped design and product teams communicate, work through friction and give each other the benefit of the doubt. For anyone who wants to go deeper, I am happy to talk one-on-one.</p>
+      </div>
+    </Module>
+
+    <Decisions items={[
+      { title: 'Keep it professional and surface-level', constraint: 'The Enneagram describes deep internal dynamics, family patterns and conflict styles. It can get personal fast, and this was a workplace.', tradeoff: 'Less depth in the room. I offer one-on-one conversations to anyone who wants to go further.' },
+      { title: 'Test everyone before the session', constraint: 'People connect with a framework faster when it describes them, not a stranger.', tradeoff: 'Some people tied or landed between two numbers. We framed it as a journey, and it was okay to leave without one number.' },
+      { title: 'Set ground rules first', constraint: 'The Enneagram can look like a fun toy, but it can also be used as a weapon or an excuse.', tradeoff: 'Time spent on ethics up front, but everyone shared the same guardrails: never type someone else, and never use your number as a reason not to grow.' },
+    ]} />
+
+    <Module title="The Session" icon="forum">
+      <p>Intros, Enneagram 101, the nine types, breakouts, how to work well with each number, growth prompts, then open Q&amp;A.</p>
+    </Module>
+
+    <Module title="Enneagram 101: nine types, three centers" step="01">
+      <p>A quick grounding in where the Enneagram comes from and how the symbol works. Each type sits in one of three intelligence centers, which shape how we primarily perceive, process and express.</p>
+      <div class="ill ill-101">
+        <EnneagramSymbol />
+        <div class="centers">
+          <p class="ill-cap">The three centers: how we primarily perceive, process and express</p>
+          {centers.map(([k, name, verb, nums]) => (
+            <div class="ccard">
+              <p class="chead" style={`background:var(--enn-${k})`}><strong>{name}</strong> {verb}</p>
+              <p class="cnums">{nums}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </Module>
+
+    <Module title="The nine types at work" step="02">
+      <p>We walked through every type: strengths, vulnerabilities, what they look like at their best and under stress, and their pet peeves at work.</p>
+      <ul class="ill types" aria-label="The nine Enneagram types">
+        {types.map((name, i) => (
+          <li class="card">
+            <span class="tnum" style={`color:var(--enn-${centerOf[i + 1]})`}>{i + 1}</span>
+            <span class="ttext"><span class="tname"><span class="the">The </span>{name.replace('The ', '')}</span><span class="tcenter">{cap(centerOf[i + 1])} center</span></span>
+          </li>
+        ))}
+      </ul>
+    </Module>
+
+    <Module title="How to work well with each number" step="03">
+      <p>For each type we covered how to work with them, how they manage and how they like to be managed. This is where teams found the most practical value.</p>
+      <div class="ill">
+        <p class="ww-title"><span class="badge" style="background:var(--enn-heart)">2</span> How to work well with a 2</p>
+        <ul class="tips">
+          {tips.map(([t, d]) => <li class="card"><strong>{t}</strong><span>{d}</span></li>)}
+        </ul>
+        <p class="note">Every type got a slide like this, along with strengths, vulnerabilities and pet peeves at work.</p>
+      </div>
+    </Module>
+
+    <Module title="Breakouts and growth prompts" step="04">
+      <p>Small-group breakouts let people test what they heard against their own experience and their own teams. Each type also got growth prompts to try after the workshop.</p>
+      <ul class="ill breakouts">
+        {breakouts.map(([t, d]) => <li class="card"><strong>{t}</strong><span>{d}</span></li>)}
+      </ul>
+    </Module>
+
+    <Module title="In The End" icon="sports_score">
+      <div class="prose">
+        <p>Respondology’s staff left with a shared language for how each person thinks, feels and reacts at work, and practical ways to work well with each number. The foundation underneath all of it: give each other the benefit of the doubt.</p>
+        <p>It is the same thing I bring to every design team I join. Counseling skills make me a better collaborator, and they help the whole team do better work together.</p>
+      </div>
+    </Module>
+
+    <ContactCTA />
+
+    <MoreWork slugs={['project-7-ai-design-documentation', 'project-3-mai-advisor-portal']} />
+  </div>
+</Base>
+
+<style>
+  .ill {
+    background: var(--panel);
+    border: 1px solid var(--border-soft);
+    border-radius: 8px;
+    padding: 32px;
+    display: grid;
+    gap: 12px;
+    font-weight: 300;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    border-radius: 8px;
+    padding: 16px;
+  }
+  .ill-101 { grid-template-columns: auto 1fr; align-items: center; gap: 48px; padding-inline: 48px; }
+  .centers { display: grid; gap: 12px; }
+  .ill-cap { font-weight: 500; }
+  .ccard { border: 1px solid var(--border-soft); border-radius: 8px; overflow: hidden; background: var(--surface); }
+  .chead { color: #fff; padding: 8px 16px; font-size: 14px; font-weight: 300; }
+  .chead strong { font-weight: 700; margin-right: 4px; }
+  .cnums { padding: 12px 16px; font-size: 28px; font-weight: 700; white-space: pre; color: var(--ink); }
+  .types { grid-template-columns: repeat(3, 1fr); list-style: none; margin: 0; }
+  .types .card { display: flex; align-items: center; gap: 16px; }
+  .tnum { font-size: 36px; font-weight: 700; line-height: 1; }
+  .ttext { display: grid; }
+  .tname { font-weight: 500; }
+  .tcenter { font-size: 14px; }
+  .ww-title { display: flex; align-items: center; gap: 12px; font-size: 20px; font-weight: 700; }
+  .badge { color: #fff; border-radius: 4px; padding: 2px 10px; }
+  .tips { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; list-style: none; margin: 0; padding: 0; }
+  .tips .card, .breakouts .card { display: grid; gap: 6px; align-content: start; font-weight: 200; }
+  .tips strong { font-weight: 500; }
+  .breakouts strong { font-weight: 700; }
+  .breakouts { grid-template-columns: repeat(3, 1fr); list-style: none; margin: 0; }
+  .breakouts .card { padding: 20px; gap: 8px; }
+  .note { font-size: 14px; }
+  @media (max-width: 1040px) {
+    .ill-101 { padding-inline: 32px; gap: 32px; }
+  }
+  @media (max-width: 767px) {
+    .ill { padding: 16px; }
+    .ill-101 { grid-template-columns: 1fr; justify-items: center; padding: 24px 16px; gap: 24px; }
+    .ill-101 :global(.enn-symbol) { width: 252px; }
+    .centers { width: 100%; }
+    .cnums { font-size: 24px; }
+    .types { gap: 8px; }
+    .types .card { display: grid; gap: 2px; padding: 12px 8px; }
+    .tnum { font-size: 24px; }
+    .tname { font-size: 11px; }
+    .the { display: none; }
+    .tcenter { font-size: 10px; }
+    .ww-title { font-size: 18px; }
+    .tips, .breakouts { grid-template-columns: 1fr; }
+  }
+</style>
