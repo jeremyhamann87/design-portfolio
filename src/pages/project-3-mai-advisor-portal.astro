@@ -70,7 +70,7 @@ const features = [
         <p><a href={prototypeUrl} target="_blank" rel="noopener">Open the live prototype in Figma ↗</a></p>
       </Fragment>
       <div class="screens">
-        <Figure src={grid} alt="Twelve screens from the MAI advisor portal prototype" sizes="(max-width: 1280px) 100vw, 1080px" />
+        <Figure src={grid} alt="Twelve screens from the MAI advisor portal prototype" sizes="(max-width: 1200px) 100vw, 1000px" />
       </div>
     </DarkBand>
 
@@ -111,6 +111,6 @@ const features = [
 </Base>
 
 <style>
-  .screens { padding: 0 var(--band-pad) 64px; max-width: 1280px; margin-inline: auto; }
+  .screens { padding: 0 var(--band-pad) 64px; max-width: var(--band-max); margin-inline: auto; }
   .screens :global(img) { border-radius: 0; }
 </style>
