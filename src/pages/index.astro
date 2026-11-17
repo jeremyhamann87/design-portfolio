@@ -48,6 +48,9 @@ void projects;
           <source src={url('/media/intro-video.mp4')} type="video/mp4" />
           <track kind="subtitles" src={url('/media/intro-video.en.vtt')} srclang="en" label="English" />
         </video>
+        <button type="button" class="play-btn" aria-label="Play intro video" hidden>
+          <svg viewBox="0 0 24 24" width="32" height="32" aria-hidden="true"><path fill="currentColor" d="M8 5.6v12.8c0 .8.9 1.3 1.6.8l10-6.4c.6-.4.6-1.2 0-1.6l-10-6.4C8.9 4.3 8 4.8 8 5.6Z"/></svg>
+        </button>
         <button type="button" class="cc-btn" aria-pressed="false" aria-label="Subtitles" title="Subtitles (c)">
           <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10.5 10.2a2 2 0 1 0 0 3.6M16.5 10.2a2 2 0 1 0 0 3.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
         </button>
@@ -188,6 +191,49 @@ void projects;
     sync();
   }
 
+  // Big play button and a YouTube-style silent preview on hover. Until the visitor clicks play,
+  // the native controls stay hidden; clicking restarts from the beginning with sound.
+  const playBtn = document.querySelector<HTMLButtonElement>('.video .play-btn');
+  if (video && playBtn) {
+    const wrap = video.parentElement!;
+    const canPreview = matchMedia('(hover: hover) and (pointer: fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let engaged = false;
+    let previewing = false;
+    video.controls = false;
+    playBtn.hidden = false;
+    wrap.classList.add('idle');
+
+    const start = () => {
+      engaged = true;
+      previewing = false;
+      wrap.classList.remove('idle', 'previewing');
+      video.controls = true;
+      video.muted = false;
+      video.currentTime = 0;
+      video.play().catch(() => {});
+      video.focus({ preventScroll: true });
+    };
+    playBtn.addEventListener('click', start);
+    video.addEventListener('click', () => { if (!engaged) start(); });
+
+    if (canPreview) {
+      wrap.addEventListener('mouseenter', () => {
+        if (engaged) return;
+        previewing = true;
+        wrap.classList.add('previewing');
+        video.muted = true;
+        video.play().catch(() => {});
+      });
+      wrap.addEventListener('mouseleave', () => {
+        if (engaged || !previewing) return;
+        previewing = false;
+        wrap.classList.remove('previewing');
+        video.pause();
+        video.currentTime = 0;
+      });
+    }
+  }
+
   // Accessible tabs: click or arrow keys switch panels.
   const tabs = [...document.querySelectorAll<HTMLButtonElement>('.info-tabs [role="tab"]')];
   function select(t: HTMLButtonElement, focus = false) {
@@ -225,6 +271,12 @@ void projects;
   .video.playing .cc-btn { opacity: 0; }
   .video.playing:hover .cc-btn, .video.playing .cc-btn:focus-visible { opacity: 1; }
   @media (hover: none) { .video.playing .cc-btn { opacity: 1; } }
+  .play-btn { position: absolute; top: 50%; left: 50%; width: 76px; height: 76px; margin: -38px 0 0 -38px; display: grid; place-items: center; padding: 0 0 0 4px; border: 0; border-radius: 50%; background: rgba(255, 255, 255, 0.94); color: #111; box-shadow: 0 4px 24px rgba(0, 0, 0, 0.28); cursor: pointer; transition: transform 0.2s ease, opacity 0.2s ease, background-color 0.2s ease; }
+  .play-btn[hidden] { display: none; }
+  .play-btn:hover, .video.previewing .play-btn { transform: scale(1.08); background: #fff; }
+  .play-btn:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+  .video:not(.idle) .play-btn { opacity: 0; pointer-events: none; }
+  .video.idle video { cursor: pointer; }
   .video video::cue { font-family: inherit; font-size: 0.9em; line-height: 1.35; color: #fff; background: rgba(0, 0, 0, 0.72); }
 
   .video-title { font-size: 28px; font-weight: 700; line-height: 1.1; }
@@ -305,6 +357,7 @@ void projects;
   @media (max-width: 799px) {
     .next-item { grid-template-columns: 40% 1fr; }
     .video-title { font-size: 22px; }
+    .play-btn { width: 60px; height: 60px; margin: -30px 0 0 -30px; }
     .tab-bar { gap: 20px; overflow-x: auto; }
     .tab-bar button { white-space: nowrap; }
     .photos { grid-template-columns: repeat(2, 1fr); }
