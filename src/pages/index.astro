@@ -43,11 +43,14 @@ void projects;
 <Base title="Jeremy Hamann - Senior Product Designer" description="Senior Product Designer in fintech and AI. Watch the intro, browse case studies, and get in touch.">
   <div class="wrap watch">
     <div class="primary">
-      <!-- Stand-in clip to test video playback; replace public/media/intro-video.mp4 with the final intro. -->
       <div class="video">
         <video controls playsinline preload="metadata" poster={url('/media/intro-video-poster.webp')} aria-label="Intro video">
           <source src={url('/media/intro-video.mp4')} type="video/mp4" />
+          <track kind="subtitles" src={url('/media/intro-video.en.vtt')} srclang="en" label="English" />
         </video>
+        <button type="button" class="cc-btn" aria-pressed="false" aria-label="Subtitles" title="Subtitles (c)">
+          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10.5 10.2a2 2 0 1 0 0 3.6M16.5 10.2a2 2 0 1 0 0 3.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
       </div>
 
       <h1 class="video-title">Hi, I’m Jeremy, your new Product Designer</h1>
@@ -160,6 +163,30 @@ void projects;
 </Base>
 
 <script>
+  // Subtitles toggle: overlays the player and stays in sync with the browser's own captions menu.
+  const video = document.querySelector<HTMLVideoElement>('.video video');
+  const ccBtn = document.querySelector<HTMLButtonElement>('.video .cc-btn');
+  if (video && ccBtn) {
+    const wrap = video.parentElement!;
+    const track = () => video.textTracks[0];
+    const sync = () => {
+      const on = track()?.mode === 'showing';
+      ccBtn.setAttribute('aria-pressed', String(on));
+      wrap.classList.toggle('playing', !video.paused);
+    };
+    ccBtn.addEventListener('click', () => {
+      const t = track();
+      if (!t) return;
+      t.mode = t.mode === 'showing' ? 'hidden' : 'showing';
+      sync();
+    });
+    video.addEventListener('keydown', (e) => { if (e.key === 'c' || e.key === 'C') ccBtn.click(); });
+    video.textTracks.addEventListener('change', sync);
+    video.addEventListener('play', sync);
+    video.addEventListener('pause', sync);
+    sync();
+  }
+
   // Accessible tabs: click or arrow keys switch panels.
   const tabs = [...document.querySelectorAll<HTMLButtonElement>('.info-tabs [role="tab"]')];
   function select(t: HTMLButtonElement, focus = false) {
@@ -190,6 +217,14 @@ void projects;
 
   .video { position: relative; aspect-ratio: 16 / 9; background: var(--panel-glass); border-radius: var(--r-module); display: grid; place-items: center; overflow: hidden; }
   .video video { width: 100%; height: 100%; object-fit: cover; display: block; background: #000; }
+  .cc-btn { position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 50%; background: rgba(0, 0, 0, 0.45); color: #fff; cursor: pointer; transition: opacity 0.2s ease, background-color 0.2s ease; }
+  .cc-btn:hover { background: rgba(0, 0, 0, 0.65); }
+  .cc-btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+  .cc-btn[aria-pressed="true"] { background: #fff; color: #000; }
+  .video.playing .cc-btn { opacity: 0; }
+  .video.playing:hover .cc-btn, .video.playing .cc-btn:focus-visible { opacity: 1; }
+  @media (hover: none) { .video.playing .cc-btn { opacity: 1; } }
+  .video video::cue { font-family: inherit; font-size: 0.9em; line-height: 1.35; color: #fff; background: rgba(0, 0, 0, 0.72); }
 
   .video-title { font-size: 28px; font-weight: 700; line-height: 1.1; }
 
