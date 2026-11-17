@@ -21,7 +21,8 @@ import schwabTradingThumbDark from '../assets/thumbs/schwab-trading-dark.png';
 import schwabReportsThumb from '../assets/thumbs/schwab-reports.png';
 import schwabReportsThumbDark from '../assets/thumbs/schwab-reports-dark.png';
 import respondologyCard from '../assets/cards/respondology.png';
-import respondologyCardDark from '../assets/cards/respondology-dark.png';
+import respondologyThumb from '../assets/thumbs/respondology.png';
+import respondologyThumbDark from '../assets/thumbs/respondology-dark.png';
 
 export type CompanyKey = 'seven-post' | 'commsec' | 'communify' | 'schwab' | 'respondology';
 
@@ -217,7 +218,8 @@ export const projects: Project[] = [
     field: 'Team culture, Counseling',
     date: '2024',
     card: respondologyCard,
-    thumbDark: respondologyCardDark,
+    thumb: respondologyThumb,
+    thumbDark: respondologyThumbDark,
     byline: 'Respondology',
     outcome: 'About 50 employees tested · one on-site workshop for the whole company',
     featured: false,
