@@ -1,0 +1,31 @@
+---
+// "Enneagram / Symbol" from Figma: circle, triangle (3-6-9) and hexad (1-4-2-8-5-7),
+// with numbers and dots colored by center (heart, head, gut). Colors follow the theme.
+interface Props { size?: number; label?: string }
+const { size = 280, label = 'The Enneagram symbol with the nine types arranged around a circle' } = Astro.props;
+const S = 280, c = S / 2, r = 104;
+const center: Record<number, 'heart' | 'head' | 'gut'> = { 1: 'gut', 2: 'heart', 3: 'heart', 4: 'heart', 5: 'head', 6: 'head', 7: 'head', 8: 'gut', 9: 'gut' };
+const ang = (k: number) => ((-90 + 40 * (k % 9)) * Math.PI) / 180;
+const pt = (k: number, rad = r) => [c + rad * Math.cos(ang(k)), c + rad * Math.sin(ang(k))].map((n) => +n.toFixed(2));
+const path = (seq: number[]) => seq.map((k, i) => `${i ? 'L' : 'M'}${pt(k).join(' ')}`).join(' ') + ' Z';
+const nums = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+---
+<svg class="enn-symbol" viewBox={`0 0 ${S} ${S}`} width={size} height={size} role="img" aria-label={label}>
+  <circle cx={c} cy={c} r={r} fill="none" stroke="currentColor" stroke-width="1.5" />
+  <path d={path([3, 6, 9])} fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+  <path d={path([1, 4, 2, 8, 5, 7])} fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+  {nums.map((k) => {
+    const [x, y] = pt(k);
+    const [tx, ty] = pt(k, r + 26);
+    return (
+      <g style={`color:var(--enn-${center[k]})`}>
+        <circle cx={x} cy={y} r="5" fill="currentColor" />
+        <text x={tx} y={ty} text-anchor="middle" dominant-baseline="central" fill="currentColor" font-size="20" font-weight="700">{k}</text>
+      </g>
+    );
+  })}
+</svg>
+
+<style>
+  .enn-symbol { color: var(--ink); max-width: 100%; height: auto; display: block; font-family: inherit; }
+</style>

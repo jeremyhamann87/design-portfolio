@@ -20,14 +20,17 @@ import schwabTradingThumb from '../assets/thumbs/schwab-trading.png';
 import schwabTradingThumbDark from '../assets/thumbs/schwab-trading-dark.png';
 import schwabReportsThumb from '../assets/thumbs/schwab-reports.png';
 import schwabReportsThumbDark from '../assets/thumbs/schwab-reports-dark.png';
+import respondologyCard from '../assets/cards/respondology.png';
+import respondologyCardDark from '../assets/cards/respondology-dark.png';
 
-export type CompanyKey = 'seven-post' | 'commsec' | 'communify' | 'schwab';
+export type CompanyKey = 'seven-post' | 'commsec' | 'communify' | 'schwab' | 'respondology';
 
 export const companies: Record<CompanyKey, { name: string; url: string }> = {
   'seven-post': { name: 'Seven Post', url: 'https://sevenpost.com/' },
   commsec: { name: 'CommSec', url: 'https://www.commsec.com.au/' },
   communify: { name: 'Communify', url: 'https://www.communify.com/' },
   schwab: { name: 'Charles Schwab', url: 'https://www.schwab.com/' },
+  respondology: { name: 'Respondology', url: 'https://respondology.com/' },
 };
 
 export interface Project {
@@ -203,10 +206,27 @@ export const projects: Project[] = [
     featured: true,
     blurb: 'Phase 1 shipped in 10 weeks, web rollout in Phase 2.',
   },
+  {
+    slug: 'project-9-respondology-enneagram-workshop',
+    title: 'Enneagram Workshop for Team Collaboration',
+    description:
+      'Led an on-site Enneagram workshop for Respondology’s whole staff, using my counseling training to help about 50 people understand how they work together.',
+    company: 'respondology',
+    role: 'Workshop Facilitation',
+    tags: ['Workshop', 'Facilitation', 'Counseling', 'Team culture'],
+    field: 'Team culture, Counseling',
+    date: '2024',
+    card: respondologyCard,
+    thumbDark: respondologyCardDark,
+    byline: 'Respondology',
+    outcome: 'About 50 employees tested · one on-site workshop for the whole company',
+    featured: false,
+    blurb: 'About 50 employees tested, with one half-day workshop for a whole company.',
+  },
 ];
 
 /** Order of the home "My Work" list, matching the Figma design. */
-export const homeOrder = ['project-7-ai-design-documentation','project-8-glenmede-design-system','project-4-ai-notetaker','project-3-mai-advisor-portal','project-1-seven-post-client-portal','project-2-commsec','project-5-schwab-trading','project-6-schwab-reports'];
+export const homeOrder = ['project-7-ai-design-documentation','project-8-glenmede-design-system','project-4-ai-notetaker','project-3-mai-advisor-portal','project-1-seven-post-client-portal','project-2-commsec','project-5-schwab-trading','project-6-schwab-reports','project-9-respondology-enneagram-workshop'];
 
 export function getProject(slug: string): Project {
   const p = projects.find((x) => x.slug === slug);
