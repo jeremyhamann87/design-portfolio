@@ -146,8 +146,9 @@ void projects;
         {work.map((p) => (
           <li>
             <a class="next-item" href={url(`/${p.slug}`)}>
-              <span class="thumb" style={p.cardBg ? `background:${p.cardBg}` : undefined}>
-                <Image src={p.card} alt="" widths={[200, 400]} sizes="(max-width: 999px) 40vw, 168px" format="webp" />
+              <span class="thumb" style={p.thumb ? undefined : p.cardBg ? `background:${p.cardBg}` : undefined}>
+                <Image class={p.thumbDark ? 'only-light' : undefined} src={p.thumb ?? p.card} alt="" widths={[200, 400, 668]} sizes="(max-width: 999px) 40vw, 168px" format="webp" />
+                {p.thumbDark && <Image class="only-dark" src={p.thumbDark} alt="" widths={[200, 400, 668]} sizes="(max-width: 999px) 40vw, 168px" format="webp" />}
                 <span class="badge">{p.date.match(/\d{4}/g)?.at(-1)}</span>
               </span>
               <span class="next-text">
@@ -282,6 +283,9 @@ void projects;
   .next-item:hover .next-title { text-decoration: underline dotted; text-decoration-thickness: 0.13em; text-underline-offset: 3px; }
   .thumb { position: relative; aspect-ratio: 16 / 9; overflow: hidden; border-radius: var(--r-module); background: var(--panel); }
   .thumb :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+  .thumb :global(img.only-dark) { display: none; }
+  :global(:root[data-theme='dark']) .thumb :global(img.only-light) { display: none; }
+  :global(:root[data-theme='dark']) .thumb :global(img.only-dark) { display: block; }
   .next-item:hover .thumb :global(img) { transform: scale(1.04); }
   @media (prefers-reduced-motion: reduce) { .thumb :global(img) { transition: none; } }
   .badge { position: absolute; right: 4px; bottom: 4px; background: rgb(59 65 78 / 0.85); color: #ffffff; font-size: 12px; font-weight: 400; line-height: 17px; padding: 1px 4px; border-radius: 4px; }
