@@ -8,6 +8,18 @@ import schwabTradingCard from '../assets/cards/schwab-trading.png';
 import schwabReportsCard from '../assets/cards/schwab-reports.png';
 import aiDocsCard from '../assets/cards/ai-docs.png';
 import glenmedeCard from '../assets/cards/glenmede.png';
+import glenmedeThumb from '../assets/thumbs/glenmede.png';
+import notetakerThumb from '../assets/thumbs/ai-notetaker.png';
+import notetakerThumbDark from '../assets/thumbs/ai-notetaker-dark.png';
+import maiThumb from '../assets/thumbs/mai-advisor-portal.png';
+import sevenPostThumb from '../assets/thumbs/seven-post.png';
+import sevenPostThumbDark from '../assets/thumbs/seven-post-dark.png';
+import commsecThumb from '../assets/thumbs/commsec.png';
+import commsecThumbDark from '../assets/thumbs/commsec-dark.png';
+import schwabTradingThumb from '../assets/thumbs/schwab-trading.png';
+import schwabTradingThumbDark from '../assets/thumbs/schwab-trading-dark.png';
+import schwabReportsThumb from '../assets/thumbs/schwab-reports.png';
+import schwabReportsThumbDark from '../assets/thumbs/schwab-reports-dark.png';
 
 export type CompanyKey = 'seven-post' | 'commsec' | 'communify' | 'schwab';
 
@@ -29,6 +41,10 @@ export interface Project {
   field: string;
   date: string;
   card: ImageMetadata;
+  /** Home "My Work" thumbnail with company logo tiles (from Figma); falls back to card. */
+  thumb?: ImageMetadata;
+  /** Dark mode version of thumb, when it differs. */
+  thumbDark?: ImageMetadata;
   /** Who the work was for, shown under the company mark. */
   byline: string;
   /** Headline result shown on cards. */
@@ -58,6 +74,7 @@ export const projects: Project[] = [
     field: 'Design Systems, Fintech',
     date: '2025 - 2026',
     card: glenmedeCard,
+    thumb: glenmedeThumb,
     cardBg: '#cfdbe3',
     byline: 'Communify',
     outcome: '250+ components · 2,200+ variants · light and dark mode',
@@ -76,6 +93,7 @@ export const projects: Project[] = [
     field: 'AI, Design Ops',
     date: 'Fall 2026',
     card: aiDocsCard,
+    thumb: aiDocsCard,
     cardBg: 'var(--hero-ai-docs-mint)',
     cardFit: true,
     byline: 'Communify',
@@ -94,6 +112,7 @@ export const projects: Project[] = [
     field: 'Fintech',
     date: 'June 2025 - February 2026',
     card: sevenPostCard,
+    thumb: sevenPostThumb, thumbDark: sevenPostThumbDark,
     byline: 'Seven Post',
     outcome: '$10B AUM managed digitally · $1.5M ARR · launched in under 9 months',
     featured: true,
@@ -110,6 +129,7 @@ export const projects: Project[] = [
     field: 'International, Fintech',
     date: 'August - December 2023',
     card: commsecCard,
+    thumb: commsecThumb, thumbDark: commsecThumbDark,
     byline: 'CommSec',
     outcome: '$750K ARR · 3M customers · brand-new design system',
     featured: true,
@@ -126,6 +146,7 @@ export const projects: Project[] = [
     field: 'Fintech, AI',
     date: 'February 2026',
     card: notetakerCard,
+    thumb: notetakerThumb, thumbDark: notetakerThumbDark,
     byline: 'Communify',
     outcome: 'New AI product line, configurable for any advisory client',
     featured: true,
@@ -142,6 +163,7 @@ export const projects: Project[] = [
     field: 'Prototyping, Fintech, AI',
     date: '2025 - 2026',
     card: maiCard,
+    thumb: maiThumb,
     byline: 'Communify',
     outcome: '$80.4B wealth manager · 100+ screen prototype · 2,300+ interactions',
     featured: true,
@@ -159,6 +181,7 @@ export const projects: Project[] = [
     field: 'Fintech',
     date: 'February 2024',
     card: schwabTradingCard,
+    thumb: schwabTradingThumb, thumbDark: schwabTradingThumbDark,
     byline: 'Charles Schwab',
     outcome: 'Responsive rules for 30+ modules, beta to production',
     featured: false,
@@ -174,6 +197,7 @@ export const projects: Project[] = [
     field: 'UX Research, Fintech',
     date: 'June 2024',
     card: schwabReportsCard,
+    thumb: schwabReportsThumb, thumbDark: schwabReportsThumbDark,
     byline: 'Charles Schwab',
     outcome: 'Phase 1 shipped in 10 weeks · web rollout in Phase 2',
     featured: true,
