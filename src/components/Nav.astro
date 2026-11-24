@@ -9,7 +9,6 @@ const links = [
   { label: 'Home', href: '/' },
 ];
 const resumeHref = url(contact.resumePdf);
-// Document with a folded corner and text lines (the Resume link opens the PDF viewer).
 const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
 ---
 <header class="nav">
