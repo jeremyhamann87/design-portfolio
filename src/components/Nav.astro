@@ -9,6 +9,8 @@ const links = [
   { label: 'Home', href: '/' },
 ];
 const resumeHref = url(contact.resumePdf);
+// Document with a folded corner and text lines (the Resume link opens the PDF viewer).
+const docIcon = 'M14 3H7a1.5 1.5 0 0 0-1.5 1.5v15A1.5 1.5 0 0 0 7 21h10a1.5 1.5 0 0 0 1.5-1.5V7.5L14 3zM14 3v4.5h4.5M9 12.5h6M9 16h6';
 const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
 ---
 <header class="nav">
@@ -23,7 +25,7 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
           <li><a href={url(l.href)} aria-current={isCurrent(l.href) ? 'page' : undefined}>{l.label}</a></li>
         ))}
         <li>
-          <a href={resumeHref} download="Jeremy-Hamann-Resume.pdf" class="ext">Resume <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a href={resumeHref} data-resume-viewer aria-haspopup="dialog" class="ext">Resume <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d={docIcon} fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         </li>
         <li>
           <a href={contact.art} target="_blank" rel="noopener" class="ext">
@@ -61,7 +63,7 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
         {links.map((l) => (
           <li><a href={url(l.href)} aria-current={isCurrent(l.href) ? 'page' : undefined}>{l.label}</a></li>
         ))}
-        <li><a href={resumeHref} download="Jeremy-Hamann-Resume.pdf" class="ext">Resume <svg viewBox="0 0 24 24" width="36" height="36" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+        <li><a href={resumeHref} data-resume-viewer aria-haspopup="dialog" class="ext">Resume <svg viewBox="0 0 24 24" width="36" height="36" aria-hidden="true"><path d={docIcon} fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
         <li>
           <a href={contact.art} target="_blank" rel="noopener" class="ext">
             Fine Arts <span class="mask-icon big" style={`--icon:url(${arrowOutward.src})`} aria-hidden="true"></span>

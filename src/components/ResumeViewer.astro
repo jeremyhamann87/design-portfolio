@@ -1,0 +1,339 @@
+---
+// In-page PDF viewer for the resume. Any link with [data-resume-viewer] opens it;
+// without JavaScript the link still opens the PDF itself.
+import { url } from '../lib/url';
+import { contact } from '../data/projects';
+
+const pdfHref = url(contact.resumePdf);
+const resumePage = url('/resume');
+---
+<dialog class="pdfv" aria-labelledby="pdfv-title" data-src={pdfHref}>
+  <div class="pdfv-bar">
+    <h2 id="pdfv-title" class="pdfv-title">Resume <span class="pdfv-pages" aria-live="polite"></span></h2>
+    <div class="pdfv-tools" role="toolbar" aria-label="Resume viewer">
+      <div class="pdfv-zoom" role="group" aria-label="Zoom">
+        <button type="button" class="pdfv-btn" data-act="out" aria-label="Zoom out" title="Zoom out (−)">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M5 12h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </button>
+        <button type="button" class="pdfv-btn pdfv-level" data-act="fit" aria-label="Fit to width" title="Fit to width (0)"><span>100%</span></button>
+        <button type="button" class="pdfv-btn" data-act="in" aria-label="Zoom in" title="Zoom in (+)">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <a class="pdfv-btn pdfv-dl" href={pdfHref} download="Jeremy-Hamann-Resume.pdf" title="Download PDF">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="pdfv-dl-label">Download</span>
+      </a>
+      <button type="button" class="pdfv-btn" data-act="close" aria-label="Close resume" title="Close (Esc)">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="pdfv-stage" tabindex="0" aria-label="Resume pages">
+    <p class="pdfv-status" role="status">Loading resume…</p>
+    <div class="pdfv-pagesbox"></div>
+  </div>
+  <p class="visually-hidden">Prefer text? <a href={resumePage}>Read the resume as a web page</a>.</p>
+</dialog>
+
+<script>
+  import workerSrc from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
+  import type { PDFDocumentProxy, RenderTask } from 'pdfjs-dist';
+
+  const dlg = document.querySelector<HTMLDialogElement>('dialog.pdfv');
+  if (dlg) setup(dlg);
+
+  function setup(dlg: HTMLDialogElement) {
+    const stage = dlg.querySelector<HTMLElement>('.pdfv-stage')!;
+    const box = dlg.querySelector<HTMLElement>('.pdfv-pagesbox')!;
+    const status = dlg.querySelector<HTMLElement>('.pdfv-status')!;
+    const level = dlg.querySelector<HTMLElement>('.pdfv-level span')!;
+    const pagesLabel = dlg.querySelector<HTMLElement>('.pdfv-pages')!;
+    const btnIn = dlg.querySelector<HTMLButtonElement>('[data-act="in"]')!;
+    const btnOut = dlg.querySelector<HTMLButtonElement>('[data-act="out"]')!;
+    const src = dlg.dataset.src!;
+
+    const CSS_UNITS = 96 / 72; // PDF points to CSS pixels, so 100% matches print size.
+    const STEPS = [0.5, 0.67, 0.75, 0.9, 1, 1.1, 1.25, 1.5, 1.75, 2, 2.5, 3];
+    let doc: PDFDocumentProxy | null = null;
+    let loading: Promise<void> | null = null;
+    let zoom = 1; // 1 = 100% (print size)
+    let fit = true; // follow the window width until the visitor zooms
+    let pageWidth = 612; // PDF points, updated from page 1
+    let tasks: RenderTask[] = [];
+    let raf = 0;
+    let gen = 0; // bumps on every render so a slower, older render never paints over a newer one
+
+    function fitZoom() {
+      const avail = stage.clientWidth - (stage.clientWidth < 600 ? 16 : 64);
+      return Math.max(0.25, Math.min(1.25, avail / (pageWidth * CSS_UNITS)));
+    }
+
+    function load() {
+      if (doc) return Promise.resolve();
+      loading ??= (async () => {
+        const pdfjs = await import('pdfjs-dist');
+        pdfjs.GlobalWorkerOptions.workerSrc = workerSrc;
+        doc = await pdfjs.getDocument({ url: src, isEvalSupported: false }).promise;
+        const first = await doc.getPage(1);
+        pageWidth = first.getViewport({ scale: 1 }).width;
+        status.hidden = true;
+      })().catch((err) => {
+        loading = null;
+        console.error(err);
+        status.hidden = false;
+        status.innerHTML = '';
+        status.append('The resume could not be shown here. ');
+        const a = document.createElement('a');
+        a.href = src;
+        a.textContent = 'Open the PDF instead';
+        status.append(a, '.');
+        throw err;
+      });
+      return loading;
+    }
+
+    async function render() {
+      if (!doc) return;
+      const my = ++gen;
+      if (fit) zoom = fitZoom();
+      level.textContent = `${Math.round(zoom * 100)}%`;
+      btnOut.disabled = zoom <= STEPS[0] + 0.001;
+      btnIn.disabled = zoom >= STEPS[STEPS.length - 1] - 0.001;
+      tasks.forEach((t) => t.cancel());
+      tasks = [];
+      const dpr = Math.min(window.devicePixelRatio || 1, 3);
+      // Keep the reading position while the pages change size.
+      const ratio = stage.scrollHeight > stage.clientHeight ? (stage.scrollTop + stage.clientHeight / 2) / stage.scrollHeight : 0;
+      const xRatio = stage.scrollWidth > stage.clientWidth ? (stage.scrollLeft + stage.clientWidth / 2) / stage.scrollWidth : 0.5;
+      for (let n = 1; n <= doc.numPages; n++) {
+        const page = await doc.getPage(n);
+        if (my !== gen) return;
+        const vp = page.getViewport({ scale: zoom * CSS_UNITS });
+        let wrap = box.children[n - 1] as HTMLElement | undefined;
+        if (!wrap) {
+          wrap = document.createElement('div');
+          wrap.className = 'pdfv-page';
+          const c = document.createElement('canvas');
+          c.setAttribute('role', 'img');
+          c.setAttribute('aria-label', `Resume page ${n} of ${doc.numPages}`);
+          const links = document.createElement('div');
+          links.className = 'pdfv-links';
+          wrap.append(c, links);
+          box.append(wrap);
+        }
+        const canvas = wrap.querySelector('canvas')!;
+        wrap.style.width = `${Math.floor(vp.width)}px`;
+        wrap.style.height = `${Math.floor(vp.height)}px`;
+        // Keep the PDF's own links (email, website, LinkedIn) clickable.
+        const linkLayer = wrap.querySelector<HTMLElement>('.pdfv-links')!;
+        linkLayer.replaceChildren();
+        const annots = await page.getAnnotations({ intent: 'display' });
+        if (my !== gen) return;
+        for (const a of annots) {
+          if (a.subtype !== 'Link' || !a.url || !/^(https?:|mailto:)/i.test(a.url)) continue;
+          const [x1, y1, x2, y2] = vp.convertToViewportRectangle(a.rect);
+          const link = document.createElement('a');
+          link.href = a.url;
+          if (!a.url.startsWith('mailto:')) { link.target = '_blank'; link.rel = 'noopener'; }
+          link.setAttribute('aria-label', a.url.replace(/^mailto:/, 'Email '));
+          link.style.cssText = `left:${Math.min(x1, x2)}px;top:${Math.min(y1, y2)}px;width:${Math.abs(x2 - x1)}px;height:${Math.abs(y2 - y1)}px`;
+          linkLayer.append(link);
+        }
+        // Draw offscreen, then swap, so the page never flashes blank while zooming.
+        const off = document.createElement('canvas');
+        off.width = Math.floor(vp.width * dpr);
+        off.height = Math.floor(vp.height * dpr);
+        const task = page.render({ canvasContext: off.getContext('2d')!, viewport: vp, transform: dpr !== 1 ? [dpr, 0, 0, dpr, 0, 0] : undefined });
+        tasks.push(task);
+        const target = canvas;
+        task.promise.then(() => {
+          if (my !== gen) return;
+          target.width = off.width;
+          target.height = off.height;
+          target.getContext('2d')!.drawImage(off, 0, 0);
+        }, () => {});
+      }
+      pagesLabel.textContent = doc.numPages > 1 ? `(${doc.numPages} pages)` : '';
+      if (ratio) stage.scrollTop = ratio * stage.scrollHeight - stage.clientHeight / 2;
+      stage.scrollLeft = xRatio * stage.scrollWidth - stage.clientWidth / 2;
+    }
+
+    function setZoom(next: number) {
+      fit = false;
+      zoom = Math.min(STEPS[STEPS.length - 1], Math.max(STEPS[0], next));
+      render();
+    }
+    function step(dir: 1 | -1) {
+      const cur = zoom;
+      const next = dir > 0 ? STEPS.find((s) => s > cur + 0.001) : [...STEPS].reverse().find((s) => s < cur - 0.001);
+      setZoom(next ?? cur);
+    }
+
+    async function open() {
+      document.documentElement.classList.add('pdfv-open');
+      dlg.showModal();
+      stage.focus({ preventScroll: true });
+      try {
+        await load();
+        fit = true;
+        render();
+      } catch {}
+    }
+
+    document.addEventListener('click', (e) => {
+      const me = e as MouseEvent;
+      if (me.defaultPrevented || me.button !== 0 || me.metaKey || me.ctrlKey || me.shiftKey || me.altKey) return;
+      const trigger = (e.target as HTMLElement).closest('[data-resume-viewer]');
+      if (!trigger) return;
+      e.preventDefault();
+      open();
+    });
+
+    dlg.addEventListener('click', (e) => {
+      const t = e.target as HTMLElement;
+      // Backdrop click (the dialog box itself, outside its content) or the close button.
+      if (t === dlg || t.closest('[data-act="close"]')) return dlg.close();
+      if (t.closest('[data-act="in"]')) step(1);
+      else if (t.closest('[data-act="out"]')) step(-1);
+      else if (t.closest('[data-act="fit"]')) { fit = true; render(); }
+    });
+    dlg.addEventListener('close', () => document.documentElement.classList.remove('pdfv-open'));
+
+    dlg.addEventListener('keydown', (e) => {
+      if (e.metaKey || e.ctrlKey || e.altKey) {
+        if (e.key === '=' || e.key === '+') { e.preventDefault(); step(1); }
+        else if (e.key === '-') { e.preventDefault(); step(-1); }
+        else if (e.key === '0') { e.preventDefault(); fit = true; render(); }
+        return;
+      }
+      if ((e.target as HTMLElement).closest('input, textarea')) return;
+      if (e.key === '+' || e.key === '=') { e.preventDefault(); step(1); }
+      else if (e.key === '-' || e.key === '_') { e.preventDefault(); step(-1); }
+      else if (e.key === '0') { e.preventDefault(); fit = true; render(); }
+    });
+
+    // Ctrl/⌘ + wheel or a trackpad pinch zooms smoothly.
+    stage.addEventListener('wheel', (e) => {
+      if (!e.ctrlKey && !e.metaKey) return;
+      e.preventDefault();
+      const next = zoom * Math.exp(-e.deltaY * 0.01);
+      fit = false;
+      zoom = Math.min(STEPS[STEPS.length - 1], Math.max(STEPS[0], next));
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => render());
+    }, { passive: false });
+
+    // Two-finger pinch on touch screens.
+    let pinch: { d: number; z: number } | null = null;
+    const dist = (t: TouchList) => Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY - t[1].clientY);
+    stage.addEventListener('touchstart', (e) => { if (e.touches.length === 2) pinch = { d: dist(e.touches), z: zoom }; }, { passive: true });
+    stage.addEventListener('touchmove', (e) => {
+      if (!pinch || e.touches.length !== 2) return;
+      e.preventDefault();
+      const next = pinch.z * (dist(e.touches) / pinch.d);
+      fit = false;
+      zoom = Math.min(STEPS[STEPS.length - 1], Math.max(STEPS[0], next));
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => render());
+    }, { passive: false });
+    stage.addEventListener('touchend', (e) => { if (e.touches.length < 2) pinch = null; });
+
+    let resizeTimer = 0;
+    window.addEventListener('resize', () => {
+      if (!dlg.open || !fit) return;
+      clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(render, 120);
+    });
+  }
+</script>
+
+<style>
+  :global(html.pdfv-open) { overflow: hidden; }
+  .pdfv {
+    --pdfv-bar: var(--surface);
+    --pdfv-stage: #e4e7ec;
+    width: min(1100px, calc(100vw - 48px));
+    height: calc(100dvh - 48px);
+    max-width: none;
+    max-height: none;
+    margin: auto;
+    padding: 0;
+    border: 1px solid var(--border);
+    background: var(--pdfv-bar);
+    color: var(--ink);
+    font-family: var(--font);
+    display: none;
+    flex-direction: column;
+    box-shadow: 0 24px 64px rgb(0 0 0 / 0.3);
+    overflow: hidden;
+  }
+  .pdfv[open] { display: flex; }
+  :global(:root[data-theme='dark']) .pdfv { --pdfv-stage: #0b0d10; }
+  .pdfv::backdrop { background: rgb(59 65 78 / 0.85); }
+  :global(:root[data-theme='dark']) .pdfv::backdrop { background: rgb(0 0 0 / 0.75); }
+
+  .pdfv-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 12px 10px 20px;
+    border-bottom: 1px solid var(--border);
+    background: var(--pdfv-bar);
+  }
+  .pdfv-title { margin: 0; font-size: var(--fs-body); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pdfv-pages { font-weight: 300; font-size: var(--fs-small); }
+  .pdfv-tools { display: flex; align-items: center; gap: 8px; }
+  .pdfv-zoom { display: flex; align-items: center; border: 1px solid var(--border); }
+  .pdfv-zoom .pdfv-btn { border: 0; }
+  .pdfv-btn {
+    min-width: 40px;
+    height: 40px;
+    padding: 0 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--ink);
+    font: inherit;
+    font-size: var(--fs-small);
+    font-weight: 400;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .pdfv-btn:hover:not(:disabled) { background: var(--panel); }
+  .pdfv-btn:disabled { opacity: 0.4; cursor: default; }
+  .pdfv-btn:focus-visible, .pdfv-stage:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+  .pdfv-level { min-width: 64px; font-variant-numeric: tabular-nums; }
+  .pdfv-dl { background: var(--ink); color: var(--on-ink); padding: 0 14px; }
+  .pdfv-dl:hover { background: var(--ink-strong) !important; }
+
+  .pdfv-stage {
+    flex: 1;
+    overflow: auto;
+    background: var(--pdfv-stage);
+    overscroll-behavior: contain;
+    touch-action: pan-x pan-y;
+  }
+  .pdfv-pagesbox { display: flex; flex-direction: column; align-items: center; gap: 24px; padding: 32px; width: max-content; min-width: 100%; }
+  .pdfv-pagesbox :global(.pdfv-page) { position: relative; flex: none; background: #fff; box-shadow: 0 2px 12px rgb(0 0 0 / 0.18); }
+  .pdfv-pagesbox :global(.pdfv-page canvas) { display: block; width: 100%; height: 100%; }
+  .pdfv-pagesbox :global(.pdfv-links a) { position: absolute; }
+  .pdfv-pagesbox :global(.pdfv-links a:hover) { background: rgb(45 127 201 / 0.12); }
+  .pdfv-pagesbox :global(.pdfv-links a:focus-visible) { outline: 2px solid #2d7fc9; }
+  .pdfv-status { margin: 0; padding: 48px 24px; text-align: center; }
+  .pdfv-status :global(a) { color: inherit; }
+
+  @media (max-width: 599px) {
+    .pdfv { width: 100vw; height: 100dvh; border: 0; }
+    .pdfv-bar { padding: 8px 8px 8px 16px; gap: 4px; }
+    .pdfv-tools { gap: 4px; }
+    .pdfv-dl { padding: 0 10px; }
+    .pdfv-dl-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .pdfv-level { min-width: 52px; }
+    .pdfv-pagesbox { padding: 8px; gap: 8px; }
+  }
+</style>

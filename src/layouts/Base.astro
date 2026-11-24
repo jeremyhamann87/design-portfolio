@@ -4,6 +4,7 @@ import { getImage } from 'astro:assets';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import Lightbox from '../components/Lightbox.astro';
+import ResumeViewer from '../components/ResumeViewer.astro';
 import bgLight from '../assets/shared/bg-light.png';
 import bgDark from '../assets/shared/bg-dark.png';
 import { url } from '../lib/url';
@@ -49,5 +50,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <main id="main"><slot /></main>
     <Footer />
     <Lightbox />
+    <ResumeViewer />
   </body>
 </html>
