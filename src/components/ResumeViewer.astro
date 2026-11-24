@@ -20,7 +20,7 @@ const resumePage = url('/resume');
           <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
         </button>
       </div>
-      <a class="pdfv-btn pdfv-dl" href={pdfHref} download="Jeremy-Hamann-Resume.pdf" title="Download PDF">
+      <a class="pdfv-btn pdfv-dl" href={pdfHref} download="Jeremy Hamann Senior Product Designer.pdf" title="Download PDF">
         <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <span class="pdfv-dl-label">Download</span>
       </a>
@@ -285,7 +285,7 @@ const resumePage = url('/resume');
   .pdfv-title { margin: 0; font-size: var(--fs-body); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .pdfv-pages { font-weight: 300; font-size: var(--fs-small); }
   .pdfv-tools { display: flex; align-items: center; gap: 8px; }
-  .pdfv-zoom { display: flex; align-items: center; border: 1px solid var(--border); }
+  .pdfv-zoom { display: flex; align-items: center; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
   .pdfv-zoom .pdfv-btn { border: 0; }
   .pdfv-btn {
     min-width: 40px;
@@ -308,7 +308,7 @@ const resumePage = url('/resume');
   .pdfv-btn:disabled { opacity: 0.4; cursor: default; }
   .pdfv-btn:focus-visible, .pdfv-stage:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
   .pdfv-level { min-width: 64px; font-variant-numeric: tabular-nums; }
-  .pdfv-dl { background: var(--ink); color: var(--on-ink); padding: 0 14px; }
+  .pdfv-dl { background: var(--ink); color: var(--on-ink); padding: 0 14px; border-radius: 8px; }
   .pdfv-dl:hover { background: var(--ink-strong) !important; }
 
   .pdfv-stage {
