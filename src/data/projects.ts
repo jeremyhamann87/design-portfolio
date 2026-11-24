@@ -242,7 +242,7 @@ export const contact = {
   art: 'https://www.jeremyhamann.com',
   instagram: 'https://www.instagram.com/jeremyhamann.art/',
   medium: 'https://medium.com/@jeremyhamann87',
-  resumePdf: '/Jeremy-Hamann-Resume.pdf',
+  resumePdf: '/Jeremy-Hamann-Senior-Product-Designer.pdf',
   /** Digits only with country code, e.g. '+15125550123'. The Call button stays hidden while this is empty. */
   phone: '+15125450695',
   phoneDisplay: '512-545-0695',
