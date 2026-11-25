@@ -12,7 +12,7 @@ const [q, ...rest] = heading.split('? ');
     <h2 id="cta-heading">{rest.length ? <>{q}? <span class="line">{rest.join('? ')}</span></> : heading}</h2>
     <div class="actions">
       <a class="pill-btn solid" href={`mailto:${contact.email}`}>
-        <svg viewBox="0 -960 960 960" width="24" height="24" aria-hidden="true"><path fill="currentColor" d="M172.31-180Q142-180 121-201q-21-21-21-51.31v-455.38Q100-738 121-759q21-21 51.31-21h615.38Q818-780 839-759q21 21 21 51.31v455.38Q860-222 839-201q-21 21-51.31 21H172.31ZM480-457.69 160-662.31v410q0 5.39 3.46 8.85t8.85 3.46h615.38q5.39 0 8.85-3.46t3.46-8.85v-410L480-457.69Zm0-62.31 313.85-200h-627.7L480-520Z"/></svg>
+        <svg viewBox="0 -960 960 960" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M172.31-180Q142-180 121-201q-21-21-21-51.31v-455.38Q100-738 121-759q21-21 51.31-21h615.38Q818-780 839-759q21 21 21 51.31v455.38Q860-222 839-201q-21 21-51.31 21H172.31ZM480-457.69 160-662.31v410q0 5.39 3.46 8.85t8.85 3.46h615.38q5.39 0 8.85-3.46t3.46-8.85v-410L480-457.69Zm0-62.31 313.85-200h-627.7L480-520Z"/></svg>
         Email Me
       </a>
       <a class="pill-btn outline" href={url(contact.resumePdf)} data-resume-viewer aria-haspopup="dialog">
