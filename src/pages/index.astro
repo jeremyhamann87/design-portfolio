@@ -157,7 +157,7 @@ void projects;
       <ul class="up-next">
         {work.map((p) => (
           <li>
-            <a class="next-item" href={url(`/${p.slug}`)}>
+            <a class="next-item" href={url(`/${p.slug}`)} style={p.hue !== undefined ? `--hue:${p.hue}` : undefined}>
               <span class="thumb" style={p.thumb ? undefined : p.cardBg ? `background:${p.cardBg}` : undefined}>
                 <Image class={p.thumbDark ? 'only-light' : undefined} src={p.thumb ?? p.card} alt="" widths={[200, 400, 668]} sizes="(max-width: 999px) 40vw, 168px" format="webp" />
                 {p.thumbDark && <Image class="only-dark" src={p.thumbDark} alt="" widths={[200, 400, 668]} sizes="(max-width: 999px) 40vw, 168px" format="webp" />}
@@ -416,6 +416,12 @@ void projects;
   .up-next { display: grid; gap: 24px; }
   .next-item { display: grid; grid-template-columns: 167px 1fr; gap: 8px; align-items: center; text-decoration: none; }
   .next-item:hover .next-title { text-decoration: underline dotted; text-decoration-thickness: 0.13em; text-underline-offset: 3px; }
+  /* Hover panel: a soft tint of each project's own hue (set inline as --hue), bleeding 8px past the item. */
+  .next-item { --hue: 220; position: relative; isolation: isolate; }
+  .next-item::before { content: ''; position: absolute; inset: -8px; z-index: -1; border-radius: 12px; background: hsl(var(--hue) 65% 94%); opacity: 0; transition: opacity 0.2s ease; pointer-events: none; }
+  :global(:root[data-theme='dark']) .next-item::before { background: hsl(var(--hue) 30% 17%); }
+  .next-item:hover::before, .next-item:focus-visible::before { opacity: 1; }
+  @media (prefers-reduced-motion: reduce) { .next-item::before { transition: none; } }
   .thumb { position: relative; aspect-ratio: 16 / 9; overflow: hidden; border-radius: var(--r-module); background: var(--panel); }
   .thumb :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
   .thumb :global(img.only-dark) { display: none; }

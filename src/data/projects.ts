@@ -49,6 +49,8 @@ export interface Project {
   thumb?: ImageMetadata;
   /** Dark mode version of thumb, when it differs. */
   thumbDark?: ImageMetadata;
+  /** Hue (0-360) of the tinted panel behind the Home list item on hover, picked from the thumbnail. */
+  hue?: number;
   /** Who the work was for, shown under the company mark. */
   byline: string;
   /** Headline result shown on cards. */
@@ -69,6 +71,7 @@ export interface Project {
 export const projects: Project[] = [
   {
     slug: 'project-8-glenmede-design-system',
+    hue: 195,
     title: 'Design System for Glenmede Wealth Apps',
     description:
       'Created, maintained and used a comprehensive Figma design system for Glenmede, with 250+ components, light and dark mode variables and built-in documentation for developers and product managers.',
@@ -88,6 +91,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'project-7-ai-design-documentation',
+    hue: 165,
     title: 'AI-Powered Design Documentation',
     description:
       'Built a repeatable Claude + Figma workflow that turns annotated designs into a complete build book, making documentation about 10x faster.',
@@ -107,6 +111,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'project-1-seven-post-client-portal',
+    hue: 45,
     title: 'Client Portal for Mid-market Financial Advisory',
     description:
       'Led the 0-to-1 design of a wealth client portal, launched in under 9 months and now carrying $10B in assets and $1.5M ARR.',
@@ -124,6 +129,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'project-2-commsec',
+    hue: 150,
     title: 'Markets Research Experience for Australian Bank',
     description:
       'Designed a markets research experience for an Australian bank, bringing data-dense research to its customers.',
@@ -141,6 +147,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'project-4-ai-notetaker',
+    hue: 245,
     title: 'AI Note Taking For Financial Advisors',
     description:
       'Designed an AI assistant that records and transcribes meetings in real time and turns them into approved action items and CRM updates.',
@@ -158,6 +165,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'project-3-mai-advisor-portal',
+    hue: 210,
     title: 'AI-Driven Advisor Portal for MAI Capital Management',
     description:
       'Led design of a fully revamped, AI-driven advisor portal for an $80B wealth manager, and built the 100+ screen prototype the whole deal team presented from.',
@@ -176,6 +184,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'project-5-schwab-trading',
+    hue: 200,
     title: 'Responsive Retail Trading Platform',
     description:
       'Defined responsive rules for 30+ data-heavy modules, helping take the research section from beta to production.',
@@ -193,6 +202,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'project-6-schwab-reports',
+    hue: 350,
     title: 'Managed Account Reports Redesign',
     description: 'Redesigned outdated managed-account reports, grounded in UX research.',
     company: 'schwab',
@@ -209,6 +219,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'project-9-respondology-enneagram-workshop',
+    hue: 35,
     title: 'Enneagram Workshop for Team Collaboration',
     description:
       'Led an on-site Enneagram workshop for Respondology’s whole staff, using my counseling training to help about 50 people understand how they work together.',
